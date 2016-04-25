@@ -1,8 +1,9 @@
 sudo: required
-language: python
+language: ruby
 services:
   - docker
 before_install:
+  - gem install travis-custom-deploy
   - sudo docker build -t texlive docker
 script:
   - make clean
