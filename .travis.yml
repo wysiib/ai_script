@@ -1,0 +1,9 @@
+sudo: required
+language: python
+services:
+  - docker
+before_install:
+  - sudo docker build -t texlive docker
+script:
+  - make clean
+  - make build
