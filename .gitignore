@@ -1,3 +1,14 @@
 *.bbl
 *.idx
 *.ind
+*.aux
+*.ptc
+*.xml
+*.log
+*.toc
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.ilg
+main.pdf
