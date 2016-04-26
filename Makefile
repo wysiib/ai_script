@@ -14,4 +14,4 @@ build:
 	sudo docker run -it -v $(BASEDIR):/var/texlive texlive sh -c "biber main"
 	sudo docker run -it -v $(BASEDIR):/var/texlive texlive sh -c "pdflatex $(TEXFILE)"
 	sudo docker run -it -v $(BASEDIR):/var/texlive texlive sh -c "pdflatex $(TEXFILE)"
-	mv $(PDFFILE) $(OUTPUTDIR)
+	mv $(PDFFILE) $(OUTPUTDIR)/ai_script.pdf
