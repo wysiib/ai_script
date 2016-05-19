@@ -94,6 +94,24 @@
 %\noindent \textit{First printing, March 2013} % Printing/edition date
 
 %----------------------------------------------------------------------------------------
+%	COPYRIGHT AND THANKS PAGE
+%----------------------------------------------------------------------------------------
+
+\newpage
+%~\vfill
+\thispagestyle{empty}
+
+\noindent This book and the corresponding slides are based on work of the students of my artifical intelligence course. I would like to thank all contributors.
+
+\noindent
+The contributors are (in alphabetical order):
+\begin{itemize}
+    \item Ullrich, Julian
+\end{itemize}
+
+%\noindent \textit{First printing, March 2013} % Printing/edition date
+
+%----------------------------------------------------------------------------------------
 %	TABLE OF CONTENTS
 %----------------------------------------------------------------------------------------
 
@@ -111,10 +129,11 @@
 
 % part 1
 \part{Einleitung}
-\input{chapters/intro.tex}
+\include{chapters/intro}
 
 \part{Reasoning}
-\input{chapters/expertsystems.tex}
+\include{chapters/expertsystems}
+\include{chapters/bayes/bayes}
 
 \part{Suche}
 
@@ -356,10 +375,10 @@
 
 \chapter*{Bibliography}
 \addcontentsline{toc}{chapter}{\textcolor{hhublue}{Bibliography}}
-\section*{Books}
+\section*{Bücher}
 \addcontentsline{toc}{section}{Books}
 \printbibliography[heading=bibempty,type=book]
-\section*{Articles}
+\section*{Artikel}
 \addcontentsline{toc}{section}{Articles}
 \printbibliography[heading=bibempty,type=article]
 
