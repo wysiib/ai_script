@@ -54,52 +54,52 @@ Anschaulicher wird das ganze, wenn man sich den Algorithmus an einem Beispiel an
 
 Gegeben sei der folgende Spielbaum
 \begin{center}
-\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-minmax1.jpg}
+\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-Minmax1.jpg}
 \end{center}
 
 Angenommen MIN wäre an der markierten Position:
 \begin{center}
-	\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-minmax2-1.jpg}
+	\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-Minmax2-1.jpg}
 \end{center}
 
 Dann würde MIN den Zug auswählen, der für ihn den größten Nutzwert und somit für uns den kleinsten Nutzwert hat. Das heißt in dem Fall:
 \begin{center}
 	 $min\{minimax(t) | t \in N(t)\} ~=~ min\{9,3\} ~=~ 3$
 
-\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-minmax2-2.jpg}
+\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-Minmax2-2.jpg}
 \end{center}
 
 \newpage
 
 Angenommen MIN wäre an der markierten Position:
 \begin{center}
-	\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-minmax2-3.jpg}
+	\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-Minmax2-3.jpg}
 \end{center}
 
 Dann würde MIN den Zug auswählen, der für ihn den größten Nutzwert und somit für uns den kleinsten Nutzwert hat. Das heißt in dem Fall:
 \begin{center}
 	$min\{minimax(t) | t \in N(t)\} ~=~ min\{1,5\} ~=~ 1$
 
-	\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-minmax2-4.jpg}
+	\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-Minmax2-4.jpg}
 \end{center}
 
 Nun betrachten wir den Zug von MAX. Der Suchbaum sieht wie folgt aus
 
 \begin{center}
-	\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-minmax2.jpg}
+	\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-Minmax2.jpg}
 \end{center}
 
 MAX würde den Zug wählen, der für ihn den höchsten Nutzwert hat.\\
 
 \begin{center}
 	$max\{minimax(t) | t \in N(t)\} ~=~ max\{3,1\} ~=~ 3$
-	\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-minmax3.jpg}
+	\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-Minmax3.jpg}
 \end{center}
 
 Somit sieht der Suchbaum nach Abschluss des Minimax-Algorithmus wie folgt aus, wobei der rote Pfad den optimalsten Nutzwert liefert, wenn beide Spieler optimal spielen. Somit sollte MAX den linken Knoten wählen.
 
 \begin{center}
-	\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-minmax4.jpg}
+	\includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-Minmax4.jpg}
 \end{center}
 
 \vskip 60pt
