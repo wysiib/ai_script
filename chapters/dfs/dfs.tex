@@ -85,10 +85,9 @@ damit lässt sich folgender Algorithmus schreiben:\\
 \Function{General-Search}{problem,strategy} \State \textbf{returns} a solution, or failure
 \State initialize the search tree using the initial state of $problem$
 \Loop \State choose a leaf node for expansion according to $strategy$
-  \If {there are no candidates for expansion} failure \EndIf
-  \If{the node contains a goal state} the corresponding solution
-  \Else{} expand the node and add the resulting nodes to the search tree
-  \EndIf
+  \If {there are no candidates for expansion}{failure}
+  \If{the node contains a goal state}{the corresponding solution}
+  \Else{expand the node and add the resulting nodes to the search tree}
 \EndLoop
 \EndFunction
 \end{algorithmic}
@@ -374,8 +373,7 @@ Der Algorithmus verhält sich wie die Depth-First Suche, wobei der Nachfolger, d
 \State $current \gets Make-Node(Initial-State[problem])$
 \Loop
 \State $next \gets$ größter Wert aus $current$
-\If{$VALUE[next] < VALUE[current]$} \Return current
-\EndIf
+\If{$VALUE[next] < VALUE[current]$}{\Return current}
 \State $current \gets next$
 \EndLoop
 \EndFunction
