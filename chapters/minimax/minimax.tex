@@ -45,10 +45,6 @@ Im folgenden bezeichnen wir unseren Spieler mit MAX und den gegnerischen Spieler
 wobei $N(t)$ die Funktion ist, die die Kinder im Baum liefert. Die Auswertung der Knoten geschieht Bottom up, das bedeutet wir beginnen bei den Blättern und bewerten von dort ausgehend die Elternknoten und anschließend deren Eltern bis wir irgendwann bei der Wurzel angelangt sind. Der Minimax Algorithmus liefert nicht unbedingt den höchsten Nutzwert der Blätter, sondern den größten Nutzwert den man erhalten kann, wenn der Gegner selbst versucht zu gewinnen und somit den Nutzwert für uns möglichst klein zu halten.\\
 
 Anschaulicher wird das ganze, wenn man sich den Algorithmus an einem Beispiel anschaut.
-\\
-
-\newpage
-
 
 \textbf{Beispiel}\\
 
@@ -68,8 +64,6 @@ Dann würde MIN den Zug auswählen, der für ihn den größten Nutzwert und somi
 
 \includegraphics[width = 7 cm]{chapters/minimax/jpg/Graph-Minmax2-2.jpg}
 \end{center}
-
-\newpage
 
 Angenommen MIN wäre an der markierten Position:
 \begin{center}
@@ -108,8 +102,6 @@ Somit sieht der Suchbaum nach Abschluss des Minimax-Algorithmus wie folgt aus, w
 
 \subsubsection*{Problem:} Der Minimax-Algorithmus durchsucht den Suchbaum $T=(V, E)$ mit Tiefensuche, in der Zeit $O(max {|V|, |E|}) = O(|V|)$. Somit benötigt die Suche zwar lineare Zeit, jedoch wächst der Baum exponentiell mit zunehmender Tiefe ($O(|V|)=O(b^d)$). Somit ist der Algorithmus für Bäume mit großer Tiefe ineffizient.
 
-
-\newpage
 
 \subsubsection*{Alpha-Beta-Algorithmus}
  Der Alpha-Beta-Algorithmus ist eine Verbesserung vom Minimax-Algorithmus, da die Zugriffsanzahl reduziert wird, indem Teile des Suchbaums nicht durchsucht werden, ohne dabei das Ergebnis zu verfälschen. Für die Umsetzung werden die Variablen $\alpha$ und $\beta$ eingeführt, wobei $\alpha$ der Nutzwert ist, welchen MAX mindestens erreicht und $\beta$ der Nutzwert, den MIN höchstens erreicht. Die Auswertung der Knoten geschieht on-the-fly, dh nur dann wenn wir sie wirklich benötigen. \\
@@ -161,11 +153,8 @@ Somit sieht der Suchbaum nach Abschluss des Minimax-Algorithmus wie folgt aus, w
 	}
  	\caption{Alhpa-Beta-Algorithmus}
 \end{algorithm}
-\newpage
-
 
 Betrachten wir ein Beispiel, um den Algorithmus besser zu verstehen.
-\newline
 
 \textbf{Beispiel:}\\
 
@@ -236,12 +225,9 @@ Somit erreicht MAX an dem Knoten einen Nutzwert von 7 und der darüber liegende 
  	\includegraphics[width = 12 cm]{chapters/minimax/jpg/Alpha-beta10.jpg}
  \end{center}
 
- Der rot gekennzeichnete Pfad ist der Pfad, der den höchsten Nutzwert liefert, wenn beide Spieler, so wie von uns zu Beginn angenommen, optimal Spielen. Dies bedeutet für den ersten Zug von MAX , das er den rechten Knoten wählen sollte.
- \newline
+ Der rot gekennzeichnete Pfad ist der Pfad, der den höchsten Nutzwert liefert, wenn beide Spieler, so wie von uns zu Beginn angenommen, optimal Spielen. Dies bedeutet für den ersten Zug von MAX, dass er den rechten Knoten wählen sollte.
 
  Für die Berechnung dieses Pfades mussten wir uns 23 Knoten anschauen, wohingegen wir beim Minimax-Algorithmus alle 31 Knoten hätten betrachten müssen, um zu diesem Ergebnis zu gelangen. Somit bietet der Alpha-Beta-Algorithmus in diesem Beispiel eine deutliche Rechenzeitverbesserung.
-
-
 
 \section{Abgrenzung / Vergleich zu den vorherigen Kapitel}
 
@@ -254,12 +240,11 @@ In den vorherigen Kapiteln haben wir verschiedene Suchalgorithmen (Bestensuche, 
 Zusammenfassend lässt sich sagen, dass der Minimax- und der Alpha-Beta-Algorithmus zum selben besten Ergebnis für den MAX Spieler führen und sich lediglich in ihrer Effizienz unterscheiden können, da der Alpha-Beta-Algorithmus weniger Berechnungen und somit eine kürzere Rechnungszeit benötigen kann. Je nach Suchbaum kann die Anzahl der Cutoffs und die Einsparung der Rechenzeit sehr groß ausfallen. Aufgrund dessen ist der Alpa-Beta-Algorithmus eine Grundlage für viele Algorithmen im Bereich der Nullsummenspiele für zwei Personen. Für die Berechnungen der Algorithmen sind die Werte der Blätter von größer Bedeutung, welche durch die Heuristik gegeben sind. Alles in allem kann man sagen, dass man sowohl mit Minimax als auch mit Alpha Beta einen Computergegner programmieren kann, der es einem Menschen sehr schwer, wenn nicht sogar unmöglich, macht zu gewinnen und somit eine künstliche Intelligenz bei Nullsummenspielen für die Zukunft denkbar ist.
 
 
-
 \section{Quellen und Literatur}
 
-MIT - Lecture 6: Search: Games, Minimax, and Alpha-Beta\\
-http://home.in.tum.de/~adorf/pub/alphabeta-seminar-paper.pdf\\
-https://de.wikipedia.org/wiki/Minimax-Algorithmus\\
-https://de.wikipedia.org/wiki/Alpha-Beta-Suche
-
-\end{document}
+\begin{itemize}
+\item MIT - Lecture 6: Search: Games, Minimax, and Alpha-Beta
+\item http://home.in.tum.de/~adorf/pub/alphabeta-seminar-paper.pdf
+\item https://de.wikipedia.org/wiki/Minimax-Algorithmus
+\item https://de.wikipedia.org/wiki/Alpha-Beta-Suche
+\end{itemize}
