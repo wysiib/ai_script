@@ -106,6 +106,7 @@
 \noindent
 The contributors are (in alphabetical order):
 \begin{itemize}
+    \item Brümmer, Ronny
     \item Moreira Hamasaki, Thaís
     \item Schmidt, Joshua
     \item Ullrich, Julian
@@ -134,6 +135,7 @@ The contributors are (in alphabetical order):
 \include{chapters/intro}
 
 \part{Reasoning}
+\input{chapters/theoremprovers/tp}
 \include{chapters/bayes/bayes}
 
 \part{Suche}
@@ -149,6 +151,12 @@ The contributors are (in alphabetical order):
 \part{Philosophische Grundlagen}
 
 \part{Appendix}
+
+\defbibfilter{papers}{
+  type=article or
+  type=inproceedings
+}
+
 \chapter*{Literaturverzeichnis}
 \addcontentsline{toc}{chapter}{\textcolor{hhublue}{Literaturverzeichnis}}
 \section*{Bücher}
@@ -156,7 +164,7 @@ The contributors are (in alphabetical order):
 \printbibliography[heading=bibempty,type=book]
 \section*{Wissenschaftliche Artikel}
 \addcontentsline{toc}{section}{Wissenschaftliche Artikel}
-\printbibliography[heading=bibempty,type=article]
+\printbibliography[heading=bibempty,filter=papers]
 \section*{Webpages}
 \addcontentsline{toc}{section}{Webpages}
 \printbibliography[heading=bibempty,type=online]
