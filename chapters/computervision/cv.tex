@@ -95,3 +95,36 @@ Normalerweise ist eine Mischung von direktem und indirektem Licht vorhanden. Wen
 \subsubsection{Spektralphotometrie}
 
 Neben dem Kontrastsehen gibt es noch das Farbsehen, welches sich in einem Wellenlängenbereich von Violett bis Rot, $400$nm--$700$nm, bewegt. Das menschliche Auge ist für drei verschiedene Spektralkurven empfindsam, sodass der unendlich-dimensionale Bereich der Wellenlänge auf einen drei-dimensionalen Farbbereich projiziert wird. So kommt es zu sogenannten \textbf{Metameren}: Verschiedene Lichtspektren, die von Menschen als gleiche Farben wahrgenommen werden.
+
+\section{Weitere Anwendungsgebiete}
+Die Hauptanwendungsgebiete neben der \textbf{Objekterkennung} sind \textbf{Manipulation} der dreiminesionalen Welt und \textbf{Navigation} (Pfaderkennung, Ausweichmanöver, etc.). Diese und andere Einsatzgebiete neben den zur Veranschaulichung schon bereits besprochenen Nutzungsmöglichkeiten der Objekterkennung werden in den folgenden Abschnitten dargelegt.
+
+
+\subsection{Bilder und Schlagworte}
+Heutzutage bietet das Internet die Möglichkeit, anhand von Schlagwörtern nicht nur nach Text zu suchen, sondern auch Bilder zu finden. Das automatisierte Versehen von Bilder mit Schlagworten ist sehr wichtig: Wir haben eine Menge von Beispielbildern und möchten mit diesen einige Testbilder abgleichen (\textbf{Problem der Auto-Annotation}). Das beste Ergebnis erhält man mit der \textbf{Nächste-Nachbarn-Klassifikation}, die die Trainingsbilder raussucht, die dem Testbild durch bestimmte Merkmalsausprägungen am ähnlichsten sind. Die Schwierigkeit liegt in der Erkennung von Aktionsmustern. Man kann zwar schon durch Hintergrundsubtraktion und anschließeneder Betrachtung von HOG-Merkmalen basierend auf dem optischen Fluss die Verhaltensstrukturen annährend gut erkennen und so beispielsweise einen trinkenden Menschen im Bild ausfindig machen (Hand wird mit Objekt zum Mund geführt), allerdings ist diese Erkennung sehr eingeschränkt: Man könnte mit diesen Merkmalsausprägungen keine trinkende Katze in einem Bild erkennen.
+
+
+\subsection{Rekonstruktion}
+Besteht die Vermutung, was für ein Objekt sich auf einem Testbild befindet, so reicht manchmal allein schon dieses Bild aus, um mehrere Ansichten des Objekts zu erstellen. Wenn das Objektmodell, d.h. die Repräsentation des Objekts in dem Klassifizierer, aus mehreren Punkten oder sogar Bildern besteht, können wir Korrespondenzen zu Punkten aus dem Testbild dokumentieren. Anhand der Punkte können wir dann die Parameter der Kamera, falls diese nicht vorliegen, bestimmen und überprüfen, ob die Modellpunkte mit den Bildpunkten übereinstimmen.
+
+Diese Technologie der Rekonstruktion ist heutzutage so hochentwickelt, dass sie in folgenden Bereichen zur Anwendung kommt:
+\begin{itemize}
+  \item \textbf{Modellerstellung} (z.B. dreidimensionale Karten)
+  \item \textbf{Bewegungsabgleich} (z.B. bei animierte Figuren in realen Filmsequenzen)
+  \item \textbf{Pfadrekonstruktion} (z.B. bei mobilen Robotern)
+\end{itemize}
+
+
+\subsection{Bewegungssteuerung}
+Wie wichtig die Manipulation von Objekten und die Navigation beispielweise beim Ausweichen von Hindernissen ist, wird nicht nur in der Tierwelt deutlich. Wollen wir ein Visionssystem für ein \textbf{selbstfahrendes Fahrzeug} implementieren, so hat dies für folgende Aufgaben geeignete Aktionen zu finden:
+\begin{itemize}
+  \item \textbf{Seitensteuerung}: innerhalb der Spur bleiben oder Spurwechsel ausführen.
+  \item \textbf{Längssteuerung}: bremsen, beschleunigen, Abstand halten.
+  \item \textbf{Ausweichen}: Objekte in der Nähe beobachten und Kollisionen vermeiden.
+\end{itemize}
+Für die Seitensteuerung werden Algorithmen zur Kantenerkennung: Sie dienen dazu, Mittelstreifen zu erkennen und die Position und Ausrichtung des Autos relativ zur Spur zu verwalten.\\
+Für die Längssteuerung und das Wahrnehmen von Hindernissen müssen wir Abstandserkennung mit Strukturerkennung kombinieren: Durch binokulares Stereosehen oder durch optischen Fluss, unterstützt durch HOG-Merkmale, können sich Fahrzeuge an Verkehrsregeln halten.
+
+Mobile Roboter stellen eine größere Herausforderung da. Eine Methode zur Lokalisierung dieser in ihrer Umgebung besteht aus stereoskopischen Kamerasystemen. Um bei schlechten Lichtverhältnissen mit genügend Informationen versorgt zu werden, ist von den zwei Systemen eins nach vorne und das andere nach hinten ausgerichtet. Sollte die Beleuchtung allerdings doch mal erheblich schlecht sein, sorgt ein Trägheitsmodul, das ähnlich wie unser Gleichgewichtsorgan funktioniert, für die weitere Informationsbereitstellung.
+
+Ein weiteres Problem der (visuellen) \textbf{Odometrie} (Bestimmung der Positionsänderung) ist die "`Drift"', bei der sich kleine Positionsabweichungen mit der Zeit aufaddieren. Zur Lösung dieses Problems werden feste Standpunkte in der Umgebung installiert, an denen der Roboter sich orientieren kann.
