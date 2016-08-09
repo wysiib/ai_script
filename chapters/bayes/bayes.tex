@@ -7,7 +7,7 @@ Ein Bayessches Netz stellt die Wahrscheinlichkeiten von Ereignissen und deren Ab
 Bayessche Netze finden immer dort Anwendungsmöglichkeit, wo Logik und Unwissenheit aufeinandertreffen.
 Sie dienen der Vereinfachung von komplexen Problemen mit Hilfe weniger stochastischer Regeln.
 
-In der Praxis finden Bayessche Netze beispielsweise in der Spracherkennung, Medizinischen Diagnose, Filtern von Spam, Bildverarbeitung, Analyse von Kaufverhalten und in vielen anderen Gebieten Anwendung.
+In der Praxis finden Bayessche Netze beispielsweise in der Spracherkennung, medizinischen Diagnose, Filtern von Spam, Bildverarbeitung, Analyse von Kaufverhalten und in vielen anderen Gebieten Anwendung.
 
 \begin{figure}[h]
     \centering
@@ -20,9 +20,9 @@ Einem Ereignis A weisen wir eine Wahrscheinlichkeit p(A) zwischen 0 (tritt nie e
 
 Als marginal probability bezeichnen wir eine Wahrscheinlichkeit p(A), welche keine Abhängigkeiten aufweist.
 Beispiel: A=Eine aus einem Skatdeck gezogene Karte ist Kreuz.
-p(A)= 1/4 (oder 25\%)
+p(A) = 1/4 (oder 25\%)
 
-Als joint probability bezeichnen wir Wahrscheinlichkeiten welche nebeneinander auftreten. p(A,B)
+Als joint probability bezeichnen wir Wahrscheinlichkeiten, welche nebeneinander auftreten. p(A,B)
 Beispiel: A (von oben) und B: Die Karte ist ein Bube
 
 Da A und B voneinander unabhängige Ereignisse sind folgt:
@@ -55,7 +55,7 @@ T & T & T & T & Errechenbar \\
 \end{center}
 
 
-Bis auf 1 Errechenbares Ergebnis benötigen wir die direkten Werte aller Kombinationen.
+Bis auf 1 errechenbares Ergebnis benötigen wir die direkten Werte aller Kombinationen.
 Wir benötigen also Für N Ereignisse $2^N-1$ Datensätze.
 Gerade in der Medizin aus dem Anfangsbeispiel gibt es aber oft extrem viele Ereignisse.
 
@@ -66,9 +66,9 @@ Um die benötigten Datensätze möglichst gering zu halten betrachtet man beding
 
 \section{Bedingte Wahrscheinlichkeit}
 Bedingte Wahrscheinlichkeiten beruhen auf Annahmen.
-Man nimmt etwa an, dass Die Sonne keinen Einfluss auf die Frage hat, ob es nun ein Werktag ist, sehr wohl jedoch auf die Frage, ob der Sprinkler angeschaltet ist.
+Man nimmt etwa an, dass die Sonne keinen Einfluss auf die Frage hat, ob es nun ein Werktag ist, sehr wohl jedoch auf die Frage, ob der Sprinkler angeschaltet ist.
 Gehen wir weiterhin davon aus, dass an sonnigen Tagen mehr Staus zustande kommen, da z.B. Fahrer geblendet werden.
-Zudem gehen wir davon aus, dass Werktags mehr Staus auftreten.
+Zudem gehen wir davon aus, dass werktags mehr Staus auftreten.
 Fügen wir zudem noch das Verpassen des Essens hinzu, welches lediglich vom Stau abhängt.
 
 \begin{figure}[h]
@@ -88,7 +88,7 @@ $p(Stau | !Sonne, !Werktag) = 0.05$\\
 $p(Essen verpasst | Stau) = 0.5$\\
 $p(Essen verpasst | !Stau) = 0.05$\\
 
-Von 31 Datensätzen in einer Tabelle mit joint probabilities haben wir nun nur noch 10 benötigt Wahrscheinlichkeiten und können alle anderen nun Problemlos errechnen. (Beispiel folgt)
+Von 31 Datensätzen in einer Tabelle mit joint probabilities haben wir nun nur noch 10 benötigt Wahrscheinlichkeiten und können alle anderen nun problemlos errechnen. (Beispiel folgt)
 
 Um bedingte Wahrscheinlichkeiten effektiv nutzen zu können benötigen wir einige Definitionen:
 \begin{equation*}
@@ -100,7 +100,7 @@ p(A,B,C) = p(A | B,C)* p(B,C) = p(A | B,C) * p(B | C) *p(C)
 \end{equation*}
 Dies lässt sich für N Ereignisse wie folgt darstellen (Chain Rule):
 \begin{equation*}
-    P\left(\bigcap_{k=1}^n A_k\right)  = \prod_{k=1}^n  \mathrm P\left(A_k \,\Bigg|\, \bigcap_{j=1}^{k-1} A_j\right)
+    P\left(\bigcap_{k=1}^N A_k\right)  = \prod_{k=1}^N  \mathrm P\left(A_k \,\Bigg|\, \bigcap_{j=1}^{k-1} A_j\right)
 \end{equation*}
 Zudem bezeichnen wir A als von B unabhängig, wenn gilt:
 \begin{equation*}
@@ -127,7 +127,7 @@ p(Essen verpasst | Stau ) * p( Stau | Werktag, Sonne) * p( Werktag) * p( Rasensp
 
 Man nennt dies auch die Faktorisierung.
 
-Die gesuchten Wahrscheinlichkeiten kennen wir bereits und können sie Einsetzen:
+Die gesuchten Wahrscheinlichkeiten kennen wir bereits und können sie einsetzen:
 0,5*0,8*0,7*0,95*0,8 = 0,218.
 
 Es ist also durch simples Einsetzen unserer 10 Werte möglich sämtliche 31 Werte für die joint probability Tabelle zu berechnen.
@@ -136,11 +136,11 @@ Gleichzeitig sind Lösungen für relevante Fragen zur bedingten Wahrscheinlichke
 
 In der Regel sind jedoch nicht alle Angaben bekannt.
 Nehmen wir nun an, dass wir als hart arbeitender Mensch an einem Nicht-Werktag zur Arbeit fahren und es sonnig ist.
-Wir möchten nun wissen, wie Wahrscheinlich es ist, dass man es abends bei der Rückfahrt rechtzeitig zum Essen schafft.
-Wir suchen also p(!Essen verpasst | !Werktag, Sonne)
+Wir möchten nun wissen, wie wahrscheinlich es ist, dass man es abends bei der Rückfahrt rechtzeitig zum Essen schafft.
+Wir suchen also p(!Essen verpasst | !Werktag, Sonne).
 
 Dazu berechnen wir:
-p(!Essen verpasst | Stau )*p(Stau |Sonne, Werktag) + p(!Essen verpasst | !Stau)*p(!Stau | Sonne, Werktag)
+p(!Essen verpasst | Stau )*p(Stau | Sonne, Werktag) + p(!Essen verpasst | !Stau)*p(!Stau | Sonne, Werktag)
 
 Die passenden Werte kennen wir entweder oder können sie direkt ableiten.
 p(Essen verpasst | Stau) = 0.5
@@ -155,7 +155,7 @@ Beispiel: Der Lebensgefährte kommt pünktlich zum Essen und ich möchte Wissen,
 Wir kennen bereits die Formel:\\
 p(A,B) = p (A | B) * p(B) offensichtlich gilt auch\\
 p(B,A) = p (B | A) * p(A) wir folgern daraus:\\
-p(A | B) = p(A,B) / P(B) = p(B,A) / P(B) = p(B | A) * p(A)/p(B)
+p(A | B) = p(A,B) / P(B) = p(B,A) / P(B) = p(B | A) * p(A)/p(B) (Satz von Bayes)
 
 Wir wissen also:
 p(Stau | !Essen verpasst) = p(!Essen verpasst | Stau ) *P(Stau)/p(! Essen verpasst)
@@ -167,7 +167,7 @@ p(Stau | Sonne, Werktag)*p(Sonne)*p(Werktag) + \\ p(Stau | Sonne, !Werktag)*p(So
 p(!Essen verpasst) =\\
 p(!Essen verpasst | Stau)*p(Stau)\\ + p(!Essen verpasst | !Stau)*p(!Stau)\\ =0.7781
 
-=> p(Stau | !Essen verpasst)=0,5*0,382/0,7781 = 0,2454...
+$\Rightarrow$ p(Stau | !Essen verpasst)=0,5*0,382/0,7781 = 0,2454...
 
 Ist die Person also pünktlich, so gab es mit einer Wahrscheinlichkeit von ~75\% keinen Stau.
 
@@ -194,8 +194,8 @@ Diese neue Methode hilft uns vor allen Dingen damit mit einem einzelnen Modell g
     \includegraphics[width=.2\textwidth]{chapters/bayes/bayes_net_4.pdf}
 \end{figure}
 
-Wir nennen Zwei Ereignisse X und Y bedingt unabhängig gegeben E, wenn im Graphen kein Weg von X zu Y existiert, welcher nicht E nicht beinhaltet.
-Dies wir auch d-seperation genannt.
+Wir nennen zwei Ereignisse X und Y bedingt unabhängig gegeben E, wenn im Graphen kein Weg von X zu Y existiert, welcher nicht E nicht beinhaltet.
+Dies wir auch d-Separation genannt.
 Wir schreiben hierfür
 $X \perp Y | E$
 Ausgehend vom vorherigen Beispiel heißt das, dass das Verpassen des Essens zwar vom Werktag abhängt, jedoch wenn bekannt ist, ob es einen Stau gab, diese Abhängigkeit aufgehoben wird.
@@ -219,9 +219,9 @@ Betrachten wir hierzu außerdem die Verschiedenen Faktorisierungen:
 \section{IC-Algorithmus}
 Der IC Algorithmus ist eine Möglichkeit aus gegebenen Unabhängigkeiten ein Bayessches Netz zu erstellen.
 \begin{enumerate}
-\item Konstruiere einen ungerichteten Graphen gibt füge jede mögliche Kante (X,Y) für die es keine (bedingte) Abhängigkeit $X \perp Y | E$ bzw. $X \perp Y$ gibt in den Graphen ein.
+\item Konstruiere einen ungerichteten Graphen; füge jede mögliche Kante (X,Y), für die es keine (bedingte) Abhängigkeit $X \perp Y | E$ bzw. $X \perp Y$ gibt, in den Graphen ein.
 \item Gilt für zwei Nachbarn X,Y von einem Knoten E die bedingte Unabhängigkeit $X \perp Y | E$, dann füge die Kanten (X,E) und (Y,E) hinzu. (V-Struktur)
-\item Orientiere die Verbleibenden Kanten beliebig, aber ohne neue v-Strukturen entstehen zu lassen.
+\item Orientiere die verbleibenden Kanten beliebig, aber ohne neue V-Strukturen entstehen zu lassen.
 \end{enumerate}
 
 \section{Quellen}
