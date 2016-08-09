@@ -1,6 +1,6 @@
 \chapterimage{chapter_head_1.png}
 
-\chapter{Tiefensuche, Beam-Seach und Hill Climbing}
+\chapter{Tiefensuche, Beam-Search und Hill Climbing}
 
 \tikzset{
   treenode/.style = {align=center, inner sep=0pt, text centered,
@@ -21,13 +21,13 @@
 
 \section{Motivation}
 
-Die Hauptaufgabe von Rechnern ist, Probleme zu lösen. Oft kann man die Probleme graphisch darstellen, mit einem Start- und einem Zielknoten und die Wege zwichen den beiden. Hierfür benötigt man nicht nur eine Darstellung des aktuellen Zustandes sondern auch die Möglichkeiten, die zur Verfügung stehen, um das Ziel zu erreichen. Meistens gibt es keine einfache Lösung, denn nicht alle Probleme sind Addition von zwei positiven ganzen Zahlen. Daher benötigt man Suchverfahren. Hier beschänken wir uns auf die Depth-First Search, Breadth-First Search, Hill Climbing und Best-First Suchverfahren.
+Die Hauptaufgabe von Rechnern ist, Probleme zu lösen. Oft kann man die Probleme graphisch darstellen, mit einem Start- und einem Zielknoten und die Wege zwischen den beiden. Hierfür benötigt man nicht nur eine Darstellung des aktuellen Zustandes, sondern auch die Möglichkeiten, die zur Verfügung stehen, um das Ziel zu erreichen. Meistens gibt es keine einfache Lösung, denn nicht alle Probleme sind Addition von zwei positiven ganzen Zahlen. Daher benötigt man Suchverfahren. Hier beschränken wir uns auf die Depth-First Search, Breadth-First Search, Hill Climbing und Best-First Suchverfahren.
 
 \section{Suchalgorithmen}
 
-Wenn man vom Problem und der Darstellung abstrahiert, kann man die Suche nach einer Lösung in einem gerichteten Graph betrachten. Der gerichtete Graph wird nicht gegeben  sondern wird durch Erzeugungsregeln abgeleitet. Der Graph kann auch unendlich groß sein und daher ist die Suche und partielle Erzeugung des Graphen somit verflochten.
+Wenn man vom Problem und der Darstellung abstrahiert, kann man die Suche nach einer Lösung in einem gerichteten Graphen betrachten. Der gerichtete Graph wird nicht gegeben, sondern wird durch Erzeugungsregeln abgeleitet. Der Graph kann auch unendlich groß sein und daher ist die Suche und partielle Erzeugung des Graphen verflochten.
 
-Unser Suchgraph besteht hier aus Knoten, die die Zustände beschreiben, und Kanten, in Form von Funktionen, die die Nachfolgerknoten berechnet. Außerdem definieren wir eine Anfangssituation und ein Ziel.
+Unser Suchgraph besteht hier aus Knoten, die die Zustände beschreiben, und Kanten, in Form von Funktionen, die die Nachfolgerknoten berechnen. Außerdem definieren wir eine Anfangssituation und ein Ziel.
 
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,level distance = 1.5cm}]
 \node [arn_n] {S}
@@ -54,7 +54,7 @@ Unser Suchgraph besteht hier aus Knoten, die die Zustände beschreiben, und Kant
 
     \node [below=5.2cm, align=flush center,text width=8cm]
        {
-           Fig1: Graphische Darstellung eines Problems   S: Startknoten, Z: Zielknoten
+           Fig1: Graphische Darstellung eines Problems\\S: Startknoten, Z: Zielknoten
        };
 \end{tikzpicture}
 
@@ -63,17 +63,17 @@ Unser Suchgraph besteht hier aus Knoten, die die Zustände beschreiben, und Kant
 %\TODO: Beispiel: Route finding, VLSI Layout, Assembly Sequencing
 
 \section{Uninformierte Suche}
-Wir betrachten zunächst die nicht informierte Suche. Hierbei wird bei der Suche nur den Graphen und die Nachfolgerfunktion berücksichtigt, aber keine anderen Informationen über die Knoten, Kanten usw. dürfen verwendet werden.
+Wir betrachten zunächst die nicht informierte Suche. Hierbei wird bei der Suche nur der Graph und die Nachfolgerfunktion berücksichtigt, aber keine anderen Informationen über die Knoten, Kanten usw. dürfen verwendet werden.
 
-Die Paramenter für unseren Graph sind
+Die Parameter für unseren Graph sind
 
 \begin{itemize}
   \item Menge der initialen Knoten
-  \item Menge der Zielknoten, bzw eindeutige Festlegung der Eigenschaft der Zielknoten
+  \item Menge der Zielknoten, bzw. eindeutige Festlegung der Eigenschaft der Zielknoten
   \item Nachfolgerfunktion N
 \end{itemize}
 
-damit lässt sich folgender Algorithmus schreiben:
+Damit lässt sich folgender Algorithmus schreiben:
 
 \begin{algorithm}
 \caption{General-Search Algorithm}
@@ -90,10 +90,10 @@ damit lässt sich folgender Algorithmus schreiben:
 \end{algorithm}
 
 
-Wir betrachten im folgenden Varianten der blinden Suche, die insbesondere das Wählen des Knotens eindeutig durchführen.
+Wir betrachten im Folgenden Varianten der blinden Suche, die insbesondere das Wählen des Knotens eindeutig durchführt.
 
 \subsection{Depth-First Search}
-Die Depth-First Suche verwendet eine Liste von Knoten und wählt als nächsten zu betrachtenden Knoten dieser Liste. Außerdem werden neue Nachfolger vorne in die Liste eingefügt, was zur Charakteristik führt, dass zunächst in der Tiefe gesucht wird.
+Die Depth-First Suche verwendet eine Liste von Knoten und wählt den als nächsten zu betrachtenden Knoten aus dieser Liste. Außerdem werden neue Nachfolger vorne in die Liste eingefügt, was zur Charakteristik führt, dass zunächst in der Tiefe gesucht wird.
 
 \begin{algorithm}
 \caption{Depth-First Search Algorithm}
@@ -204,18 +204,18 @@ Und in Haskell:
 
 Die explizite Speicherung der Pfade sowohl in Haskell als auch in Prolog kostet nicht viel Effizienz. Man kann den Algorithmus auch in imperativen Sprachen implementieren, indem jeder Eintrag einen Knoten mit Zeiger auf den nächsten Nachbarknoten zugeordnet wird. Die Komplexität des Verfahrens (worst-case) für die Zeit ist entsprechend der Anzahl der besuchten Knoten exponentiell in der Tiefe und für den Speicherplatz linear bei fester Verzweigungsrate.
 
-Das Problem bei der Depth-First Suche ist, dass der Algorithmus nicht vollständig ist. Wenn der Suchgraph unendlich groß ist, kann die Suche am Ziel vorbeilaufen und für immer im unendlichen langen Pfad laufen.
+Das Problem bei der Depth-First Suche ist, dass der Algorithmus nicht vollständig ist. Wenn der Suchgraph unendlich groß ist, kann die Suche am Ziel vorbeilaufen und für immer in einem unendlichen langen Pfad laufen.
 
-Um dies zu verbeugen kann man eine Tiefenbeschränkung (k) einbauen. Wenn die vorgegebene Tiefenschrank (k) überschriten wird, werden keine Nachfolger dieser Knoten mehr erzeugt. Die Depth-First Suche findet in diesem Fall jeden Zielknoten, der höchstens Tiefe k hat.
+Um diesem Problem vorzubeugen kann man eine Tiefenbeschränkung (k) einbauen. Wenn die vorgegebene Tiefenschranke (k) überschritten wird, werden keine Nachfolger dieser Knoten mehr erzeugt. Die Depth-First Suche findet in diesem Fall jeden Zielknoten, der höchstens Tiefe k hat.
 
-Wenn der gerichtete Graph kein Baum ist, kann man auch die schon untersuchten Knoten in einer Hash-Tabelle speichern und somit werden die Knoten nicht nochmal untersucht sondern redundant weiterverfolgt.
+Wenn der gerichtete Graph kein Baum ist, kann man auch die schon untersuchten Knoten in einer Hash-Tabelle speichern und somit werden die Knoten nicht nochmal untersucht, sondern redundant weiterverfolgt.
 
-Hierfür ist der Platzbedarf entsprechend der Anzahl der besuchten Knoten und die Berechnungszeit gleich $n*log(n)$ mit n = Anzahl der untersuchten Knoten.
+Hierfür ist der Platzbedarf entsprechend der Anzahl der besuchten Knoten und die Berechnungszeit gleich $n\cdot log(n)$ mit n = Anzahl der untersuchten Knoten.
 
 \subsubsection{Backtracking}
 Die Arbeitsweise der Depth-First Suche ist: Wenn Knoten K keine Nachfolger hat (oder eine Tiefenbeschränkung) überschritten wurde, dann mache weiter mit dem nächsten Bruder von K. Ist der Pfad nicht erfolgreich, führt die Depth-First Suche Backtracking durch. Dies wird als chronologisches Zurücksetzen bezeichnet.
 
-Es gibt auch Suchprobleme, bei denen kein Backtracking erforderlich ist (greedy Verfahren ist möglich) zum Beispiel, wenn jeder Knoten noch einen Zielknoten als Nachfolger hat. Die Depth-First Suche reicht dann aus, wenn die Tiefe der Zielknoten in alle Richtungen unterhalb jedes Knotens beschränkt ist. Anderenfalls reicht Depth-First Suche nicht aus, da ein Ast immer ausgesucht werden kann, indem der Zielknoten weiter weg ist.
+Es gibt auch Suchprobleme, bei denen kein Backtracking erforderlich ist (greedy Verfahren ist möglich) zum Beispiel, wenn jeder Knoten noch einen Zielknoten als Nachfolger hat. Die Depth-First Suche reicht dann aus, wenn die Tiefe der Zielknoten in alle Richtungen unterhalb jedes Knotens beschränkt ist. Anderenfalls reicht Depth-First Suche nicht aus, da ein Ast immer ausgesucht werden kann, in dem der Zielknoten weiter weg ist.
 
 \subsection{Breadth-First Search}
 Die Breadth-First Suche verwendet auch eine Liste von Knoten wie bei der Depth-First Suche. Der Unterschied hierbei ist, dass die neuen Nachfolger hinten in die Liste eingefügt werden, was zur Charakteristik führt, dass zunächst in der Breite gesucht wird.
@@ -294,7 +294,7 @@ Und in Haskell:
 
 \lstinputlisting[language=Haskell]{chapters/dfs/breitensuche.hs}
 
-Die Vor- und Nachteile der Breadth-First Suche lässt sich wie folgt zusammenfassen:
+Die Vor- und Nachteile der Breadth-First Suche lassen sich wie folgt zusammenfassen:
 
 \begin{itemize}
   \item Die Breadth-First Suche ist vollständig. Das bedeutet, wenn es eine Lösung gibt, wird sie mit Sicherheit gefunden.
@@ -308,7 +308,7 @@ Bei der Rückwärtssuche wird von einem (bekannten) Zielknoten ausgegangen in di
 Voraussetzungen für die Rückwärtssuche sind:
 
 \begin{itemize}
-  \item Der Zielknoten kann explizit angeben werden(nicht nur eine Eigenschaft, die der Zielknoten erfüllen muss).
+  \item Der Zielknoten kann explizit angeben werden (nicht nur eine Eigenschaft, die der Zielknoten erfüllen muss).
   \item Von jedem Knoten ist es möglich, die direkten Vorgänger zu berechnen.
 \end{itemize}
 
@@ -316,9 +316,9 @@ Reverse Suche ist aber nur besser als Vorwärtssuche, wenn die Verzweigungsrate 
 
 \section{Informierte Suche}
 
-Die Algorithmen, die bis jetzt betrachtet wurden, erzeugen neuen Zuständen und vergleichen sie immer wieder mit dem Zielzustand, bis sie übereinstimmen. Diese Strategie funktioniert, ist aber oft sehr kostenaufwendig. Wir betrachten im folgenden heuristischen Algorithmen.
+Die Algorithmen, die bis jetzt betrachtet wurden, erzeugen neue Zustände und vergleichen sie immer wieder mit dem Zielzustand, bis sie übereinstimmen. Diese Strategie funktioniert, ist aber oft sehr kostenaufwendig. Wir betrachten im folgenden heuristischen Algorithmen.
 
-Die Suche wird als \enquote{heuristische} oder \enquote{informierte} bezeichnet, wenn man zusätzlich zu den Knoten und zu der Datenstruktur eine Schätzfunktion gibt, die als Schätzung des Abstands zum Zielknoten interpretieren werden kann. Der Zielknoten sollte ein Maximum bzw. Minimum der Schätzfunktion sein.
+Die Suche wird als \enquote{heuristisch} oder \enquote{informiert} bezeichnet, wenn es zusätzlich zu den Knoten und zu der Datenstruktur eine Schätzfunktion gibt, die als Schätzung des Abstands zum Zielknoten interpretieren werden kann. Der Zielknoten sollte ein Maximum bzw. Minimum der Schätzfunktion sein.
 
 Eine Heuristik ist dann eine Methode, die oft ihren Zweck erreicht, aber nicht mit Sicherheit. Man spricht von heuristischer Suche, wenn die Schätzfunktion in vielen praktisch brauchbaren Fällen die richtige Richtung zu einem Ziel angibt, aber möglicherweise manchmal versagt.
 
@@ -357,16 +357,16 @@ Der Algorithmus verhält sich wie die Depth-First Suche, wobei der Nachfolger, d
 \end{algorithm}
 
 
-Das Problem bei dem Hill Climbing Algorithmus ist, dass er bei lokalen Maxima abbricht. Es ist möglich, in dem Hill-Clinbing Algorithmus Zyklen einzubauen, damit Backtracking durchgeführt wird, aber er bleibt eine zeitlang in den Maxima hängen.
+Das Problem bei dem Hill Climbing Algorithmus ist, dass er bei lokalen Maxima abbricht. Es ist möglich, in dem Hill-Clinbing Algorithmus Zyklen einzubauen, damit Backtracking durchgeführt wird, aber er bleibt eine Zeit lang in den Maxima hängen.
 
-Wenn mehrere Nachfolger die gleiche Schätzwerte haben, ist der Weg, den ausgesucht werden soll, nicht eindeutig.
+Wenn mehrere Nachfolger die gleichen Schätzwerte haben, ist der Weg, der ausgesucht wird, nicht eindeutig.
 
 Eine mögliche Implementierung der Hill Climbing Suche in Haskell ist:
 
 \lstinputlisting[language=Haskell]{chapters/dfs/hillclimbing.hs}
 
 \subsection{Best-First-Search}
-Die Best-First-Suche wählt immer den Knoten aus, der den besten Wert bzgl. der Schätzfunktion hat. Der Knoten wird dann überprüft und, wenn der nicht das Ziel ist, expandiert.
+Die Best-First-Suche wählt immer den Knoten aus, der den besten Wert bzgl. der Schätzfunktion hat. Der Knoten wird dann überprüft und, wenn dieser nicht das Ziel ist, expandiert.
 
 
 \begin{algorithm}
@@ -387,12 +387,12 @@ Eine Implementierung der Best-First Suche in Haskell ist:
 
 \lstinputlisting[language=Haskell]{chapters/dfs/bestfirst.hs}
 
-Die Best-First-Suche ist mit der Depth-First Suche eng verbunden. Der Unterschied ist, dass bei der Best-First Suche den nächsten Knoten, der überprüft und expandiert wird, mithilfe der Schätzfunktion ausgesucht wird. Dabei werden alle Knoten im Stack bewertet und dadurch können lokale Maxima schnell verlassen werden.
+Die Best-First-Suche ist mit der Depth-First Suche eng verbunden. Der Unterschied ist, dass bei der Best-First Suche der nächste Knoten, der überprüft und expandiert wird, mithilfe der Schätzfunktion ausgesucht wird. Dabei werden alle Knoten im Stack bewertet und dadurch können lokale Maxima schnell verlassen werden.
 
-Wie bei der Depth-First Suche ist die Best-First Suche hier nicht vollständig und die Platzkosten steigern exponentiell in der Tiefe.
+Wie bei der Depth-First Suche ist die Best-First Suche hier nicht vollständig und die Platzkosten steigen exponentiell in der Tiefe.
 
 \section{Fazit \& Bewertung}
-Zunächst wurden das Suchproblem und der Begriff \enquote{Suche} erläutert. Die nicht informierte Suchverfahren wurden präsentiert und es wurde gezeigt, dass ein General Search Algorithmus alle Probleme löst, wenn die richtige Strategie ausgesucht wird.
+Zunächst wurden das Suchproblem und der Begriff \enquote{Suche} erläutert. Die nicht informierten Suchverfahren wurden präsentiert und es wurde gezeigt, dass ein General Search Algorithmus alle Probleme löst, wenn die richtige Strategie ausgesucht wird.
 Tiefensuche bedeutet, dass man beginnend im Startknoten so weit wie möglich entlang der bestehenden Kanten in die Tiefe geht, ehe man zurückläuft und dann in bislang unbesuchte Teilbäume absteigt.
 Breitensuche bedeutet, dass man beginnend im Startknoten alle direkt verbundenen Knoten besucht, bevor die nächst tiefere Ebene überprüft wird.
 Die Vollständigkeit und die Komplexität der gängigen uninformierten Suchalgorithmen wurden erläutert.
