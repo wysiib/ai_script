@@ -19,14 +19,14 @@ In der Praxis finden Bayessche Netze beispielsweise in der Spracherkennung, medi
 Einem Ereignis A weisen wir eine Wahrscheinlichkeit p(A) zwischen 0 (tritt nie ein) und 1 (tritt immer ein) zu.
 
 Als marginal probability bezeichnen wir eine Wahrscheinlichkeit p(A), welche keine Abhängigkeiten aufweist.
-Beispiel: A=Eine aus einem Skatdeck gezogene Karte ist Kreuz.
-p(A) = 1/4 (oder 25\%)
+Beispiel: A = Eine aus einem Skatdeck gezogene Karte ist Kreuz.
+p(A) = 1/4 (oder 25~\%)
 
 Als joint probability bezeichnen wir Wahrscheinlichkeiten, welche nebeneinander auftreten. p(A,B)
 Beispiel: A (von oben) und B: Die Karte ist ein Bube
 
 Da A und B voneinander unabhängige Ereignisse sind folgt:
-p(A,B) = p(A)*p(B) 1/8*1/4 = 1/32
+p(A,B) = p(A) $\cdot$ p(B) = 1/8 $\cdot$ 1/4 = 1/32
 
 Sind Ereignisse jedoch nicht unabhängig, so müssen wir die Wahrscheinlichkeit von p(A,B) bereits bestimmt haben.
 Möchten wir nun für eine große Anzahl Ereignisse Wahrscheinlichkeiten berechnen, so benötigen wir extrem viele Daten.
@@ -77,26 +77,26 @@ Fügen wir zudem noch das Verpassen des Essens hinzu, welches lediglich vom Stau
 \end{figure}
 
 Unsere benötigten Datensätze mit fiktivem Inhalt:\\
-$p(Sonne) = 0.8$\\
+$p(Sonne) = 0,8$\\
 $p(Werktag)= 0,7$\\
-$p(Rasensprinkler | Sonne) = 0.95$\\
-$p(Rasensprinkler | !Sonne) = 0.20$\\
-$p(Stau | Sonne,Werktag) = 0.8$\\
-$p(Stau | !Sonne, Werktag) = 0.75$\\
-$p(Stau | Sonne, !Werktag) = 0.15$\\
-$p(Stau | !Sonne, !Werktag) = 0.05$\\
-$p(Essen verpasst | Stau) = 0.5$\\
-$p(Essen verpasst | !Stau) = 0.05$\\
+$p(Rasensprinkler | Sonne) = 0,95$\\
+$p(Rasensprinkler | !Sonne) = 0,20$\\
+$p(Stau | Sonne,Werktag) = 0,8$\\
+$p(Stau | !Sonne, Werktag) = 0,75$\\
+$p(Stau | Sonne, !Werktag) = 0,15$\\
+$p(Stau | !Sonne, !Werktag) = 0,05$\\
+$p(Essen verpasst | Stau) = 0,5$\\
+$p(Essen verpasst | !Stau) = 0,05$\\
 
 Von 31 Datensätzen in einer Tabelle mit joint probabilities haben wir nun nur noch 10 benötigt Wahrscheinlichkeiten und können alle anderen nun problemlos errechnen. (Beispiel folgt)
 
 Um bedingte Wahrscheinlichkeiten effektiv nutzen zu können benötigen wir einige Definitionen:
 \begin{equation*}
-p(A,B) = p (A | B) * p (B)
+p(A,B) = p (A | B) \cdot p (B)
 \end{equation*}
 Daraus folgt direkt:
 \begin{equation*}
-p(A,B,C) = p(A | B,C)* p(B,C) = p(A | B,C) * p(B | C) *p(C)
+p(A,B,C) = p(A | B,C) \cdot p(B,C) = p(A | B,C) \cdot p(B | C) \cdot p(C)
 \end{equation*}
 Dies lässt sich für N Ereignisse wie folgt darstellen (Chain Rule):
 \begin{equation*}
@@ -108,7 +108,7 @@ p(A | B) = p(A)
 \end{equation*}
 und A als von B unabhängig unter der Prämisse C, wenn gilt:
 \begin{equation*}
-p(A | C)* p(B | C) = p(A,C | B)
+p(A | C) \cdot p(B | C) = p(A,C | B)
 \end{equation*}
 
 Mit Hilfe der Chain-Rule können wir nun für das Beispiel von oben jede mögliche joint probability ausrechnen.
@@ -116,19 +116,19 @@ Mit Hilfe der Chain-Rule können wir nun für das Beispiel von oben jede möglic
 Beispiel:
 p(Essen verpasst,Stau,Werktag,Rasensprinkler,Sonne)
 nach Anwendung der Chain Rule haben wir:
-p(Essen verpasst | Stau,Werktag,Rasensprinkler,Sonne) \\ *p(Stau | Werktag , Rasensprinkler, Sonne) \\ *p(Werktag | Rasensprinkler, Sonne)
-\\ *p( Rasensprikler | Sonne)
-\\ *p(Sonne)
+p(Essen verpasst | Stau,Werktag,Rasensprinkler,Sonne) \\ $\cdot$ p(Stau | Werktag , Rasensprinkler, Sonne) \\ $\cdot$ p(Werktag | Rasensprinkler, Sonne)
+\\ $\cdot$ p( Rasensprikler | Sonne)
+\\ $\cdot$ p(Sonne)
 
 Wichtig ist hier den Aufbau des ersten Ausdrucks entlang der Abhängigkeiten zu formulieren. Die Reihenfolge der Ereignisse für die joint probabilty muss also eine umgedrehte topologische Anordnung unseres Graphen darstellen bzw. ein Ereignis A kann nicht vor einem Ereignis B stehen, wenn B abhängig von A ist.
 
 Nach dem kürzen der Unabhängigkeiten erhalten wir:
-p(Essen verpasst | Stau ) * p( Stau | Werktag, Sonne) * p( Werktag) * p( Rasensprinkler | Sonne) * p(Sonne)
+p(Essen verpasst | Stau ) $\cdot$ p( Stau | Werktag, Sonne) $\cdot$ p( Werktag) $\cdot$ p( Rasensprinkler | Sonne) $\cdot$ p(Sonne)
 
 Man nennt dies auch die Faktorisierung.
 
 Die gesuchten Wahrscheinlichkeiten kennen wir bereits und können sie einsetzen:
-0,5*0,8*0,7*0,95*0,8 = 0,218.
+0,5 $\cdot$ 0,8 $\cdot$ 0,7 $\cdot$ 0,95 $\cdot$ 0,8 = 0,218.
 
 Es ist also durch simples Einsetzen unserer 10 Werte möglich sämtliche 31 Werte für die joint probability Tabelle zu berechnen.
 Gleichzeitig sind Lösungen für relevante Fragen zur bedingten Wahrscheinlichkeit, welche nicht alle Ereignisse umfassen, mit geringem Aufwand zu lösen.
@@ -140,34 +140,34 @@ Wir möchten nun wissen, wie wahrscheinlich es ist, dass man es abends bei der R
 Wir suchen also p(!Essen verpasst | !Werktag, Sonne).
 
 Dazu berechnen wir:
-p(!Essen verpasst | Stau )*p(Stau | Sonne, Werktag) + p(!Essen verpasst | !Stau)*p(!Stau | Sonne, Werktag)
+p(!Essen verpasst | Stau) $\cdot$ p(Stau | Sonne, Werktag) + p(!Essen verpasst | !Stau) $\cdot$ p(!Stau | Sonne, Werktag)
 
 Die passenden Werte kennen wir entweder oder können sie direkt ableiten.
-p(Essen verpasst | Stau) = 0.5
-p(Essen verpasst | !Stau) = 0.05
-p(Stau | Sonne, !Werktag) = 0.15
+p(Essen verpasst | Stau) = 0,5
+p(Essen verpasst | !Stau) = 0,05
+p(Stau | Sonne, !Werktag) = 0,15
 
-0,5*0,15+0,95*0.85 = 0,8825 bzw. die Wahrscheinlichkeit am Wochenende pünktlich zum Essen zu kommen ist 88\%.
+0,5 $\cdot$ 0,15 + 0,95 $\cdot$ 0,85 = 0,8825 bzw. die Wahrscheinlichkeit am Wochenende pünktlich zum Essen zu kommen ist 88\%.
 
 Was jedoch, wenn ich in die andere Richtung rechnen möchte?
 Beispiel: Der Lebensgefährte kommt pünktlich zum Essen und ich möchte Wissen, wie wahrscheinlich es ist, dass er im Stau gesteckt hat.
 
 Wir kennen bereits die Formel:\\
-p(A,B) = p (A | B) * p(B) offensichtlich gilt auch\\
-p(B,A) = p (B | A) * p(A) wir folgern daraus:\\
-p(A | B) = p(A,B) / P(B) = p(B,A) / P(B) = p(B | A) * p(A)/p(B) (Satz von Bayes)
+p(A,B) = p (A | B) $\cdot$ p(B) offensichtlich gilt auch\\
+p(B,A) = p (B | A) $\cdot$ p(A) wir folgern daraus:\\
+p(A | B) = p(A,B) / P(B) = p(B,A) / P(B) = p(B | A) $\cdot$ p(A)/p(B) (Satz von Bayes)
 
 Wir wissen also:
 p(Stau | !Essen verpasst) = p(!Essen verpasst | Stau ) *P(Stau)/p(! Essen verpasst)
 
 p(!Essen verpasst | Stau) =0,5\\
 p(Stau) =\\
-p(Stau | Sonne, Werktag)*p(Sonne)*p(Werktag) + \\ p(Stau | Sonne, !Werktag)*p(Sonne)*p(!Werktag)+ \\ p(Stau | !Sonne, Werktag)*p(!Sonne)*p(Werktag) + \\ p(Stau | !Sonne, !Werktag)*p(!Sonne)*p(!Werktag)\\ =0,382
+p(Stau | Sonne, Werktag) $\cdot$ p(Sonne) $\cdot$ p(Werktag) + \\ p(Stau | Sonne, !Werktag) $\cdot$ p(Sonne) $\cdot$ p(!Werktag)+ \\ p(Stau | !Sonne, Werktag) $\cdot$ p(!Sonne) $\cdot$ p(Werktag) + \\ p(Stau | !Sonne, !Werktag) $\cdot$ p(!Sonne) $\cdot$ p(!Werktag)\\ = 0,382
 
 p(!Essen verpasst) =\\
-p(!Essen verpasst | Stau)*p(Stau)\\ + p(!Essen verpasst | !Stau)*p(!Stau)\\ =0.7781
+p(!Essen verpasst | Stau) $\cdot$ p(Stau)\\ + p(!Essen verpasst | !Stau) $\cdot$ p(!Stau)\\ = 0,7781
 
-$\Rightarrow$ p(Stau | !Essen verpasst)=0,5*0,382/0,7781 = 0,2454...
+$\Rightarrow$ p(Stau | !Essen verpasst)=0,5 $\cdot$ 0,382/0,7781 = 0,2454...
 
 Ist die Person also pünktlich, so gab es mit einer Wahrscheinlichkeit von ~75\% keinen Stau.
 
@@ -210,10 +210,10 @@ Das Beispiel (d) beschreibt hierbei eine sogenannte V-Struktur.
 
 Betrachten wir hierzu außerdem die Verschiedenen Faktorisierungen:
 \begin{enumerate}[label=(\alph*)]
-\item p(A,B,C)=p(C| B)*p(B|A)*p(A)
-\item p(A,B,C)=p(A| B)*p(B|C)*p(C)
-\item p(A,B,C)=p(A| B)*p(C|B)*p(B)
-\item p(A,B,C)=p(B| A,C)*p(A)*p(C)
+\item p(A,B,C) = p(C|B) $\cdot$ p(B|A) $\cdot$ p(A)
+\item p(A,B,C) = p(A|B) $\cdot$ p(B|C) $\cdot$ p(C)
+\item p(A,B,C) = p(A|B) $\cdot$ p(C|B) $\cdot$ p(B)
+\item p(A,B,C) = p(B|A,C) $\cdot$ p(A) $\cdot$ p(C)
 \end{enumerate}
 
 \section{IC-Algorithmus}
