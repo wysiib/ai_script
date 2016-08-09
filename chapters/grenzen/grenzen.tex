@@ -1,0 +1,267 @@
+\chapterimage{chapter_head_1.png}
+
+\chapter{Grenzen künstlicher Intelligenz}
+\section{Motivation}
+“The real risk with AI isn’t malice but competence.
+A super-intelligent AI will be extremely good at accomplishing its goals, and if those goals aren’t aligned with ours, we’re in trouble.” (Stephen Hawking, 2015)
+
+Der Begriff der künstlichen Intelligenz ist ein ebenso aktueller wie auch umstrittener Begriff, an dessen Definition sich schon seit Längerem die Geister scheiden.
+Sie gilt als eine der zukunftsträchtigsten Forschungsthemen unserer Zeit.
+So werden Methoden der künstlichen Intelligenz bereits erfolgreich in der Mustererkennung oder Computerspielentwicklung eingesetzt und stetig weiterentwickelt, um nur wenige Beispiele zu nennen.
+Oft stellt sich dabei aber die Frage, wie weit die Kompetenzen einer KI gehen können bzw.
+wie weit sie aus ethischer Sicht gehen sollten.
+Denn neben den unstrittigen Vorteilen gibt es auch Vorbehalte und ängste, wie das obige Zitat von Stephen Hawking deutlich macht.
+Dieser spricht die Gefahren an, die entstehen könnten, wenn unsere Ziele nicht mit denen einer hoch entwickelten KI konform laufen.
+Mit dieser Meinung steht Hawking nicht alleine da, denn mit Stuart J.Russell, Peter Norvig und Elon Musk unterschrieben im Jahr 2014 gleich mehrere Experten des Gebiets zusammen mit Hawking den „Open Letter on Artificial Intelligence “, in welchem vor den Gefahren einer unkontrollierbaren KI gewarnt und zu einer verantwortungsvollen Forschung in diesem Bereich aufgerufen wird.
+Sind diese Bedenken berechtigt? Wie gefährlich bzw.
+wie mächtig kann eine KI überhaupt sein? Inwiefern ähnelt sie der menschlichen Intelligenz und welche Stärken und Schwächen weist sie im Vergleich auf? Müssen wir uns vor einer Weiterentwicklung der KI fürchten, wie es manche Science-Fiction-Filme suggerieren oder liegt es an uns, sie zu kontrollieren und ihren Fähigkeiten Grenzen zu setzen?
+Wieweit sollte man die Forschung in diesem Bereich aus ethischer Sicht vorantreiben?
+Die folgende Ausarbeitung beschäftigt sich mit all diesen Fragen und versucht, einen überblick über die Risiken und Grenzen künstlicher Intelligenz zu geben.
+
+\section{Grenzen der Logik}
+Methoden der künstlichen Intelligenz bedienen sich oft der Methoden der Logik, so wie es teilweise bei Bayesschen Netzen oder umfassender bei der automatischen Beweisführung geschieht.
+Daher werden im Folgenden die Grenzen der Logik als Grundlage der künstlichen Intelligenz betrachtet.
+Nennenswert ist in diesem Zusammenhang das Suchraumproblem.
+Bei der Beweissuche gibt es für die Anwendung von Inferenzregeln in jedem Teilschritt unzählige bzw.
+eventuell sogar unendlich viele Möglichkeiten, wodurch der Suchraum sehr schnell wächst.
+Die Anwendung all dieser Möglichkeiten zur Beweisfindung ist für einen Menschen unzumutbar, während ein automatischer Beweiser tausende Inferenzen pro Sekunde durchführen kann.
+Ein Mensch schafft u.U.
+eine Inferenz pro Sekunde.
+Menschen inferieren also langsamer.
+überrschenderweise kann ein Mathematiker dennoch schwierigere Probleme schneller lösen als ein automatischer Beweiser.
+Menschen können nämlich aufgrund ihrer Intuition und Anschauung mehrere, einfache Inferenzen des Beweisers in nur einem Schritt durchführen oder bereits bewiesene Lemmata benutzen, um sich Beweisschritte zu sparen, während ein maschineller Beweiser in jedem Schritt sehr viele Möglichkeiten ausprobiert, obwohl nur wenige zielführend sind.
+Mittlerweile imitieren automatische Beweiser dieses menschliche Metawissen, sind aber bei Weitem nicht so effektiv wie ein erfahrener Mathematiker.
+Unter anderem ist dies darauf zurückzuführen, dass Menschen bei komplexen Problemen zumeist selbst nicht in der Lage sind, ihre Intuition zu formalisieren.
+Nicht formalisierbarers Wissen kann in der Regel auch nicht programmiert werden, was den Möglichkeiten eines maschinellen Beweisers klare Grenzen setzt.
+Eine andere Schwäche der Logik ist ihre Monotonie.
+Das bedeutet, dass mit der Erweiterung der Formelmenge zwar neue Aussagen bewiesen werden können, alle zuvor ableitbaren Formeln aber nach wie vor bewiesen werden können, sodass die Menge der ableitbaren Aussagen monoton wächst.
+Dieser Umstand kann allerdings zu Widersprüchen führen.
+Am Beispiel des “fliegenden Pinguins” kann diese Problematik ganz einfach illustriert werden:
+Angenommen man weiß, dass Tweety ein Pinguin ist, Pinguine Vögel sind und Vögel fliegen.
+Daraus lässt sich per Resolutionsbeweis ableiten, dass Tweety fliegen kann.
+Da Pinguine aber nicht fliegen können, fügt man eine Regel hinzu, die besagt, dass Pinguine nicht fliegen.
+Daraus lässt sich ableiten, dass Tweety nicht fliegen kann.
+Es lässt sich aus dieser Wissensbasis aber nach wie vor auch ableiten, dass Tweety fliegen kann, da die neue Regel die bestehenden Regeln nicht ersetzt, sondern erweitert.
+Wenn man nun die Wissenbasis um die prädikatenlogische Formeln “Abraxas ist ein Rabe” und “Raben sind Vögel” ergänzt, kann man nicht mit Sicherheit darauf schließen, dass Abraxas fliegen kann, da keine Aussage darüber gemacht wird, ob Abraxas ein Pinguin ist oder nicht.
+Um das Problem zu lösen, müsste die Tatsache “Abraxas ist kein Pinguin” hinzugefügt werden, während dies für einen Menschen einen selbstverständlichen Fakt darstellt.
+Wie man an diesem Beispiel sehen kann, muss für jedes Objekt in der Wissenbasis nicht nur angegeben werden, welche Merkmale es besitzt, sondern auch welche es nicht besitzt.
+Für ein komplexeres Problem impliziert dies ein explosivartiges Wachstum des Programmieraufwands, wenn die Wissensbasis erweitert oder verändert wird.
+Weiterhin ist festzustellen, dass mit der Prädikatenlogik eine Reihe von Aussagen nicht formuliert werden kann, da z.B.
+Quantoren für Funktionen nicht eingesetzt werden dürfen.
+Logiken
+höherer Stufen bieten diese gewünschten Erweiterungen, allerdings hat Gödel gezeigt, dass
+schon eine minimale Erweiterung der Prädikatenlogik zum Verlust der Vollständigkeit führt, d.h.
+es gibt wahre Formeln, die nicht beweisbar sind.
+Folglich sind die Prädikatenlogik wie auch Logiken höherer Stufen noch nicht mächtig genug.
+Außerdem ist es fraglich, ob etwas derart Komplexes wie das menschliche Denken bzw.
+Verhalten durch eine Menge von Formeln beschrieben werden kann.
+In der Regel ist es nicht möglich, die menschliche Intelligenz umfassend in Formeln auszudrücken, was auch als Qualifizierungsproblem bezeichnet wird.
+Das Problem liegt darin, dass Menschen nicht in Formeln denken oder anhand von Formeln Entscheidungen treffen, sondern implizit den gesamtheitlichen Kontext betrachten und davon abhängig handeln.
+Sie haben einen Sinn dafür, wie in einer Situation zu verfahren ist bzw.
+was man für ein Verhalten erwarten würde, so wie es bspw.
+der Fall ist, wenn man ein Geschenk erhält und dann den Drang empfindet, selbst etwas an den Schenker zu verschenken.
+Insgesamt kann man also festhalten, dass die Logik als Grundlage einer künstlichen Intelligenz dem menschlichen Verstand in vielerlei Aspekten trotz Imitationsversuchen noch weit unterlegen ist.
+
+\section{Experimente}
+Sehr wichtig für das Thema dieser Arbeit sind Experimente und Tests, die zum Ziel haben, eine intelligente Maschine als solche einzustufen, denn anhanddessen kann festgestellt werden, wie nah eine KI der menschlichen Intelligenz ist und wo ihre Grenzen liegen.
+Der Turing-Test ist der wohl bekannteste Versuch.
+Dabei sitzt eine Person A in einem Raum an zwei Computern, über die sie Fragen eintippen kann, wobei ein Computer mit der vermeintlichen künstlichen Intelligenz und der andere Computer mit einer weiteren Person B verbunden ist.
+Nach fünf Minuten muss A entscheiden, mit welchem Computer die KI verbunden ist.
+Wenn A in 30% aller Fälle falsch entscheidet, besteht die Maschine den Test und weist somit intelligentes Verhalten auf.
+Mittlerweile gibt es eine Reihe von sogenannten Chatterbots, die zu Beginn einer Konversation überraschend oft passgenaue Antworten liefern.
+Bekannt und besonders effektiv in der Täuschung sind z.B.
+Eliza oder Mgonz, aber auch CyberLover.
+Letzterer geht bereits soweit, dass er seinem Gesprächspartner persönliche Daten zu entlocken versucht, um seine Identität festzustellen und diese zu stehlen.
+Diese Programme offenbaren aber im Laufe des Gesprächs relativ schnell ihre begrenzten Antwortmöglichkeiten, da sie entweder nicht lernfähig sind oder nur einen auf bestimmte Bereiche beschränkten Wissensstand aufweisen.
+Dies erkennt man sehr gut am folgenden Beispiel einer in das Deutsche übersetzten Konversation mit Eliza:
+
+\begin{verbatim}
+ELIZA: Wie geht es Ihnen.
+Bitte schildern Sie Ihr Problem.
+Ich verbringe zu viel Zeit am Computer.
+ELIZA: Warum erwähnen Sie Computer?
+Du bist einer.
+ELIZA: Macht es Ihnen Spaß zu glauben, ich sei einer?
+Ja.
+ELIZA: Sie scheinen sehr optimistisch zu sein.
+Bin ich.
+5
+ELIZA: Wie lange sind Sie schon?
+31 Jahre.
+ELIZA: Ich bin mir nicht sicher, ob ich sie verstehe.
+Willkommen im Club
+ELIZA: Bitte fahren Sie fort.
+Was du sagst, ist auch nicht sehr sinnvoll.
+ELIZA: Wir reden über Sie, nicht über mich.
+\end{verbatim}
+
+Man sieht an diesem Beispiel relativ klar, dass Eliza zunehmend verwirrende Antworten gibt, je einfältiger die Antworten des Kommunikationspartners von Eliza ausfallen.
+Der noch blamablere Fall von TayTweets verdeutlicht um einiges besser die fehlende Intelligenz der derzeitigen Chatterbots.
+Turing prognostizierte seinerzeit, dass ein Computer im Jahr 2000 den Test besteht.
+Diese Vermutung hat sich noch nicht bewahrheitet, da Computer heute einiges leisten können, die Führung einer offenen Konversation aber derzeit nicht dazugehört.
+Zurückzuführen ist dies darauf, dass der Mensch ein immenses Hintergundwissen besitzt, wodurch die Menge an möglichen Fragen eine intelligente Maschine schier überfordert.
+Es gab zwar einen Fall einer russischen Software, die den Test bestanden hat.
+Allerdings wurden Mängel am Versuchsaufbau und an den Fragen der Jury festgestellt.
+Was den Turing-Test aber so interessant macht, ist die Frage, ob damit ein maschinelles Denken nachgewiesen werden kann.
+Es gibt Meinungen, die behaupten, dass der Turing-Test höchstens die Simulation des Denkens und nicht das Denken selbst nachweisen kann.
+Es wird an dem Test kritisiert, dass der Computer die Ein- und Ausgaben nicht wirklich versteht und lediglich richtige Antworten gibt, weshalb man nicht von einer Darstellung von Verstand sprechen kann.
+Versuche, den Test zu bestehen, waren darüber hinaus eher darauf ausgerichtet, den Kommunikationspartner zu überlisten und nicht darauf, eine zu einer Konversation fähige, echte Intelligenz zu entwickeln.
+Ebenso wie die Kritik am Turing-Test setzt das Experiment “Chinese Room Experiment” von John R.
+Searle am Verständnis an.
+Dabei sitzt eine Versuchsperson die nur Englisch versteht, in einem Raum mit einer kleinen öffnung.
+Ausgestattet ist sie dabei mit einem in englischer Sprache verfassten Regelbuch mit Anweisungen sowie mit mehreren teils leeren, teils mit für die Versuchsperson nicht entzifferbaren Aufschriften versehenenen Papierstapeln.
+über die öffnung erhält er von außen Papierstreifen mit unbekannten Symbolen.
+Die Versuchsperson sucht diese Zeichen im Regelbuch, führt die einschlägigen Anweisungen durch und muss dafür gegebenfalls die Papierstapel nach Symbolen durchsuchen oder Symbole auf leere Papierstreifen schreiben.
+Am Ende jeder Anweisung muss ein Papierstreifen beschrieben und über die öffnung nach außen durchgereicht werden.
+Außerhalb des Raums werden die Papierstreifen von einem chinesischen Muttersprachler beschrieben und über die kleine öffnung in den Raum gegeben.
+Man erhält dann nach einer gewissen Zeit einen Papierstreifen aus dem Inneren des Raums, wobei dieses mit einer passgenauen, in chinesischer Sprache verfassten Antwort zu dem zuvor hineingegebenem Papierstreifen beschriftet ist.
+Der chinesische Muttersprachler schließt daraus, dass sich ein chinesisch sprechender Mensch im Raum aufhält.
+In diesem Fall verstehen weder die Versuchsperson noch das Regelbuch oder die Papierstapel Chinesisch, erzeugen zusammen aber über Vergleiche der Schriftzeichen Antworten, wie es der Turing-Test erfordert.
+
+Searle wollte damit zeigen, dass die Ausführung des richtigen Programms ohne die Erzeugung eines Verständnisses auskommt, weshalb auch eine KI seine Ein- und Ausgaben nicht verstehen muss, um nach Turing als intelligent zu gelten.
+So wollte er als Kritik am Turing-Test verdeutlichen, dass man nie feststellen kann, ob eine Maschine Verstand bzw Verständnis besitzt.
+Ein neueres Unterfangen ist der Lovelace-2.0-Test von Mark O.
+Riedl, welcher als Kritik am Turing-Test entstand.
+Eine Konversation zu führen, verkörpere keine wahre Intelligenz.
+Diese bestünde stattdessen in der Kreativität.
+Diesem vorangegangen war der einfache Lovelace-Test, welcher die kreative Schöpfung von etwas Neuem als einziges Indiz für Intelligenz sieht.
+Dieser Test wurde abgeändert, da er impliziert, dass das Werk der KI nur als kreativ gewertet werden kann, wenn der Entwickler der KI die Entstehung des Werks nicht versteht.
+Da es deshalb nahezu unmöglich gewesen wäre, diesen Test zu bestehen, erfand Riedl den Lovelace-2.0-Test.
+Hierbei wird die KI aufgefordert, zu einem vorgegebenen Thema eine Geschichte zu erzählen.
+Wenn die KI dies schafft,wird das Thema immer weiter eingegrenzt und die KI immer wieder aufgefordert, eine Geschichte zu erzählen, bis die KI es nicht mehr schafft.
+Damit kann man das Ausmaß der Intelligenz einer Maschine einordnen.
+Die Programme von Riedl selbst haben nur die ersten zwei Stufen des Tests bestanden, was für ein niedriges Maß an Intelligenz spricht, da ein Autor oder Dichter erst an weitaus höheren Stufen scheitern würde.
+Auch dieser Test zeigt also die Begrenztheit der aktuellen KI-Programme.
+
+\section{Unfähigkeit}
+Die herrschende Meinung in der Gesellschaft zum Thema “künstliche Inteligenz” besagt, dass Maschinen trotz aller Fortschritte zu bestimmten Dingen nicht fähig sind und in absehbarer Zeit auch nicht sein werden.
+Turing listete in einem ganzen Katalog solche Dinge auf, zu denen beispielsweise “etwas wirklich Neues tun”, “initiativ sein”, “Fehler machen”, “verlieben” oder “Erdbeereis mit Sahne mögen” zählen.
+Zwar können sich Computer nicht verlieben, wie es Filme/Romane in Bezug auf die Liebe zwischen Mensch und Maschine seit jeher prophezeien.
+Allerdings ist es geradezu erstaunlich, wieviel Computer von dem Katalog von Turing bereits können bzw.
+besser können als Menschen.
+Ein Beispiel ist, dass Computer ebenso wie der Mensch Fehler machen, sodass man diesen Punkt aus dem oben genannten Katalog streichen kann.
+Es gibt sogar Fälle, in denen ein Computer ungeduldig werden kann.
+Es bleibt alles in allem dennoch dabei, dass Maschinen in bestimmten Dingen an ihre Grenzen stoßen.
+Menschen haben beispielsweise die Fähigkeit, einen unbekannten Raum zu betreten, sofort die Szene zu erfassen, darauf aufbauend Aktionen zu planen und Entscheidungen zu treffen.
+Zurückzuführen ist dies auf das Adaptivitätsmerkmal der Menschen, sie passen sich an verschiedenste Umweltbedinguntgen an und ändern ihr Verhalten, indem sie lernen.
+Diese Anpassungsfähigkeit und das ausgeprägte Lernverhalten fehlt den Maschinen, wobei man sich dem letzteren zunehmend durch die Nutzung von Methoden des Machine Learning annähert.
+ähnlich verhält es sich mit der Sprache.
+So spricht Noam Chomsky den Maschinen die
+Sprachkompetenz ab, da den Menschen nicht erlernbare sprachliche Fähigkeiten angeboren seien, die es erlauben, noch nie gehörte, komplexe Sätze hervorzubringen.
+Den Menschen sei eine universelle Grammatik in die Wiege gelegt, anhand derer die Nutzung und das Erlernen von Sprache möglich sei.
+Maschinen sind darüber hinaus nicht in der Lage, Dinge aus eigenem Antrieb hervorzubringen und spontan zu handeln.
+Vielmehr führen sie Anweisungen auf gegebenen Daten aus, wenn eine bestimmte Bedingung erfüllt ist, was nicht für die Existenz einer Intelligenz spricht.
+Menschen haben weiterhin ein Bewusstsein, d.h.
+sie können über sich selbst nachdenken oder darüber, dass sie über sich selbst nachdenken können usw.
+Dies ist der ausschlaggebende Unterschied zwischen dem Menschen und einer künstlichen Intelligenz.
+Es reicht also bspw.
+nicht, ein Gedicht zu schreiben, sondern es muss einem bewusst sein, dass man das Gedicht geschrieben hat.
+Einem KI-Programm fehlt es zusätzlich an Emotionen, allen voran an Empathie, die über die bloße Einschätzung des Gefühlszustands des Gegenübers hinausgeht und in der Regel in einer emotionalen Reaktion besteht.
+Zuletzt ist festzustellen, dass bisher kein Programm die Leistung des menschlichen Gehirns bei einem derart niedrigen Energieverbrauch auch nur annähernd erreicht hat.
+Wie man sieht gibt es noch eine Reihe an Dingen, die intelligente Maschinen nicht beherrschen, aber auch Fähigkeiten, die sie im Laufe der Zeit dazugewonnen haben.
+Unfähigkeit von Computern ist also ein generisches Problem.
+Was eine künstliche Intelligenz heute nicht kann, macht sie morgen vielleicht um ein Vielfaches effizienter als ein Mensch.
+
+\section{Ethische Aspekte und Risiken}
+Eine weitere Frage nach den Grenzen der künstlichen Intelligenz ist die, ob man künstliche Intelligenzen vor dem Hintergrund moralischer Aspekte weiterentwickeln sollte.
+Die Forschung steht im Falle einer Weiterentwicklung vor dem Problem der unvorhersehbaren, möglicherweise negativen Konsequenzen.
+Die Erfindung der Kernfusion, die unter anderem zur Katastrophe von Tschernobyl führte, oder des Verbrennungsmotors, welcher zur globalen Erwärmung und Luftverschmutzung maßgeblich beiträgt, wird dabei als negatives Vergleichsbeispiel gesehen.
+Eine Befürchtung ist der Verlust von Arbeitsplätzen bei einer fortschreitenden Automatisierung.
+Beispielsweise werden in den USA manche Kreditkartenanwendungen und die Erkennung von Kreditkarten-Betrug von Programmen aus der künstlichen Intelligenz ausgeführt.
+Es liegt also die Vermutung nahe, dass in diesem konkreten Fall Arbeitsplätze verloren gegangen sind.
+Dem ist aber in der Regel nicht so, da diese Arbeitsplätze gar nicht existieren würden, weil sie für das Unternehmen nicht wirtschaftlich wären.
+So hat eine Bank in der Regel keinen Mitarbeiter, der nur Kreditkartenbetrug aufdeckt.
+Es geht also auch kein Arbeitsplatz verloren, wenn eine künstliche Intelligenz diese Aufgabe übernimmt.
+Dieses Beispiel kann man auf die meisten Fälle übertragen, in denen eine KI bestimmte Leistungen bietet.
+Aber angenommen, die Arbeitslosigkeit würde steigen.
+Dann würde das Bruttosozialprodukt eines Landes dennoch nicht sinken bzw.
+sogar steigen, da die Wertschöpfung durch den Einsatz von effizienteren Maschinen steigen
+würde.
+Die arbeitslos gewordenen Menschen würden dann womöglich durch die Verteilung
+des neu hinzugewonnenen Reichtums bedient werden, weshalb sich die Arbeitslosigkeit nicht unbedingt negativ auswirken müsste.
+Falls es aber gelingt, hochintelligente Maschinen zu entwickeln, die alle Aufgaben der Menschen im Beruf oder im Haushalt übernehmen können, wäre es durchaus denkbar, dass es überhaupt keine von Menschen zu verrichtende Arbeit mehr gibt, die Menschen im hohem Maß von den Maschinen abhängig sind und sie daher keinerlei Druck verspüren bzw.
+keinerlei Anstrengungen für ihre Existenz unternehmen, sodass es zu einem gesellschaftlichen Kollaps kommen kann.
+Als eine weitere mögliche Gefahr wird in der Literatur oft der Umstand genannt, dass eine sehr weit entwickelte KI dem Menschen sein Selbstverständnis als einzigartiges Individuum rauben kann und ihm somit das Gefühl eines imitierbaren, lediglich in einem System funktionierenden Automaten vermittelt.
+Diese Gefahr ist allerdings zu relativieren, denn in der Geschichte gibt es viele ähnliche Beispiele, die dem Menschen ihr Einmaligkeitsgefühl streitig machten.
+So stellte Darwin mit seiner Evolutionstheorie den Menschen auf eine Stufe mit den Tieren, was seinerzeit umstritten war, jedoch bis dato nicht zu einem Verlust jenen Selbstverständnisses geführt hat.
+Zudem macht es den Menschen wiederum zu etwas Besonderem, wenn er in der Lage ist, eine der menschlichen Intelligenz ähnliche Intelligenz künstlich zu erschaffen.
+Darüber hinaus könnte die zunehmende Automatisierung durch Programme der künstlichen Intelligenz bewirken, dass man sich seiner Verantwortung entzieht.
+Haftet beispielsweise der Arzt, wenn eine KI eine falsche medizinische Diagnose liefert? Wem sind Schulden zuzuordnen, wenn eine KI, die Geldgeschäfte für ein Unternehmen erledigt, diese ohne weitere Nachfrage aufgenommen hat? Diese Frage wird umso relevanter werden, je stärker die Automatisierung voranschreitet.
+Auch begründet ist die Sorge nach dem Einsatz von künstlicher Intelligenz zu unerwünschten Zwecken.
+Mit diesem Problem ist man derzeit im Militär konfrontiert, bspw.
+nutzten die USA im Irakkrieg über 5000 unbemannte, autonome Luftfahrzeuge, mit denen Menschen umgebracht werden konnten, ohne dass je ein Mensch sein Leben aufs Spiel setzen musste.
+Zudem stellt sich für den Menschen dann gar nicht die Frage nach der moralischen Verwerflichkeit seines Handelns, da er außer Reichweite ist und nicht merkt, was sein Handeln für Konsequenzen hat.
+Ein anderes Problemgebiet ist das Potenzial der künstlichen Intelligenz über die Spracherkennung die Privatsphäre der Menschen zu verletzen.
+Ihr ist zu verdanken, dass Staaten mittlerweile regelmäßig Telefongespräche abhören.
+Eine KI kann also leicht opportunistisch genutzt werden, wenn sie in die falschen Hände gerät.
+Einige Meinungen gehen sogar so weit, dass sie einer KI die Fähigkeit einräumen, das Ende der Menschheit herbeizuführen.
+Es ist durchaus umstritten, ob diese Einschätzung realistisch ist oder nur in der Fiktion eintreten kann.
+Die falsche Zustandsabschätzung einer KI kann zu erheblichen Schäden führen.
+Beispielsweise könnte eine autonomes Raketenabwehrsystem eine Bewegung im Luftraum fälschlicherweise für einen Angriff halten und entsprechend reagieren, sodass es zu einem Verlust von Menschenleben kommen kann.
+Allerdings besteht dieses Risiko auch stets, wenn ein Mensch das System bedienen würde, sodass das Problem nicht nur auf eine KI zurückzuführen ist.
+Weiterhin kann es sein, dass die Nutzenfunktion einer KI, nach der sie letzlich handelt, fehlspezifiziert ist.
+Sie könnte bspw.
+derart programmiert werden, dass sie das menschliche Leid zu minimieren versucht.
+Der Mensch neigt nun aber dazu, sich immer wieder beabsichtigt oder unbeabsichtigt neue Situationen des Leidens zu schaffen.
+Die vermeintliche Konsequenz
+wäre mit der oben genannten Nutzenfunktion als Handlungsrahmen die Ausrottung der
+Menschen.
+Dies suggerieren bisweilen auch viele Science-Fiction-Filme.
+Was hier aber implizit angenommen wird, ist zum einen die Tatsache, dass die KI die Nutzenfunktion zu wörtlich nimmt, und zum anderen die Aggressivität, die eine Maschine nicht unbedingt aufweisen muss, dem Menschen aber im Zuge der natürlichen Selektion in die Wiege gelegt ist.
+Außerdem sollte erwartet werden können, dass eine Maschine, die eine derartige Intelligenz besitzt, dass sie den Menschen als bis dato intelligentestes Lebewesen auszulöschen in der Lage ist, auch die Intelligenz besitzt, die Absicht der Nutzenfunktion richtig zu deuten.
+Gefährlicher ist dagegen eine statische Nutzenfunktion, da sie nur die Werteverhältnisse der Entstehungszeit einer KI umfassen kann.
+So würde eine KI, die im 18.
+Jahrhundert entwickelt wurde, heute versuchen, das Wahlrecht für Frauen abzuschaffen und damit aktuelle Moralvorstellungen untergraben, anstatt diese zu fördern.
+Sinnvoller erscheint dagegen, dass die KI ihre Nutzenfunktion selbst aktualisiert.
+Hier bestünde aber die Gefahr, dass die Maschine tiefste Abgründe des menschlichen Denkens erkennt und entsprechend handelt.
+Beispielsweise könnte sie erkennen, dass Menschen keine Scheu haben, lästige Insekten zu töten, weil letztere als primitiv angesehen werden.
+Sie würde daher womöglich das Töten von Menschen für moralisch unverwerflich halten, da diese wiederum im Vergleich zu ihr primitiv sind.
+Nimmt man nun aber an, dass eine hoch entwickelte KI nicht aggressiv ist, so gibt es auch dann problematische Punkte, die zu beachten sind.
+Wenn die Intelligenz einer Maschine die des Menschen übersteigt, so wird insbesondere sie in der Lage sein, eine noch weiter entwickelte Intelligenz hervorzubringen und letztere wird genauso verfahren, sodass es irgendwann zu einer sogenannten Intelligenzexplosion, auch als technologische Singularität bezeichnet, kommt und der Mensch im Vergleich zu den Maschinen zu einem primitiven Wesen verkommt.
+Dadurch würde der Mensch zwar nicht unbedingt im physischen Sinne bedroht werden, allerdings würde er die Entwicklung vom Herrscher über die Erde zum Beherrschten vollbringen, so wie einst mit der Evolution des Menschen die ära der Tiere endete.
+KI könnten dann die Entwicklung der menschlichen Zivilisation lenken.
+Dieses Szenario wird allerdings nicht ausschließlich negativ aufgenommen.
+Mit dem Transhumanismus gibt es eine Bewegung, die sich das Zusammenleben und die Zusammenarbeit von Mensch und Maschine herbeiwünscht, wobei einige sogar dem Ersatz des Menschen durch die Maschine entgegenfiebern.
+Ray Kurzweil ist der bekannteste Anhänger dieser Meinung.
+Er sieht hierin die Möglichkeit für den Menschen, über seine eigene Sterblichkeit zu entscheiden, indem die Grenzen des menschlichen Körpers gesprengt werden.
+Die KI könnten als nächste Evolutionsstufe des Menschen gesehen werden.
+Man solle aber die Ur-KI so programmieren, dass sie den Menschen gut behandelt, denn dann würden es ihr die von ihr entwickelten, intelligenteren Programme gleichtun, sodass keinerlei Gefahren für die Menschheit bestehen würden.
+
+\section{Fazit}
+Insgesamt kann man festhalten, dass Errungenschaften der KI-Forschung uns derzeit diverse Erleichterungen bieten und sich dieser Trend in Zukunft sogar verstärken wird.
+Nichtsdestotrotz sind die Möglichkeiten von Programmen der KI begrenzt.
+So sind Computer möglicherweise effizienter als der Mensch, aber nicht unbedingt auch effektiver.
+Vom mathematisch-logischen Standpunkt aus betrachtet, können Computer viele Berechnungen und Inferenzen sehr schnell durchführen.
+Wenn aber ein komplexeres Problem vorliegt, kann der Mensch durch seine Intuition bzw.
+sein Metawissen im Vergleich zum Computer schnellere Schlüsse ziehen.
+Auch generell gibt es bestimmte Fähigkeiten, die eine KI zumindest noch nicht beherrscht.
+So besitzen Maschinen kein Bewusstsein und sind nicht fähig, Emotionen zu empfinden.
+Diverse Tests und Experimente verdeutlichen, dass maschinelles Denken und Verstehen nicht unbedingt nur aus der Angabe von passenden Antworten in einer Konversation abgeleitet werden kann.
+Man kann zudem festhalten, dass einige Sorgen bezüglich der Macht einer KI schlicht unberechtigt sind, da bisher keine Fälle von gefährlichen, unkontrollierbaren Ereignissen auftraten.
+Auch ist die instinktiv angenommene Bösartigkeit und Aggressivität einer intelligenten Maschine kein Pflichtmerkmal, sondern eher eine Eigenschaft der dystopischen Fiktion.
+Andere Sorgen finden dagegen durchaus Berechtigung.
+Dazu zählen vor allem Risiken ethischer Natur.
+Es könnte bspw.
+zu einem Wandel der gesellschaftlichen Struktur kommen, je mehr intelligente Maschinen uns Aufgaben abnehmen und somit den Standardlebenszyklus Arbeit-Konsum untergraben.
+Problematisch könnte weiterhin die Spezifikation der Wertevorstellungen und der Nutzenfunktion einer KI sein, damit eine KI im Sinne ihres Schöpfers handelt.
+Es bleibt abzuwarten, welche der Risiken tatsächlich eintreten werden.
+Dennoch sollte wie in jedem anderen Bereich Wert auf eine verantwortungsvolle Forschung gelegt werden, insbesondere in den Fällen, in denen eine KI Menschenleben gefährden könnte, wie es bspw.
+bei autonomen Luftabwehrsystemen der Fall ist.
+Man sollte sich zum Thema KI nicht allzu sehr von der Fiktion irritieren lassen.
+Entgegen der Meinungen bekannter Persönlichkeiten wie Elon Musk oder Stephen Hawking ist festzustellen, dass KI-Programme noch nicht in der Lage sind, eine ernsthafte Gefahr für den Menschen darzustellen.
+Es ist zumindest zu früh, sich Weltuntergangsszenarien auszumalen, da zum derzeitigen Forschungsstand viele der in diesen Szenarien typischerweise auftretenden Fähigkeiten der Maschinen klar und deutlich außerhalb des Machbaren liegen.
+In absehbarer Zeit scheint ein Ende der Welt durch die Hand einer KI nicht wahrscheinlicher zu sein als durch die Handlungen der Menschen selbst.
+
+\section{Literatur}
+\begin{itemize}
+\item Wolfgang Ertel, Grundkurs Künstliche Intelligenz – Eine praxisorientierte Einführung, 2013 (3.Auflage), Springer-Verlag.
+\item Stuart Russell \& Peter Norvig, Künstliche Intelligenz – Ein moderner Ansatz, 2012 (3.Auflage), Pearson-Verlag.
+\item Karsten Hartmann, Einführung in die Expertensystem-Technologie, 2015, Hochschulverlag Merseburg.
+\item Nils J.
+Nilsson, Die Suche nach künstlicher Intelligenz – Eine Geschichte von Ideen und Erfolgen, 2014, AKA-Verlag.
+\item \url{http://www.wired.com/brandlab/2015/10/stephen-hawkings-ama/}
+\item \url{https://www.wired.de/collection/featured/ein-neuer-test-soll-nachweisen-wie-intelligent-computerprogramme-sind}
+\item \url{http://www.netzpiloten.de/emotionen-kuenstliche-intelligenz-ki/}
+\item \url{http://www.faz.net/aktuell/feuilleton/debatten/warum-die-kuenstliche-intelligenz-gefahren-birgt}
+\item \url{https://en.wikipedia.org/wiki/Open_Letter_on_Artificial_Intelligence}
+\end{itemize}
