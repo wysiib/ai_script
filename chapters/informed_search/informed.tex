@@ -3,7 +3,7 @@
 \chapter{Informierte Suche}
 
 \section{Einf\"uhrung und Motivation}
-Im vorherigen Kapitel haben wir bereits einige Algorithmen zur uninformierten (\glqq blinden\grqq) Suche, wie die Breitensuche und Tiefensuche kennengelernt. Diese haben jedoch im Allgemeinen einen recht hohen Aufwand und garantieren teilweise nicht für das Finden einer Lösung (->Tiefensuche in unendlichen Bäumen). Daher haben wir ebenfalls zwei einfache informierte Suchalgorithmen kennengelernt, nämlich Hill-Climbing und Beam-Search. Jedoch bringen auch diese noch einige Schwierigkeiten mit sich.
+Im vorherigen Kapitel haben wir bereits einige Algorithmen zur uninformierten (\glqq blinden\grqq) Suche, wie die Breitensuche und Tiefensuche, kennengelernt. Diese haben jedoch im Allgemeinen einen recht hohen Aufwand und garantieren teilweise nicht für das Finden einer Lösung ($\rightarrow$ Tiefensuche in unendlichen Bäumen). Daher haben wir ebenfalls zwei einfache informierte Suchalgorithmen kennengelernt, nämlich Hill-Climbing und Beam-Search. Jedoch bringen auch diese noch einige Schwierigkeiten mit sich.
 Deshalb werden wir uns in diesem Kapitel tiefergehend mit informierter Suche beschäftigen.
 Es soll vor allem darum gehen Algorithmen kennenzulernen, welche durch Einbeziehen von zusätzlichem heuristischen Wissen einen geringeren Aufwand zum Erreichen eines Ziels benötigen und gleichzeitig die Kosten einer Lösung mit einbeziehen.
 Ebenfalls beschäftigen werden wir uns mit der Zulässigkeit und der Optimalität dieser Algorithmen.
@@ -14,7 +14,7 @@ Im Näheren werden wir Branch and Bound und Best-First-Search (Bestensuche) kenn
 \section{Problemstellung}
 
 In diesem Kapitel geht es um das Lösen verschiedener Probleme mittels heuristischer Suche, welche durch heuristische Suche in entsprechenden Graphen modelliert wird.
-Reale Beispiele solcher Probleme sind Routenberechnungsprobleme, Navigationsprobleme, das Travelling Salesman Problem und das Problem von Roboternavigation. Aber auch abstraktere Probleme, wie das 8-Puzzle und das 8-Damen-Problem, lassen sich durch entsprechende heuristische Suchen lösen.
+Reale Beispiele solcher Probleme sind Routenberechnungsprobleme, Navigationsprobleme, das Travelling-Salesman-Problem und das Problem von Roboternavigation. Aber auch abstraktere Probleme, wie das 8-Puzzle und das 8-Damen-Problem, lassen sich durch entsprechende heuristische Suchen lösen.
 
 Wir haben also einen Suchraum mit verschiedenen Zuständen des Problems gegeben. Diese entsprechen den Knoten des dazugehörigen Problemgraphen $G_{P}$=(V,E).
 Die Kanten des Graphen entsprechen den Übergangsoperationen der Zustände.
@@ -33,14 +33,14 @@ Diese hat den Zweck, den Aufwand zum Finden dieser optimalen Lösung möglichst 
 
 \section{Branch and Bound}
 
-Die Idee, auf welcher Branch and Bound beruht, ist folgende. Hat man für seinen Problemgraphen einen Lösungspfad gegeben und möchte wissen, ob dies auch eine optimale Lösung ist, so genügt es, alle restlichen Pfade nur so weit zu betrachten, bis ihre Kosten größer werden als jene des bekannten Lösungspfades.
+Die Idee, auf welcher Branch and Bound beruht, ist folgende: Hat man für seinen Problemgraphen einen Lösungspfad gegeben und möchte wissen, ob dies auch eine optimale Lösung ist, so genügt es, alle restlichen Pfade nur so weit zu betrachten, bis ihre Kosten größer werden als jene des bekannten Lösungspfades.
 In der Umsetzung des Algorithmus sieht dies wie folgt aus.
 
 \subsection{Intuitiver Algorithmus}
 
 Startknoten $s$ wird in den Such-Baum $G_{S}$ eingefügt. Anbei wird der Wert $g(s)=0$ gespeichert, welcher die Kosten zum Erreichen dieses Knotens repräsentiert.
-Nun wird folgende Schleife behandelt, und zwar so lange, bis es keinen unbehandelten Knoten mehr gibt.
-Wähle aus den noch unbehandelten Blättern des Such-Baums $G_{S}$ denjenigen Knoten $n$ mit geringsten Kosten $g(n)$ vom Startknoten $s$ bis nach $n$. (Gibt es mehrere Knoten mit dem selben minimalen Wert, dann wähle von diesen zufällig einen aus.)
+Nun wird folgende Schleife behandelt, und zwar so lange, bis es keinen unbehandelten Knoten mehr gibt:
+Wähle aus den noch unbehandelten Blättern des Such-Baums $G_{S}$ denjenigen Knoten $n$ mit geringsten Kosten $g(n)$ vom Startknoten $s$ bis nach $n$. (Gibt es mehrere Knoten mit demselben minimalen Wert, dann wähle von diesen zufällig einen aus.)
 Ist $n$ ein Zielknoten, so terminiert die Suche erfolgreich und der Pfad vom Startknoten $s$ nach $n$ ist eine optimale Lösung.
 Ansonsten erweitere den Such-Baum $G_{S}$ durch Anhängen aller möglichen Nachfolger an Knoten $n$. (Lasse dabei alle Knoten aus, welche bereits auf dem Pfad von $s$ nach $n$ vorkommen.) Berechne dann für jeden dieser Nachfolger $t$ die Pfadkosten bis nach $t$. Addiere dafür die Kosten der Kante von $n$ nach $t$ auf die Pfadkosten des Vaters $n$ auf: $g(t)=c({n,t})+g(n)$.
 
@@ -106,7 +106,7 @@ Wir definieren:
 	\item[$ h(n)$]{geschätzte Kosten von $n$ zu einem Knoten, welcher die Endbedingung erfüllt}
 	\item[$ f(n)$]{geschätzte Kosten eines optimalen Pfades vom Start über $n$ zu einem Knoten, welcher die Endbedingung erfüllt
 
-		-> resultierende Heuristikfunktion}
+		$\rightarrow$ resultierende Heuristikfunktion}
 \end{description}
 Auch hier gilt: \[f(n)=g(n)+h(n)\]
 
@@ -148,9 +148,9 @@ Sei dazu der Graph $G$ und die Heuristik $h$ durch
   (4) edge node [sloped, above] {1.5} (2);
 
 \end{tikzpicture}}\vspace{5pt}\\
-gegeben. Wir wollen einen Weg von $S$ nach $Z$ suchen. Man erhält Folgendes:
+gegeben. Wir wollen einen Weg von $S$ nach $Z$ suchen. Man erhält Folgendes
 (hierbei ist eine Zahl im Knoten rot, falls er in der Extended-List
-ist, grün wenn er gerade expandiert wird und gelb falls er auf der Open-List
+ist, grün, wenn er gerade expandiert wird, und gelb, falls er auf der Open-List
 ist):\vspace{5pt}\\
 \fbox{
 \begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
@@ -489,7 +489,7 @@ ist):\vspace{5pt}\\
       (S, 1, 2, 7, 8) & 15\\
       \phantom{(S, 3, 4, 5, 6, Z)} & \phantom{14.5}
     \end{tabular}\\
-    Hier bricht Algorithmus ab, da $Z$ zu suchen war, und gibt
+    Hier bricht der Algorithmus ab, da $Z$ zu suchen war, und gibt
     $(S, 3, 4, 5, 6, Z)$ aus.
 \end{minipage}}\vspace{5pt}\\
 Somit ist $(S, 3, 4, 5, 6, Z)$ der kürzeste Weg von $S$ nach $Z$.
@@ -497,7 +497,7 @@ Somit ist $(S, 3, 4, 5, 6, Z)$ der kürzeste Weg von $S$ nach $Z$.
 \subsection{Beispiel des 8-Puzzles}
 
 
-Beim 8-Puzzle handelt es sich um ein Spiel, bestehend aus einem Spielbrett der Größe 3-mal-3 und acht Kacheln, nummeriert von 1 bis 8, welche auf dem Spielbrett verteilt sind. Ein Feld des Spielbrettes bleibt also frei. Grenzt eine Kachel an dieses freie Feld, so kann sie an dessen Stelle verschoben werden. Das Ziel des Spieles ist, von einer ungeordneten Stellung der Kacheln durch ein Folge von Verschiebungen zu einer Zielstellung zu gelangen.
+Beim 8-Puzzle handelt es sich um ein Spiel, bestehend aus einem Spielbrett der Größe 3-mal-3 und acht Kacheln, nummeriert von 1 bis 8, welche auf dem Spielbrett verteilt sind. Ein Feld des Spielbrettes bleibt also frei. Grenzt eine Kachel an dieses freie Feld, so kann sie an dessen Stelle verschoben werden. Das Ziel des Spieles ist, von einer ungeordneten Stellung der Kacheln durch eine Folge von Verschiebungen zu einer Zielstellung zu gelangen.
 Die folgende Abbildung zeigt ein konkretes Problem mittels Start- und Zielkonfiguration.
 
 \includegraphics[scale=0.7]{chapters/informed_search/startziel.png}
@@ -524,7 +524,7 @@ Dieser ist in Abbildung \ref{fig:figure1} am Ende dieses Kapitels zu finden.
 \end{figure}
 
 Die in der jeweiligen Konfiguration falsch liegenden Kacheln sind blau markiert. Die Werte $g(n)$, $h(n)$ und $f(n)$ sind jeweils linkerhand des Knotens $n$ angegeben. Weiterhin ist die Reihenfolge angegeben, in welcher die Knoten selektiert werden.
-Der Such-Baum beginnt mit der Startkonfiguration in der Wurzel des Baumes und generiert daraufhin alle vier möglichen Nachfolger. Zu diesen werden mittels $g$ und der Heuristik $h_{1}$ die jeweiligen $f$-Werte berechnet. Von diesen wird nun der geringste Wert selektiert. Da von den vier Nachfolgern zwei den selben minimalen Wert besitzen, wird zufällig einer der beiden gewählt, in unserem Fall der Knoten ganz links. Dieser wird nun expandiert, indem wiederum seine möglichen Nachfolger generiert werden. Knoten, die zu Schleifen führen (also nur eine Operation rückgängig machen), lassen wir hier bewusst weg. Auch zu den neu generierten Knoten werden die $f$-Werte berechnet. Nun wird wiederum aus den noch nicht expandierten Knoten derjenige mit geringstem $f$-Wert selektiert. Dies trifft auf den Knoten rechts mit $f$-Wert 4 zu. Dieser wird nun expandiert. Nach weiteren Iterationen kommt es dann dazu, dass eine Zielkonfiguration generiert wird. Der zugehörige Knoten wird kurz darauf aufgrund seines minimalen $f$-Wertes selektiert und die Suche endet erfolgreich.
+Der Such-Baum beginnt mit der Startkonfiguration in der Wurzel des Baumes und generiert daraufhin alle vier möglichen Nachfolger. Zu diesen werden mittels $g$ und der Heuristik $h_{1}$ die jeweiligen $f$-Werte berechnet. Von diesen wird nun der geringste Wert selektiert. Da von den vier Nachfolgern zwei denselben minimalen Wert besitzen, wird zufällig einer der beiden gewählt, in unserem Fall der Knoten ganz links. Dieser wird nun expandiert, indem wiederum seine möglichen Nachfolger generiert werden. Knoten, die zu Schleifen führen (also nur eine Operation rückgängig machen), lassen wir hier bewusst weg. Auch zu den neu generierten Knoten werden die $f$-Werte berechnet. Nun wird wiederum aus den noch nicht expandierten Knoten derjenige mit geringstem $f$-Wert selektiert. Dies trifft auf den Knoten rechts mit $f$-Wert 4 zu. Dieser wird nun expandiert. Nach weiteren Iterationen kommt es dann dazu, dass eine Zielkonfiguration generiert wird. Der zugehörige Knoten wird kurz darauf aufgrund seines minimalen $f$-Wertes selektiert und die Suche endet erfolgreich.
 
 Für Heuristik $h_{2}(n)$ ergibt sich der folgende Suchbaum $G_{S2}$, welcher in Abbildung \ref{fig:figure2} am Ende dieses Kapitels zu finden ist.
 
@@ -635,7 +635,7 @@ Die Definitionen wurden aus \cite{kaindl} übernommen.
 \begin{theor}
 	Für jede konsistente Funktion h gilt: \[h(n)\leq h^{*}(n)\textrm{ für alle Knoten } n \in G\]
 \end{theor}
-Jede konsistente bzw. monotone Funktion $h$ schätzt also optimistisch. Dadurch ist $A^{*}$ unter Verwendung von konsistentem h zulässig.
+Jede konsistente bzw. monotone Funktion $h$ schätzt also optimistisch. Dadurch ist A* unter Verwendung von konsistentem $h$ zulässig.
 
 \subsection{Komplexität von A*}
 
