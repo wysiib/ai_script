@@ -7,14 +7,14 @@
 
 \chapter{Objekterkennung und Computer Vision}
 \section{Intro \& Motivation}
-Wie können wir uns eigentlich in der Welt, in der wir sind, zurechtfinden? Die \textbf{Wahrnehmung} ermöglicht die Aufnahme von Informationen über die Umgebung. Der Menschen hat fünf Hauptwahrnehmungssinne: Sehen, Hören, Tasten, Riechen und Schmecken. Können wir einer künstlichen Intelligenz (KI) diese Wahrnehmung beibringen? Wenn ja, wie?
+Wie können wir uns eigentlich in der Welt, in der wir sind, zurechtfinden? Die \textbf{Wahrnehmung} ermöglicht die Aufnahme von Informationen über die Umgebung. Der Mensch hat fünf Hauptwahrnehmungssinne: Sehen, Hören, Tasten, Riechen und Schmecken. Können wir einer künstlichen Intelligenz (KI) diese Wahrnehmung beibringen? Wenn ja, wie?
 
 Sinne bei KIs nennen wir \textbf{Sensoren}. Solche, die wir in KIs einbauen können, sind Sehen, Hören und Tasten. \textbf{Sehen} ist dabei im Hinblick auf den Gebrauch von KIs in der physischen Welt für uns Menschen der hilfreichste von allen.
 
-In dieser Ausarbeitung werden zunächste Grundlagen über die Funktionsweise des Sehens beschrieben. Der Fokus wird dann auf die Verarbeitung von gewonnenen Rohinformationen liegen und ein paar Anwendungen ansprechen.
+In dieser Ausarbeitung werden zunächst Grundlagen über die Funktionsweise des Sehens beschrieben. Der Fokus wird dann auf die Verarbeitung von gewonnenen Rohinformationen liegen und ein paar Anwendungen ansprechen.
 
 \section{Überblick Computer Vision}
-Die Frage die Computer Vision stellt, ist eigentlich recht einfach: Wenn ein von der Umgebung ausgelöster Sensor-Impuls (S) so und so aussieht, wie sieht dann die Umgebung (W) dazu aus? Leider ist das Invertieren dieser Funktion
+Die Frage, die Computer Vision stellt, ist eigentlich recht einfach: Wenn ein von der Umgebung ausgelöster Sensor"=Impuls (S) so und so aussieht, wie sieht dann die Umgebung (W) dazu aus? Leider ist das Invertieren dieser Funktion
 \begin{equation*}
 S = f(W) \Rightarrow W = f^{-1}(S)
 \end{equation*}
@@ -27,7 +27,7 @@ nicht so einfach möglich. Man muss sich also überlegen, anhand welcher Merkmal
 
 Die Hauptanwendungsgebiete hierfür sind:
 \begin{itemize}
-\item Manipulation: Die Erlangung von benötigen Informationen von und Rückmeldung über lokale Gebilde, um mit diesen zu interagieren (z.~B.\ greifen, einfügen; Anwendung: z.~B.\ Qualitätskontrolle).
+\item Manipulation: Die Erlangung von benötigen Informationen und Rückmeldung über lokale Gebilde, um mit diesen zu interagieren (z.~B.\ greifen, einfügen; Anwendung: z.~B.\ Qualitätskontrolle).
 \item Navigation: Die Berechnung der eigenen Geschwindigkeit und Position (Ausrichtung), um Routen zu planen und Hindernissen auszuweichen.
 \item Objekterkennung: Die Charakterisierung von Objekten zur Unterscheidung von \glqq gut\grqq\ und \glqq schlecht\grqq\ (z.~B.\ Beute- und Raubtier, (un)genie"sbare Früchte, Bekannte und Fremde).
 \end{itemize}
@@ -57,7 +57,7 @@ Eine Lochkamera ist eine schwarze Box, die an ihrer Front nur durch einen Punkt 
 \label{fig:3}
 \end{figure}
 
-Wir betrachten einen Punkt $p$ mit den Koordination $(x,y,z)$ und seine \glqq Kopie\grqq\ $p'=(x',y',z')$ auf der Bildebene. $f$ beschreibt den Abstand zwischen der Lochblende $l$ und der Bildebene $b$.
+Wir betrachten einen Punkt $p$ mit den Koordinaten $(x,y,z)$ und seine \glqq Kopie\grqq\ $p'=(x',y',z')$ auf der Bildebene. $f$ beschreibt den Abstand zwischen der Lochblende $l$ und der Bildebene $b$.
 \begin{figure}[h]
 \centering
 \includegraphics[width=8cm]{chapters/computervision/Grafik_2_Lochkamera.JPG}
@@ -72,7 +72,7 @@ Für eine Linie mit der Richtung $(u,v,w)$, die durch einen Punkt $p=(x,y,z)$ ge
 gegeben ist.
 
 \subsubsection{Linsensysteme}
-Linsen sind dem menschlichen Auge nachempfunden und im Vergleich zu Lochblenden viel grö"ser, sodass mehr Licht hindurch gelangt. Dadurch können nicht alle Objekte der Welt gleichzeitig scharf auf der Bildebene abgebildet werden, sondern nur solche, die sich im Bereich der \textbf{Tiefenschärfe} - also in einem bestimmten Abstand zur Linse - befinden.
+Linsen sind dem menschlichen Auge nachempfunden und im Vergleich zu Lochblenden viel grö"ser, sodass mehr Licht hindurch gelangt. Dadurch können nicht alle Objekte der Welt gleichzeitig scharf auf der Bildebene abgebildet werden, sondern nur solche, die sich im Bereich der \textbf{Tiefenschärfe} -- also in einem bestimmten Abstand zur Linse -- befinden.
 
 In der Linse werden alle von einem Objekt eingehenden Strahlen so gebrochen, dass sie sich in einem Punkt hinter der Linse schneiden.
 Die \textbf{Brennweite} $f$ der Linse, bei der ein bestimmtes Objekt scharf dargestellt wird, ergibt sich aus den Punkten $z$ (Abstand des Objekts zur Linse) und $z'$ (Abstand von der Linse zur Bildebene). Die Beziehung zwischen $z$ und $z'$ wird mit
@@ -83,7 +83,7 @@ gemacht.
 
 \subsubsection{Licht und Schatten}
 
-Typischerweise wird die Bildebene in einer Kamera mit einem Pixel-Raster der Grö"se $512\times 512$ bemessen. Die Bildhelligkeit über die Zeit wird durch $I(x,y,t)$ repräsentiert und kann modelliert werden. Sie ist von der vorhandenen Lichtmenge, der Objekt-Position und der Reflexionseigenschaften während der Bildaufnahme abhängig, wobei die Oberfläche des Objektes als auch die umliegenden Objekte Reflexionseigenschaften besitzen.
+Typischerweise wird die Bildebene in einer Kamera mit einem Pixel-Raster der Grö"se $512\times 512$ bemessen. Die Bildhelligkeit über die Zeit wird durch $I(x,y,t)$ repräsentiert und kann modelliert werden. Sie ist von der vorhandenen Lichtmenge, der Objekt-Position und den Reflexionseigenschaften während der Bildaufnahme abhängig, wobei sowohl die Oberfläche des Objektes als auch die umliegenden Objekte Reflexionseigenschaften besitzen.
 \begin{itemize}
 \item
 Wir sprechen von diffus reflektiertem Licht, wenn das Licht von der Objektoberfl"ache absorbiert und wieder abgestrahlt wurde, wodurch die Oberfl"ache von allen Richtungen aus gleich hell erscheint. Eine \textit{Lambert'sche} Ebene oder \emph{perfekter Streuk"orper} ist ein Objekt, das Licht vollst"andig diffus reflektiert. Ein perfekter Streukörper erzeugt die reflektierte Lichtintensität
@@ -95,11 +95,11 @@ Das spiegelnd reflektierte Licht hingegen wird "uberwiegend in eine bestimmte Ri
 Durch Unterschiede in der Lichtintensität entstehen \textbf{Schatten} auf Objekt-Oberflächen. Aus der gegebenen Helligkeit $I(x,y)$ unseres Bildes möchten wir auf die Geometrie und Reflexionseigenschaften der Umwelt schlie"sen. Für Oberflächen von Objekten können wir eine Reflexionskarte berechnen, welche ihre Reflexionseigenschaften beschreibt.
 \end{itemize}
 Bei der Computergrafik wird genau diese Lichtsituation, also die Welt um das Objekt, wo Licht aus verschiedenen Richtungen kommt und (mehrfach) reflektiert wird, versucht zu simulieren.
-Normalerweise ist eine Mischung von direktem und indirektem Licht vorhanden. Wenn solche Interreflexion vorliegt, hilft uns die Reflexionskarte nicht weiter - ein Problem, welches noch nicht gelöst ist.
+Normalerweise ist eine Mischung von direktem und indirektem Licht vorhanden. Wenn solche Interreflexion vorliegt, hilft uns die Reflexionskarte nicht weiter -- ein Problem, welches noch nicht gelöst ist.
 
 \subsubsection{Spektralphotometrie}
 
-Neben dem Kontrastsehen gibt es noch das Farbsehen, welches sich in einem Wellenlängenbereich von Violett bis Rot, $400$nm--$700$nm, bewegt. Das menschliche Auge ist für drei verschiedene Spektralkurven empfindsam, sodass der unendlich-dimensionale Bereich der Wellenlänge auf einen drei-dimensionalen Farbbereich projiziert wird. So kommt es zu sogenannten \textbf{Metameren}: Verschiedene Lichtspektren, die von Menschen als gleiche Farben wahrgenommen werden.
+Neben dem Kontrastsehen gibt es noch das Farbsehen, welches sich in einem Wellenlängenbereich von Violett bis Rot, 400~nm -- 700~nm, bewegt. Das menschliche Auge ist für drei verschiedene Spektralkurven empfindsam, sodass der unendlich-dimensionale Bereich der Wellenlänge auf einen drei-dimensionalen Farbbereich projiziert wird. So kommt es zu sogenannten \textbf{Metameren}: Verschiedene Lichtspektren, die von Menschen als gleiche Farben wahrgenommen werden.
 
 \subsection{Bildverarbeitung und Bildhinweise - \glqq low-level\grqq}
 
@@ -107,7 +107,7 @@ Nun möchten wir ein aufgenommenes Bild analysieren und strukturieren.
 
 Es gibt verschiedene Anhaltspunkte und Vorgehensweisen, mit denen wir 3D-Informationen verarbeiten können, um gewisse Aufgaben je nach Anwendungsgebiet (Manipulation, Navigation, Objekterkennung) zu lösen. In jedem Fall ziehen wir Informationen aus jedem \textbf{Pixel} (\textbf{pic}ture \textbf{el}ement = Bildpunkt). Dabei wird zwischen \textit{low-level} Wissen, beschränkt auf lokale Information von Pixeln, und \textit{high-level} Wissen, globale Information über Objekte, unterschieden.
 
-Damit wir uns einen Überblick über unser Bild verschaffen können, ist es hilfreich, dieses zunächste in prägnante Bereiche zu unterteilen, also \textbf{Kanten} zu finden und \textbf{Regionen} zu identifizieren.
+Damit wir uns einen Überblick über unser Bild verschaffen können, ist es hilfreich, dieses zunächst in prägnante Bereiche zu unterteilen, also \textbf{Kanten} zu finden und \textbf{Regionen} zu identifizieren.
 
 \subsubsection{Kantenermittlung}
 
@@ -115,7 +115,7 @@ Kanten entstehen durch Helligkeitsunterschiede. Wir unterscheiden verschiedene s
 
 Um Kanten zu finden, betrachten wir die Helligkeitsfunktion $I(x)$ und bilden ihre Ableitung $I'(x)$.
 Dort wo die Steigung von $I'(x)$ gro"s ist, lässt sich eine Diskontinuität vermuten.
-Jene Stellen, die nur kleinere Spitzen der Funktion sind, können durch \textbf{Rauschen} im Bild entstehen - also keine echten Kanten.
+Jene Stellen, die nur kleinere Spitzen der Funktion sind, können durch \textbf{Rauschen} im Bild entstehen -- also keine echten Kanten.
 Dieses Rauschen k"onnen wir durch \textbf{Glättung} der Funktion eliminieren. Eine h"aufig verwendete Methode ist die \textbf{Faltung} von $I$ mit einer geeigneten Faltungsfunkton, etwa einer Gau"sschen Glockenkurve $G_\sigma$ oder ihrer Ableitung $G_\sigma'$. Dabei werden kleine Spitzen geglättet und gro"se Spitzen betont.
 
 % TODO re-add images
@@ -165,7 +165,7 @@ Die Segmentierung besteht nun darin, den Graphen in Cluster zu zerteilen, sodass
 
 \end{itemize}
 
-\subsection{Objekterkennung - \glqq high-level\grqq}
+\subsection{Objekterkennung -- \glqq high-level\grqq}
 
 \subsubsection{Pose}
 
@@ -184,13 +184,13 @@ Die geometrische Gestalt zusammen mit der Farbe und der Textur eines Objektes is
 \begin{itemize}
 \item Bewegungsfluss
 
-Das Prinzip ist, zwei Aufnahmen - zeitlich kurz aufeinanderfolgend - zu machen, und zu vergleichen, wie sich das Objekt verändert hat, also den Bewegungsfluss zu messen. Dazu müssen wir in beiden Aufnahmen die entsprechend zueinander passenden Punkte finden. Wir nehmen einen Pixel $p=(x_0,y_0)$ aus der ersten Aufnahme zum Zeitpunkt $t_0$. Da die Struktur in einem Block um $p$ in beiden Aufnahmen erhalten bleibt, können wir geeignete Blöcke mit Pixel-Kandidaten $q_i=(x_0+x_i,y_0+y_i)$ in der zweiten Aufnahme zum Zeitpunkt $t_0+t_i$ wählen, miteinander vergleichen und so unser mit $p$ übereinstimmendes $q$ finden.
+Das Prinzip ist, zwei Aufnahmen -- zeitlich kurz aufeinanderfolgend -- zu machen, und zu vergleichen, wie sich das Objekt verändert hat, also den Bewegungsfluss zu messen. Dazu müssen wir in beiden Aufnahmen die entsprechend zueinander passenden Punkte finden. Wir nehmen einen Pixel $p=(x_0,y_0)$ aus der ersten Aufnahme zum Zeitpunkt $t_0$. Da die Struktur in einem Block um $p$ in beiden Aufnahmen erhalten bleibt, können wir geeignete Blöcke mit Pixel-Kandidaten $q_i=(x_0+x_i,y_0+y_i)$ in der zweiten Aufnahme zum Zeitpunkt $t_0+t_i$ wählen, miteinander vergleichen und so unser mit $p$ übereinstimmendes $q$ finden.
 
 Dieses Verfahren können wir nutzen, um den Abstand von der Kamera zu Objekten einzuschätzen, denn: Entferntere Objekte verändern sich weniger stark als nahe Objekte.
 
 \item Zweifach-Tiefenwahrnehmung
 
-Ähnlich wie beim Bewegungsfluss werden hier auch zwei Aufnahmen genutzt, allerdings nicht unterschieden in der Zeit sondern in der Kameraposition, sodass zwei leicht verschiedene 2D-Bilder der gleichen 3D-Umgebung entstehen.
+Ähnlich wie beim Bewegungsfluss werden hier auch zwei Aufnahmen genutzt, allerdings nicht unterschieden in der Zeit, sondern in der Kameraposition, sodass zwei leicht verschiedene 2D-Bilder der gleichen 3D-Umgebung entstehen.
 
 Wie können wir nun feststellen, dass diese beiden Bilder das gleiche Objekt darstellen? Dazu betrachten wir die Geometrie dahinter:
 \begin{figure}[h]
@@ -202,7 +202,7 @@ Wie können wir nun feststellen, dass diese beiden Bilder das gleiche Objekt dar
 In Abb. \ref{fig:7} ist die Idee der Stereopsis skizziert. $c_1$ stellt die linke Kamera, $c_2$ die rechte dar. Die gestrichelten Linien sind die \textbf{epipolaren Linien}. Damit können wir feststellen, welche zwei Pixel $q_1$ und $q_2$ aus den beiden variierenden 2D-Bildern den gleichen Punkt $p$ des Original-Objektes aus der 3D-Welt darstellen. Pixel, die den gleichen Punkt des Objektes darstellen, müssen immer auf epipolaren Linien der 2D-Bilder liegen. Hierbei besteht
 \marginpar[Links]{\small{Notiz: \\Algorithmus von Belhumeur}}
 \begin{itemize}
-\item \textbf{Eindeutigkeit} (es kann immer nur maximal - denn manchmal wird der Objekt-Punkt wegen Überdeckungen nur von einem Sichtfeld aufgenommen - einen Pixel $q_1$ des einen Bildes zugehörig zu einem Pixel $q_2$ des anderen geben) und
+\item \textbf{Eindeutigkeit} (es kann immer nur maximal -- denn manchmal wird der Objekt-Punkt wegen Überdeckungen nur von einem Sichtfeld aufgenommen -- einen Pixel $q_1$ des einen Bildes zugehörig zu einem Pixel $q_2$ des anderen geben) und
 \item \textbf{stückweise Stetigkeit} (abgesehen von Objektkanten und Überdeckungen, haben benachbarte Punkte immer ähnliche Werte).
 \end{itemize}
 
@@ -289,15 +289,15 @@ Menschen ist es möglich, unzählige Objekte zu erkennen, selbst wenn diese teil
 Viele Objekte können in Zylinder zerlegt und somit erkannt werden. Dies kann aber auch dazu führen, dass das Objekt in so viele Zylinder-Teile gebrochen wird, dass sich dies auf die Laufzeit auswirkt.
 
 \subsection{Anwendung}
-Betrachten wir eines der am Anfang genannten Hauptanwendungsgebiete der Computer Vision, die Navigation - speziell: automatisiertes Fahren. Die Aufgaben eines Fahrers sind
+Betrachten wir eines der am Anfang genannten Hauptanwendungsgebiete der Computer Vision, die Navigation -- speziell: automatisiertes Fahren. Die Aufgaben eines Fahrers sind
 \begin{enumerate}
 \item Beschleunigung des Fahrzeugs,
 \item Kontrolle: seitlich (Fahrspur) und längs (Sicherheitsabstand),
 \item Wachsamkeit: Verkehrsüberblick und ständige Handlungsbereitschaft.
 \end{enumerate}
-Nehmen wir Punkt 2 heraus: Welchen Ansatz aus den bisherigen Kapitel könnten wir hier verwenden?
+Nehmen wir Punkt 2 heraus: Welchen Ansatz aus den bisherigen Kapiteln könnten wir hier verwenden?
 
-Bei der Kontrolle eines Fahrzeugs gibt es zwei wichtige Bedingungen: Zum einen möchten wir eine Linie bzw. Kante - die Fahrspur - finden und zum anderen möchten wir vor uns liegende Objekte - Autos/Hindernisse - erkennen. Folgende Tabelle zeigt auf, was wir aus dem bisher Gelernten nun anwenden können:
+Bei der Kontrolle eines Fahrzeugs gibt es zwei wichtige Bedingungen: Zum einen möchten wir eine Linie bzw. Kante -- die Fahrspur -- finden und zum anderen möchten wir vor uns liegende Objekte -- Autos/Hindernisse -- erkennen. Folgende Tabelle zeigt auf, was wir aus dem bisher Gelernten nun anwenden können:
 \begin{table}[h]
 \centering
 \label{Tab. 3.2}
@@ -309,7 +309,7 @@ Kontrolle längst & Distanz zu Objekten & Zweifach-Tiefenwahrnehmung, \\&&Bewegu
 \end{tabular}
 \end{table}
 
-Was aber ist mit speziellen Objekten, wie zum Beispiel Verkehrsschilder oder Menschen? Bisher haben wir sozusagen nur die Basis der Objekterkennung kennengelernt - im Folgenden lernen wir noch zwei Methoden zur detailliertere Objekterkennung kennen.
+Was aber ist mit speziellen Objekten, wie zum Beispiel Verkehrsschilder oder Menschen? Bisher haben wir sozusagen nur die Basis der Objekterkennung kennengelernt -- im Folgenden lernen wir noch zwei Methoden zur detailliertere Objekterkennung kennen.
 
 \subsubsection{Abgleichungsmethode}
 
@@ -327,7 +327,7 @@ Hierbei ist normalerweise $m\neq n$, da Originalpunkte verdeckt werden und nicht
 \label{fig:14}
 \end{figure}
 
-\item $Q$, die unbekannte Rotation und Verschiebung des Objektes, \textbf{transformiert} jedes $\mu_i$ und kreiiert exakt zugehörige Bildpunkte $p_i=Q(\mu_i)$.
+\item $Q$, die unbekannte Rotation und Verschiebung des Objektes, \textbf{transformiert} jedes $\mu_i$ und kreiert exakt zugehörige Bildpunkte $p_i=Q(\mu_i)$.
 \item Wenn wir genug Punkte haben, können wir $Q$ auflösen. Es gilt: Mit drei nonkollinear (nicht auf einer Linie liegenden) Originalpunkten und drei Bildpunkten ergeben sich genau zwei Transformationen des 3D-Objekts.
 \begin{figure}[h]
 \centering
@@ -338,7 +338,7 @@ Hierbei ist normalerweise $m\neq n$, da Originalpunkte verdeckt werden und nicht
 \end{enumerate}
 Man sucht sozusagen eine Funktion, mit der ein Originalpunkt zu einem Bildpunkt transformiert wird: $Q(\mu_i)=p_i$.
 
-Der Algorithmus \textsc{Align} verwendet eine $"$Ausprobier$"$-Lösungsstrategie: \textsc{Align} vermutet zu Originalpunkten zugehörige Bildpunkte und gibt entweder \verb+false+ zurück, falls die Annahme falsch war, oder $Q$, falls sie richtig war.
+Der Algorithmus \textsc{Align} verwendet eine "`Ausprobier"'-Lösungsstrategie: \textsc{Align} vermutet zu Originalpunkten zugehörige Bildpunkte und gibt entweder \verb+false+ zurück, falls die Annahme falsch war, oder $Q$, falls sie richtig war.
 \begin{figure}[h]
 \centering
 \includegraphics[width=10cm]{chapters/computervision/grafik_15_align.jpg}
@@ -354,11 +354,11 @@ Wir haben je fünf charakterisierende Punkte unseres 3D- und 2D-Objektes.
 \begin{figure}[h]
 \centering
 \includegraphics[width=8cm]{chapters/computervision/grafik_11_set.jpg}
-\caption{\textsc{Align} ratet ein Set $S_\mu$ von drei Originalpunkten und ein Set $S_p$ von drei Bildpunkten.}
+\caption{\textsc{Align} rät ein Set $S_\mu$ von drei Originalpunkten und ein Set $S_p$ von drei Bildpunkten.}
 \label{fig:11}
 \end{figure}
 
-Jetzt möchten wir eine Transformation $Q$ berechnen. \textsc{Align} $"$ratet$"$ hierfür Paare $(\mu_i,p_j)$ mit $\mu_i\in S_\mu$, $p_j\in S_p$ und $i,j\in\{1,...,5\}$. In unserem Beispiel legt \textsc{Align} die Paare $(\mu_1,p_1), (\mu_2,p_2), (\mu_3,p_3)$ fest.
+Jetzt möchten wir eine Transformation $Q$ berechnen. \textsc{Align} "`rät"' hierfür Paare $(\mu_i,p_j)$ mit $\mu_i\in S_\mu$, $p_j\in S_p$ und $i,j\in\{1,...,5\}$. In unserem Beispiel legt \textsc{Align} die Paare $(\mu_1,p_1), (\mu_2,p_2), (\mu_3,p_3)$ fest.
 
 Wir können uns die Rechnung wie folgt vorstellen, die für jedes Paar angewandt wird:
 \begin{figure}[h]
@@ -368,14 +368,14 @@ Wir können uns die Rechnung wie folgt vorstellen, die für jedes Paar angewandt
 \label{fig:12}
 \end{figure}
 
-Die gefundene Transformation $Q$ wird nun auf die restlichen, \textit{nicht} im Set vorhandenen Paare - in unserem Beispiel bleiben die Kombinationen $(\mu_4,p_4), (\mu_5,p_5), (\mu_4,p_5), (\mu_5,p_4)$ - angewandt. Wenn für ein Paar, bei dem \textsc{Align} $Q$ auf $\mu$ anwendet, genau das Ergebnis $p$ rauskommt, dann haben wir die richtige Transformation $Q$ gefunden. Falls nicht, werden zwei neue, noch ungetestete Sets ausgewählt und es geht von vorne los.
+Die gefundene Transformation $Q$ wird nun auf die restlichen, \textit{nicht} im Set vorhandenen Paare -- in unserem Beispiel bleiben die Kombinationen $(\mu_4,p_4), (\mu_5,p_5), (\mu_4,p_5), (\mu_5,p_4)$ -- angewandt. Wenn für ein Paar, bei dem \textsc{Align} $Q$ auf $\mu$ anwendet, genau das Ergebnis $p$ rauskommt, dann haben wir die richtige Transformation $Q$ gefunden. Falls nicht, werden zwei neue, noch ungetestete Sets ausgewählt und es geht von vorne los.
 \item Laufzeit
 
 Im schlimmsten Fall liegt die Laufzeit in $O(m^4n^3log$ $n)$, denn $Q$ muss so oft berechnet werden, wie es Sets gibt, das ist $\binom{m}{3}\binom{n}{3}$ und die Überprüfung von $Q$ kostet nochmal $m$ $log$ $n$.
 
 Olson hat die Laufzeit auf $O(mn^3)$ wie folgt verbessert:
 \begin{itemize}
-\item $"$pose-clustering$"$: Er \textbf{gruppiert} nur sich ähnelnde - somit nah an der korrekten Transformation liegende - $Q$-Transformationen, was in $O(mn)$ liegt.
+\item "`pose-clustering"': Er \textbf{gruppiert} nur sich ähnelnde -- somit nah an der korrekten Transformation liegende -- $Q$-Transformationen, was in $O(mn)$ liegt.
 \item Wenn wir im Vorhinein zwei Paare $(\mu_1,p_1)$ und $(\mu_2,p_2)$ gegeben hätten, könnten wir das Set komplettieren, indem wir das dritte Paar aus den Schnittpunkten der verlängerten Linien ablesen (Abb. \ref{fig:16}).
 Olsen nutzt dieses Prinzip mit der \textbf{randomisierten} Auswahl zweier Paare, das kostet $O(n^2)$.
 \begin{figure}[h]
@@ -389,7 +389,7 @@ Olsen nutzt dieses Prinzip mit der \textbf{randomisierten} Auswahl zweier Paare,
 \subsubsection{Projektive Invarianz}
 
 Hier haben wir eine Bibliothek mit verschiedenen Objekten.
-Jedes Objekt hat einen \textbf{invarianten Wert} ($"$index function$"$) $I$, welcher mit Hilfe der geometrischen Invarianz als Repräsentation für alle Posen, die das Objekt annehmen kann, erstellt wird (Abb. \ref{fig:17}).
+Jedes Objekt hat einen \textbf{invarianten Wert} ("`index function"') $I$, welcher mit Hilfe der geometrischen Invarianz als Repräsentation für alle Posen, die das Objekt annehmen kann, erstellt wird (Abb. \ref{fig:17}).
 \begin{figure}[h]
 \centering
 \includegraphics[width=6cm]{chapters/computervision/grafik_17_invar.jpg}
@@ -400,9 +400,9 @@ Jedes Objekt hat einen \textbf{invarianten Wert} ($"$index function$"$) $I$, wel
 Ein Objekt wird als Modell mit seinen charakterisierenden Eigenschaften abgespeichert (diese sind u. a. Name, Kanten, Kegelquerschnitte
 \marginpar[Links]{\small{Notiz:\\Wir erinnern uns an \ref{Zylinder}: Objekte können in Zylinder zerlegt werden - Zylinderquerschnitte sind \textit{Kegelquerschnitte}}}
 , Wölbungen, $I$).
-Die Aufnahme von Modellen ist sehr einfach, sie kann zum Beispiel direkt von einem Bild - ohne spezielle Kenntnisse über die Kameraposition etc. - übernommen werden.
+Die Aufnahme von Modellen ist sehr einfach, sie kann zum Beispiel direkt von einem Bild -- ohne spezielle Kenntnisse über die Kameraposition etc. -- übernommen werden.
 
-Zusätzlich generiert jedes $I$ seine eigene Hypothese. Die $I$s sind idealerweise alle einzigartig - falls sehr viele Objekte in der Bibliothek sind, ist das manchmal nicht möglich, dann werden sie zu einer gemeinsame Hypothese für diese Objekte kombiniert.
+Zusätzlich generiert jedes $I$ seine eigene Hypothese. Die $I$s sind idealerweise alle einzigartig -- falls sehr viele Objekte in der Bibliothek sind, ist das manchmal nicht möglich, dann werden sie zu einer gemeinsamen Hypothese für diese Objekte kombiniert.
 
 Die Objekterkennung geschieht dann wie folgt:
 \begin{enumerate}
@@ -424,18 +424,18 @@ Anwendung findet diese Methode beispielsweise bei Satellitenaufnahmen.
 
 \section{Fazit \& Bewertung}
 
-Computervision ist die Königsdisziplin der Informationsverarbeitung. Was bei uns Menschen automatisch passiert ist für eine KI nur mit raffinierten Berechnungen annähernd möglich.
+Computervision ist die Königsdisziplin der Informationsverarbeitung. Was bei uns Menschen automatisch passiert, ist für eine KI nur mit raffinierten Berechnungen annähernd möglich.
 
-Bspw. ist die effektive Repräsentation von Objektarten - vorallem für gewölbte Objekte - grö"stenteils noch ungelöst. Es ist nicht nur aus wissenschaftlicher Sicht interessant sondern auch aus industrieller: würden wir mehr darüber wissen, könnten wir z. B. den Robotern besser beibringen, wie sie Objekte erkennen, greifen, bearbeiten, und so weiter.
+Bspw. ist die effektive Repräsentation von Objektarten -- vor allem für gewölbte Objekte -- grö"stenteils noch ungelöst. Es ist nicht nur aus wissenschaftlicher Sicht interessant, sondern auch aus industrieller: Würden wir mehr darüber wissen, könnten wir z. B. den Robotern besser beibringen, wie sie Objekte erkennen, greifen, bearbeiten, und so weiter.
 
-In den letzten Jahrzehnten hat sich zwar viel getan (z. B. ist jede Digitalkamera heutzutage standardmä"sig mit einer Gesichtserkennung ausgestattet, sind automatische Fahr- und Bremssysteme von Automobilherstellern bereits auf dem Markt, ...), dennoch ist der Mensch unverzichtbar: er wird dort gebraucht, wo die Maschine (noch) an ihre Grenzen stö"st.
+In den letzten Jahrzehnten hat sich zwar viel getan (z. B. ist jede Digitalkamera heutzutage standardmä"sig mit einer Gesichtserkennung ausgestattet, sind automatische Fahr- und Bremssysteme von Automobilherstellern bereits auf dem Markt, ...), dennoch ist der Mensch unverzichtbar: Er wird dort gebraucht, wo die Maschine (noch) an ihre Grenzen stö"st.
 
 \section{Weitere Anwendungsgebiete}
 Die Hauptanwendungsgebiete neben der \textbf{Objekterkennung} sind \textbf{Manipulation} der dreiminesionalen Welt und \textbf{Navigation} (Pfaderkennung, Ausweichmanöver, etc.). Diese und andere Einsatzgebiete neben den zur Veranschaulichung schon bereits besprochenen Nutzungsmöglichkeiten der Objekterkennung werden in den folgenden Abschnitten dargelegt.
 
 
 \subsection{Bilder und Schlagworte}
-Heutzutage bietet das Internet die Möglichkeit, anhand von Schlagwörtern nicht nur nach Text zu suchen, sondern auch Bilder zu finden. Das automatisierte Versehen von Bilder mit Schlagworten ist sehr wichtig: Wir haben eine Menge von Beispielbildern und möchten mit diesen einige Testbilder abgleichen (\textbf{Problem der Auto-Annotation}). Das beste Ergebnis erhält man mit der \textbf{Nächste-Nachbarn-Klassifikation}, die die Trainingsbilder raussucht, die dem Testbild durch bestimmte Merkmalsausprägungen am ähnlichsten sind. Die Schwierigkeit liegt in der Erkennung von Aktionsmustern. Man kann zwar schon durch Hintergrundsubtraktion und anschließeneder Betrachtung von HOG-Merkmalen basierend auf dem optischen Fluss die Verhaltensstrukturen annährend gut erkennen und so beispielsweise einen trinkenden Menschen im Bild ausfindig machen (Hand wird mit Objekt zum Mund geführt), allerdings ist diese Erkennung sehr eingeschränkt: Man könnte mit diesen Merkmalsausprägungen keine trinkende Katze in einem Bild erkennen.
+Heutzutage bietet das Internet die Möglichkeit, anhand von Schlagwörtern nicht nur nach Text zu suchen, sondern auch Bilder zu finden. Das automatisierte Versehen von Bilder mit Schlagworten ist sehr wichtig: Wir haben eine Menge von Beispielbildern und möchten mit diesen einige Testbilder abgleichen (\textbf{Problem der Auto-Annotation}). Das beste Ergebnis erhält man mit der \textbf{Nächste-Nachbarn-Klassifikation}, die die Trainingsbilder raussucht, die dem Testbild durch bestimmte Merkmalsausprägungen am ähnlichsten sind. Die Schwierigkeit liegt in der Erkennung von Aktionsmustern. Man kann zwar schon durch Hintergrundsubtraktion und anschließender Betrachtung von HOG-Merkmalen basierend auf dem optischen Fluss die Verhaltensstrukturen annähernd gut erkennen und so beispielsweise einen trinkenden Menschen im Bild ausfindig machen (Hand wird mit Objekt zum Mund geführt), allerdings ist diese Erkennung sehr eingeschränkt: Man könnte mit diesen Merkmalsausprägungen keine trinkende Katze in einem Bild erkennen.
 
 
 \subsection{Rekonstruktion}
@@ -450,7 +450,7 @@ Diese Technologie der Rekonstruktion ist heutzutage so hochentwickelt, dass sie 
 
 
 \subsection{Bewegungssteuerung}
-Wie wichtig die Manipulation von Objekten und die Navigation beispielweise beim Ausweichen von Hindernissen ist, wird nicht nur in der Tierwelt deutlich. Wollen wir ein Visionssystem für ein \textbf{selbstfahrendes Fahrzeug} implementieren, so hat dies für folgende Aufgaben geeignete Aktionen zu finden:
+Wie wichtig die Manipulation von Objekten und die Navigation beispielsweise beim Ausweichen von Hindernissen ist, wird nicht nur in der Tierwelt deutlich. Wollen wir ein Visionssystem für ein \textbf{selbstfahrendes Fahrzeug} implementieren, so hat dies für folgende Aufgaben geeignete Aktionen zu finden:
 \begin{itemize}
   \item \textbf{Seitensteuerung}: innerhalb der Spur bleiben oder Spurwechsel ausführen.
   \item \textbf{Längssteuerung}: bremsen, beschleunigen, Abstand halten.
