@@ -6,8 +6,8 @@
 \section{Intro \& Motivation}
 Obwohl keine allgemein anerkannte Definition von Intelligenz in Menschen (oder
 Tieren) existiert, ist durchaus Konsens über wichtige Merkmale intelligenten
-Verhaltens gegeben. So gut wie allen Defitionsversuchen ist gemein, dass Intelligenz
-mit der Fähigkeit einhergeht, sich in einer sich ändernden Umwelt zurecht zu finden
+Verhaltens gegeben. So gut wie allen Definitionsversuchen ist gemein, dass Intelligenz
+mit der Fähigkeit einhergeht, sich in einer sich ändernden Umwelt zurechtzufinden
 und der Fähigkeit schnell zu lernen. Im Allgemeinen findet Lernen und die Adaptation
 an Umweltgegebenheiten zum Erreichen bestimmter Ziele statt. Legg und Hutter
 $($2007$)$ schlussfolgern in ihrer Sammlung verschiedener Definitionsversuche:
@@ -19,9 +19,9 @@ $($2007$)$ schlussfolgern in ihrer Sammlung verschiedener Definitionsversuche:
   in a wide range of environments.''
 \end{quote}
 
-Da bestimmte physikalische Prozesse immer chaotisch, das heißt nicht deterministisch
-ablaufen, können nicht alle Veränderungen von Umweltbedingungen vorausgessagt
-werden. Ein intelligentes System demnach notwendigerweise mit Unsicherheit umgehen
+Da bestimmte physikalische Prozesse immer chaotisch, das heißt nicht deterministisch,
+ablaufen, können nicht alle Veränderungen von Umweltbedingungen vorausgesagt
+werden. Ein intelligentes System muss demnach notwendigerweise mit Unsicherheit umgehen
 können, um sinnvoll zu handeln $($Lawrence, 2016$)$. Es ist nicht möglich einem
 intelligenten System die Voraussetzungen für alle möglichen zukünftigen Entwicklungen
 mit auf den Weg zu geben. Wenn es nicht lernen kann, ist es kein intelligentes
@@ -30,7 +30,7 @@ für intelligentes Verhalten. Die Voraussetzung für eine solche Anpassung ist e
 sehr allgemeine Fähigkeit aus Erfahrung und Beobachtung zu lernen -- Lernen ist der
 Mechanismus, der eine individuelle Adaptation ermöglicht. Eine weitere Voraussetzung
 für intelligentes Lernen ist das Vorhandensein eines oder mehrerer Ziele, die
-bestimmen aus welchen Informationen überhaupt gelernt werden soll.
+bestimme,n aus welchen Informationen überhaupt gelernt werden soll.
 
 Ein intelligentes, anpassungsfähiges System muss also einen Lernmechanismus besitzen,
 mit dem das System sich selber verbessern, zeitüberdauernd Ziele verfolgen und den
@@ -46,14 +46,14 @@ Auftreten von Unfällen zusammenhängen, um für die Zukunft Vorhersagen zu erst
 und gegebenenfalls Interventionsmaßnahmen einzuleiten.
 
 \section{Arten des maschinellen Lernens}
-Es gibt verschiedenen Klassifikatoren die dazu genutzt werden um Proben in einem mehrdimensionalen Raum Klassen zuzuordnen.
+Es gibt verschiedenen Klassifikatoren, die dazu genutzt werden um Proben in einem mehrdimensionalen Raum Klassen zuzuordnen.
 Dabei kann man Klassifikatoren in drei Arten unterscheiden.
 \begin{enumerate}
 \item Unüberwachtes Verfahren: Klassen müssen vom Klassifikator erkannt werden.
 \item Überwachtes Vefahren: Klassen werden vorher in einer Trainingsphase erlernt.
 \item Bestärkendes Verfahren: Klasseneinteilung ist nicht fest und wird durch hinzufügen von Informationen korrigiert.
 \end{enumerate}
-Dabei gehört die Support Vector Machine zu Art zwei. Zuerst wird eine Trainingsphase durchlaufen anhand der Klassi kator lernt die Klassen zu unterscheiden. Nach der Trainingsphase können neue Daten mit Hilfe eines erstellten Modells zu einer der beiden Klassen zugewiesen werden.
+Dabei gehört die Support Vector Machine zu Art zwei. Zuerst wird eine Trainingsphase durchlaufen anhand der Klassifikator lernt, die Klassen zu unterscheiden. Nach der Trainingsphase können neue Daten mit Hilfe eines erstellten Modells zu einer der beiden Klassen zugewiesen werden.
 
 Die folgende Ausarbeitung beschäftigt sich mit den Grundlagen statistischen Lernens,
 welches maschinellen Systemen das Lernen aus Beobachtung ermöglicht. Hierbei gehe ich
@@ -71,7 +71,7 @@ zentrales Nervensystem transferieren. Dort werden Informationen aus verschiedene
 Sinnesmodalitäten integriert und Handlungen geplant; vereinfacht gesagt liegen
 Informationen in Form von Nervenimpulsen vor. Ein Computersystem muss Informationen
 über die Umwelt in einem quantifizierten, numerischen Datenformat erhalten. Auch
-Daten, die disktinkte, qualitative Merkmale repräsentieren -- beispielsweise die
+Daten, die distinkte, qualitative Merkmale repräsentieren -- beispielsweise die
 Marke eines Autos -- werden dem Computersystem in numerischer Form übergeben.
 
 Beim sogenannten überwachten Lernen (\emph{supervised learning}) werden Daten
@@ -82,18 +82,18 @@ allgemein im folgenden Format dargestellt: Betrachtet werden \emph{n} Datenpaare
     (x_{1}, y_{1}), (x_{2},y_{2}), \ldots, (x_{n}, y_{n}).
 \end{equation*}
 
-Hierbei bezeichnen $x_{i}$, die \emph{Input} Variablen, $y_{i}$
-die \emph{Output} Variablen. $X_{i}$ ist dabei entweder ein einzelner Wert
+Hierbei bezeichnen $x_{i}$, die \emph{Input}-Variablen, $y_{i}$
+die \emph{Output}-Variablen. $X_{i}$ ist dabei entweder ein einzelner Wert
 oder ein Vektor beliebig vieler Werte. Eine Input-Variable könnte beispielsweise die
 Geschwindigkeit eines Autos, die Automarke oder das Temperament und Geschlecht des
 Autofahrers darstellen. Ziel des überwachten Lernens ist mithilfe der vorhandenen
-Input Variablen $($auch genannt: Features, Prädiktoren, unabhängige Variablen$)$
+Input-Variablen (auch genannt: Features, Prädiktoren, unabhängige Variablen)
 zuverlässige Informationen über den Output (auch genannt: abhängige Variablen,
 Labels) zu erlangen.
 
-Die Output Werte y könnten beispielsweise repräsentieren, ob ein
+Die Output-Werte y könnten beispielsweise repräsentieren, ob ein
 Auto am Tag der Datenaufzeichnung einen Unfall hatte. Dies stellt ein qualitatives
-Label dar: die Variable nimmt zwei distinkten Zustände an, entweder \emph{Unfall --
+Label dar: die Variable nimmt zwei distinkte Zustände an, entweder \emph{Unfall --
   Ja} oder \emph{Unfall -- Nein} (im Computer dargestellt als 1 / 0). Probleme, in
 denen solch ein qualitativer Output vorhergesagt werden soll, werden
 \textbf{Klassifikationsprobleme} genannt; existieren genau zwei qualitative
@@ -147,7 +147,7 @@ werden, etwa mittels \emph{Clustering}. Beispielsweise könnte sich herausstelle
 dass männliche Fahrer in Sportwagen generell jähzorniger sind als weibliche
 Fahrerinnen in Kleinwagen -- ohne, dass man dies zuvor explizit erwartet hätte.
 
-Im semi-überwachten Lernen existieren zu manchen Datenpunkte (x\textsubscript{i},
+Im semi-überwachten Lernen existieren zu manchen Datenpunkten (x\textsubscript{i},
 y\textsubscript{i}) Outputwerte y, aber für manche nicht. Dies wäre beispielsweise
 der Fall, wenn die Datensammlung nicht lange genug gegangen ist, um für alle
 beobachteten Autos die Fahrdistanz bis zum nächsten Unfall zu beobachten.
@@ -172,7 +172,7 @@ Phänomenen sollen allgemeine Regeln abgeleitet werden, durch die die Beobachtun
 erklärt werden können. Da die wahre Funktion \emph{f} im Allgemeinen unbekannt ist
 und nicht bestimmt werden kann, ist man in der Praxis häufig daran interessiert eine
 solche Funktion \emph{h} zu bestimmen, die y möglichst fehlerfrei vorhersagt. Zu
-diesem Zweck werden die untersuchten Funktionenen an einem Trainingsdatensatz
+diesem Zweck werden die untersuchten Funktionen an einem Trainingsdatensatz
 trainiert und die Vorhersagegüte wird dann an einem unabhängigen Testdatensatz
 überprüft. Ziel ist es, den Testdatensatz anhand der Passung, die am
 Trainingsdatensatz erstellt wurde, möglichst gut vorherzusagen.  Ob die Funktion
@@ -213,7 +213,7 @@ Gütekriterium für die Passung einer Funktion. Angenommen, \emph{h} bestimmt f�
 Fahrer eine unfallfreie Fahrt von 1,237.47 Kilometer, das Auto hat den nächsten
 Unfall aber nach 1,237.48 km -- die Vorhersage liegt sehr nah am tatsächlichen Wert,
 ist aber nicht korrekt. Ist diese Abweichung als problematisch zu betrachten?  Wäre
-eine Vorhersage von 20,000 km ``gleich falsch''? Es macht Sinn in diesem Fall den
+eine Vorhersage von 20,000 km "`gleich falsch"'? Es macht Sinn in diesem Fall den
 Schweregrad der Abweichung der Vorhersage zu berücksichtigen. Bei kontinuierlichem
 Output wird deswegen der Vorhersagefehler durch die Abweichungen der vorhergesagten
 von den tatsächlichen y-Werten bestimmt. Dabei wird häufig die mittlere quadratische
@@ -229,7 +229,7 @@ Hierbei sind y\textsubscript{i} die beobachteten Output-Werte und
 \emph{h}(x\textsubscript{i}) die vorhergesagten Werte auf Basis der zugehörigen
 Input-Werte.
 
-Die Funktion \emph{h} sollte sollte so gewählt werden, dass die Vorhersagefehler
+Die Funktion \emph{h} sollte so gewählt werden, dass die Vorhersagefehler
 gering gehalten werden. Tatsächlich wird aber bei der Wahl von \emph{h} nicht nur die
 Fehlerrate minimiert, sondern die \textbf{Kosten} verschiedener Fehlentscheidungen
 können ebenfalls berücksichtigt werden. Nicht alle Fehleinschätzungen sind gleich
@@ -279,7 +279,7 @@ gegeben durch
 
 Für Menschen sind lineare Zusammenhänge gut zu verstehen und mathematisch sowie von
 der Rechenintesität einfach durchzuführen. Lineare Zusammenhänge können in der Weise
-``Wenn Variable \emph{x} steigt, steigt / sinkt Variable \emph{y}'' interpretiert
+"`Wenn Variable \emph{x} steigt, steigt/sinkt Variable \emph{y}"' interpretiert
 werden. Komplexere, nicht-lineare Verfahren wie Support-Vektor-Maschinen und
 Neuronale Netze schneiden in ihrer Vorhersagegüte häufig besser ab als einfache
 lineare Regression, sind aber rechenintensiver und für Menschen weniger leicht
@@ -300,13 +300,13 @@ möglichen Zusammenhang der beiden Variablen dar.
   \includegraphics[width=1\textwidth]{chapters/svm/plot_lds.png}
 \end{figure}
 
-Es zeigt sich, dass schnelle Autofahrer tendentiell bereits nach einer kürzeren
+Es zeigt sich, dass schnelle Autofahrer tendenziell bereits nach einer kürzeren
 Strecke einen Unfall haben. Die rote Gerade zeigt hierbei die vorhergesagten
-Distanzwerte an, die allein durch Kenntniss der Variable Geschwindigkeit zu erwarten
+Distanzwerte an, die allein durch Kenntnis der Variable Geschwindigkeit zu erwarten
 sind. Die Gerade wird beschrieben durch die Gleichung:
 
 \begin{equation*}
-y = 24,516.56 - 83.65 * Geschwindigkeit
+y = 24,516.56 - 83.65 \cdot Geschwindigkeit
 \end{equation*}
 
 Das lineare Modell sagt somit pro 1 km/h schnelleres Fahren etwa 84 weniger
@@ -315,10 +315,10 @@ allein das Wissen über die Geschwindigkeit keine allzu präzise Aussage über d
 unfallfreie Strecke ermöglicht -- im Mittel liegt im vorliegenden Fall die absolute
 Abweichung zwischen vorhergesagten und tatsächlichen Werten bei 1401 km. Ein
 intelligentes System sollte bessere Prognosen erstellen, wenn seine Aufgabe die
-Überwachung der Verkehrsicherheit ist! Um die Vorhersagegüte zu erhöhen, bieten sich
+Überwachung der Verkehrssicherheit ist! Um die Vorhersagegüte zu erhöhen, bieten sich
 zwei Möglichkeiten an: Erstens können wir mehr aussagekräftige Prädiktoren in unser
 Regressionsmodell aufnehmen. In diesem Fall würden wir das Modell zu einem
-\textbf{multivariaten Regressionsmodell} erweitern.x Zweitens könnten wir die
+\textbf{multivariaten Regressionsmodell} erweitern. Zweitens könnten wir die
 Komplexität der Modellgleichung erweitern, um auch nicht-lineare Schwankungen in den
 Daten zu beschreiben.
 
@@ -326,7 +326,7 @@ Daten zu beschreiben.
 
 Lineare Regressionsverfahren können erweitert werden, um auch nicht-lineare
 Zusammenhänge zu beschreiben. Somit ergibt sich eine höhere Flexibilität,
-Schwankungen in Daten abzubilden. Um nicht-lineare Zusammenänge mithilfe der
+Schwankungen in Daten abzubilden. Um nicht-lineare Zusammenhänge mithilfe der
 \emph{linearen} Regression zu beschreiben, wird die Modellgleichung als Polynom
 höherer Ordnung aufgestellt. Dabei bleibt die Gleichung linear in den Koeffizienten,
 jedoch die Prädiktorvariablen gehen mit bis zu d-wertigen Polynomgrad in das
@@ -345,9 +345,9 @@ diesem Fall für die Datenmatrix gilt X = $[1, x, x^2, ..., x^d]$, mit $\beta =
 \beta = (X^TX)^{-1}X^Ty
 \end{equation*}
 
-Angenommen unser System möchte seine Verhersagegenauigkeit verbessern und betrachtet
+Angenommen unser System möchte seine Vorhersagegenauigkeit verbessern und betrachtet
 weitere Variablen, die mit dem Auftreten von Verkehrsunfällen auftreten können. Es
-stellt fest, dass das die Häufigkeit von Auffällen mit der Tageszeit zusammenhängt
+stellt fest, dass die Häufigkeit von Unfällen mit der Tageszeit zusammenhängt
 (siehe Grafik 2.2).
 
 
@@ -362,7 +362,7 @@ stellt fest, dass das die Häufigkeit von Auffällen mit der Tageszeit zusammenh
 Ein einfaches lineares Regressionsmodell ergibt einen geringen positiven Zusammenhang
 zwischen Tageszeit und Zahl der Unfälle. Das Modell sagt somit die größte
 Unfallwahrscheinlichkeit für 23:59 Uhr vorher und die geringste für 00:00 Uhr, was
-eine sehr unplausibele Vorhersage ist. Eine visuelle Inspektion der Daten ergibt
+eine sehr unplausible Vorhersage ist. Eine visuelle Inspektion der Daten ergibt
 schnell, dass dieser einfache lineare Zusammenhang die Daten nicht adäquat
 beschreibt. Eine Systematik in den Daten geht augenscheinlich darauf zurück, dass
 sich nachts weniger Unfälle ereignen als tagsüber. Außerdem scheinen sich tagsüber
@@ -384,12 +384,12 @@ Ist also anzunehmen, dass komplexere Modelle besser sind, da sie Daten genauer
 beschreiben können und bessere Vorhersagen treffen? Sollte man in einer polynomialen
 Regression immer anstreben den höchst-möglichen Polynomgrad zu modellieren, um die
 Daten möglichst präzise abzubilden? Es gibt mehrere Gründe, die dagegen sprechen:
-erstens ist nicht zu erwarten, dass jegliche Erweiterung in der Komplexität auch
+Erstens ist nicht zu erwarten, dass jegliche Erweiterung in der Komplexität auch
 wirklich zu einer merklich verbesserten Vorhersageleistung führt. In dem Fall besagt
-das philosophische Prinzip \emph{Ockhams Razor}, dass wenn verschiedene Hypothesen
+das philosophische Prinzip \emph{Ockhams Razor}, dass, wenn verschiedene Hypothesen
 Daten gleich gut beschreiben, diejenige gewählt werden sollte mit, welche die
 wenigsten Annahmen macht.  Ockhams Razor ist ein allgemeines Prinzip, welches nicht
-nur in Regressionsproblemen Anwendung findet. In Grafik 2.3 ist zu erkennnen, dass
+nur in Regressionsproblemen Anwendung findet. In Grafik 2.3 ist zu erkennen, dass
 ein Polynom 2. Grades die Daten schon wesentlich besser abbildet als der einfach
 lineare Zusammenhang. Das Polynom 10. Grad ist wiederum ebenfalls eine Verbesserung,
 da es Schwankungen, die auf den Berufsverkehr zurückgehen, abbildet. Es ist jedoch
@@ -397,13 +397,13 @@ fraglich, ob die Erhöhung der Komplexität von 10 auf 20 Polynomgrade wirklich
 notwendig ist, um die Daten adäquat abzubilden. Nach Ockhams Razor wäre in dem Fall
 das weniger komplexe Modell zu bevorzugen.
 
-Desweiteren besteht bei der Annahme eines zu komplexen Modells die Gefahr des
+Des Weiteren besteht bei der Annahme eines zu komplexen Modells die Gefahr des
 sogenannten \textbf{Overfittings}. Dieses bezeichnet den Umstand, wenn ein Modell
 zwar vorgegebene Daten sehr gut beschreibt, aber nicht auf neue Testdaten
 generalisiert, d.h. für solche Daten schlechte Vorhersagen macht, die nicht verwendet
 wurden, um das Modell zu trainieren. Es ist wichtig, dass ein Modell auch für neue
 Datenpunkte Aussagen treffen kann. Für unser Fahrsicherheitssystem wäre es fatal,
-wenn es zwar alte Unfalldaten gut rekonstruieren kann, aber nicht zukünfige
+wenn es zwar alte Unfalldaten gut rekonstruieren kann, aber nicht zukünftige
 Unfallgefahren voraussagen kann -- in dem Fall wäre es sogar vollends unnötig dieses
 System überhaupt zu unterhalten.
 
@@ -417,11 +417,10 @@ dem Testset zugeteilt werden; eine Aufteilung von 80\% zu 20\% ist zum Beispiel
 entscheidend für die Beurteilung eines Modells ist aber seine Fähigkeit die Testdaten
 abzubilden. Dies ist ein allgemeines Prinzip, welches nicht nur bei linearer
 Regression Anwendung findet. Im Falle einer Regression werden die Koeffizienten so
-gewählt, dass sie den Trainingsdatensatz mit maximal präzise beschreiben. Durch
+gewählt, dass sie den Trainingsdatensatz maximal präzise beschreiben. Durch
 Annahme höherer Polynomgrade wird die Passung an den Trainingsdatensatz verbessert,
 im Testdatensatz verschlechtert sich die Passung jedoch ab einem bestimmten
-Komplexitätsgrad: ab hier geschieht Overfitting. Grafik 2.4 zeigt für den Uhrzeit --
-Unfallhäufigkeit Datensatz die Modellpassung verschiedener Polynomgrade anhand einer
+Komplexitätsgrad: ab hier geschieht Overfitting. Grafik 2.4 zeigt für den Uhrzeit--Unfallhäufigkeit Datensatz die Modellpassung verschiedener Polynomgrade anhand einer
 Kreuzvalidierung. Es zeigt sich, dass Trainingsdaten mit steigendem Polynomgrad
 besser vorhergesagt werden. Im Testdatensatz ist bei sehr hoher Komplexität jedoch
 wieder eine Verschlechterung der Passung zu sehen. Beachtlich ist hierbei (sowohl für
@@ -437,17 +436,17 @@ Polynomgrad von 1 auf 2 erhöht wird.
 
 \subsection{Klassifikation}
 
-Sehr häufig müssen in der Praxis qualitative Outcome Variablen vorhergesagt
+Sehr häufig müssen in der Praxis qualitative Outcome-Variablen vorhergesagt
 werden. Unser Fahrsicherheitssystem könnte beispielsweise der sehr relevanten Frage
 nachgehen, unter welchen Umständen Verkehrsunfälle tödlich ausgehen. Beispielsweise
-könnte es betrachten, ob durch Kenntniss des Gewichts und der Geschwindigkeit eines
+könnte es betrachten, ob durch Kenntnis des Gewichts und der Geschwindigkeit eines
 Autos vorausgesagt werden kann, ob ein Unfall tödlich ausgeht. Grafik 2.5 zeigt für
 100 verschiedene in Unfälle involvierte Autos das Gewicht und die Geschwindigkeit,
 und ob der Unfall tödlich verlaufen ist. Es zeigt sich, dass eine höhere
-Geschwindigkeit tendentiell mit tödlichem Ausgang einhergeht. Zu einem geringeren
-Maße hängt auch das Gewicht mit der Tödlichkeit des Ausgang zusammen. Ziel einer
+Geschwindigkeit tendenziell mit tödlichem Ausgang einhergeht. Zu einem geringeren
+Maße hängt auch das Gewicht mit der Tödlichkeit des Ausgangs zusammen. Ziel einer
 Klassifikation ist eine Funktion zu finden, die auf Basis der Input-Werte das Label
-schätzen kann. Hierbei wird eine Entscheidungsgrenze (``decision boundary'')
+schätzen kann. Hierbei wird eine Entscheidungsgrenze ("`decision boundary"')
 angewendet; wenn der vorhergesagte Funktionswert über dieser Grenze liegt, wird eine
 Klasse vorhergesagt, andernfalls wird die andere Klasse vorhergesagt. Wenn es möglich
 ist die Klassen durch eine lineare Gleichung eindeutig voneinander zu trennen -- wie
@@ -460,7 +459,7 @@ und neuronale Netze sogar nicht-lineare Entscheidungsgrenzen abbilden.
 \begin{figure}[!ht]
   \caption{Die Klassifikation eines Autounfalls als tödlich oder nicht tödlich in
     Abhängigkeit des Gewichts und der Geschwindigkeit des Autos. Die blaue Gerade ist
-    eine sogenannte Entscheidungsgrenze (``decision boundary'').} \centering
+    eine sogenannte Entscheidungsgrenze ("`decision boundary"').} \centering
   \includegraphics[width=1\textwidth]{chapters/svm/death_data.png}
 \end{figure}
 

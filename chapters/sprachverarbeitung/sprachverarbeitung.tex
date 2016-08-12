@@ -69,7 +69,7 @@ Diese sind ein einfacher Spezialfall von Bayesschen Netzen und werden verwendet,
 Ein Zustand ist eine Menge X von unbekannten Zustandsvariablen zu einem Zeitpunkt t (kurz: Xt).
 
 Uns liegen Kenntnisse (eigentlich Annahmen, s.u.) über frühere Zuständen zu jedem Zeitpunkt t–k (0 < k <= t) vor, aus denen wir die Wahrscheinlichkeit für das Eintreten von Xt in einem Übergangsmodell erhalten.
-Prinzipiell könnten wir alle Zustände von X0 bis Xt-1 (kurz: X0:t‑1) auswerten.
+Prinzipiell könnten wir alle Zustände von X0 bis Xt-1 (kurz: X0:t-1) auswerten.
 Dies entspricht dem Übergangsmodell P( Xt | X0:t-1 ).
 Da t aber unbegrenzt sein kann, wäre es notwendig, nur eine endliche Menge an vorherigen Zuständen zu betrachten.
 In Bezug auf die Komplexität und den Aufwand des Modells wäre es zudem von Nutzen, die Anzahl der für die Vorhersage von Xt benötigten vorausgegangenen Zustände möglichst klein zu halten, also nur P( Xt | Xt-n:t-1 ) mit kleinem n auszuwerten.
