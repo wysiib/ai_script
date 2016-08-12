@@ -9,11 +9,11 @@
 \chapter{Neuronale Netze}
 \section{Intro \& Motivation}
 
-Heutzutage sind die Rechner so schnell und die Algorithmen so effizient, dass unsere Computer in der Lage sind, die kompliziertesten Berechnungen innerhalb von ein Paar Millisekunden durchzuführen. Und jedoch scheitern sie, wenn es um so triviale Aufgaben wie zum Beispiel die Gesichts- oder Stimmerkennung  geht. Für einen Menschen ist es aber gar kein Problem die Gesichter, sogar unter erschwerten Bedingungen (zu dunkel, zu nebelig, u.s.w.), zu erkennen.
+Heutzutage sind die Rechner so schnell und die Algorithmen so effizient, dass unsere Computer in der Lage sind, die kompliziertesten Berechnungen innerhalb von ein paar Millisekunden durchzuführen. Und jedoch scheitern sie, wenn es um so triviale Aufgaben wie zum Beispiel die Gesichts- oder Stimmerkennung  geht. Für einen Menschen ist es aber gar kein Problem die Gesichter, sogar unter erschwerten Bedingungen (zu dunkel, zu nebelig, usw.), zu erkennen.
 
-Woran kann das liegen? Warum ist es für einen Computer so einfach komplexe Mehrteilchensysteme zu berechnen und wiederum so schwer, auf einem unscharfen Bild ein Paar Gesichter zu erkennen, obwohl diese Aufgabe sogar für ein kleines Kind keine Herausforderung ist?
+Woran kann das liegen? Warum ist es für einen Computer so einfach komplexe Mehrteilchensysteme zu berechnen und wiederum so schwer, auf einem unscharfen Bild ein paar Gesichter zu erkennen, obwohl diese Aufgabe sogar für ein kleines Kind keine Herausforderung ist?
 
-Die Antwort auf diese Fragen ist ganz einfach: solche Aufgaben (sowie viele andere) hängen von einer Menge Faktoren ab, wie zum Beispiel die Bild- oder Aufnahmequalität, und es ist leider unmöglich einen Algorithmus zu entwickeln, der alle Details berücksichtigt.Zusätzlich ist das menschliche Gehirn im Vergleich zu den Rechnern
+Die Antwort auf diese Fragen ist ganz einfach: Solche Aufgaben (sowie viele andere) hängen von einer Menge Faktoren ab, wie zum Beispiel die Bild- oder Aufnahmequalität, und es ist leider unmöglich einen Algorithmus zu entwickeln, der alle Details berücksichtigt. Zusätzlich ist das menschliche Gehirn im Vergleich zu den Rechnern
 nicht nur in der Lage die Informationen zu empfangen und sie zu speichern, wie das die Rechner tun, sondern auch diese Daten gleichzeitig zu verarbeiten, zu analysieren und aus dieser Analyse zu lernen. Deswegen, bevor man versucht dieses Problem zu lösen, muss man sich zuerst fragen, wie es unserem Gehirn gelingt, solche Aufgaben zu bewältigen.
 
 Dabei sollte man auch erwähnen, dass unser Gehirn fast sein komplettes Potenzial ausnutzt, indem es ständig und parallel arbeitet. Es ist bekannt, dass es fast unmöglich ist, die echte Parallelität zwischen den Prozessen in einem Computer zu erreichen. Und das ist noch ein Grund, zu fragen, nach welchen Prinzipien unser Gehirn funktioniert und wie es die Informationen verarbeitet.
@@ -32,7 +32,7 @@ Weitere neuropsychologische Arbeiten erschufen den Weg für spätere erfolgreich
 
 \subsection{Problemstellung}
 
-Neuronale Netze basieren auf der Ähnlichkeit zu den menschlichen Neuronennetzen. Damit ein Verständnis über den Aufbau und die Funktion der neuronalen Netze erreicht werden kann, muss die funktionsweise der echten Neuronen verstanden sein.
+Neuronale Netze basieren auf der Ähnlichkeit zu den menschlichen Neuronennetzen. Damit ein Verständnis über den Aufbau und die Funktion der neuronalen Netze erreicht werden kann, muss die Funktionsweise der echten Neuronen verstanden sein.
 
 \subsubsection{Biologische Grundlagen}
 
@@ -46,7 +46,7 @@ Unser Gehirn besteht größtenteils aus Nervenzellen, die auch Neuronen genannt 
 	\label{img:neuron}
 
 \end{figure}
-Dendriten sind baumartige Eingänge der Nervenzelle und dienen der Aufnahme elektrischer Reize von anderen Nervenzellen und ihrer Übertragung in den Zellkern. Aufgrund ihrer Form werden mehrere Dendriten auch als Dendritenbaum bezeichnet. Die Länge der Dendriten beeinflusst die Stärke des ausgelösten Signals: je kürze ist ein Dendrit, desto stärke ist das Signal. Diese Signale werden an den Zellkörper geleitet, wo sie sich aufsummieren.
+Dendriten sind baumartige Eingänge der Nervenzelle und dienen der Aufnahme elektrischer Reize von anderen Nervenzellen und ihrer Übertragung in den Zellkern. Aufgrund ihrer Form werden mehrere Dendriten auch als Dendritenbaum bezeichnet. Die Länge der Dendriten beeinflusst die Stärke des ausgelösten Signals: je kürze ist ein Dendrit, desto stärker ist das Signal. Diese Signale werden an den Zellkörper geleitet, wo sie sich aufsummieren.
 
 Das Axon einer Nervenzelle kann man als „Ausgang“ des Neurons bezeichnen, weil es elektrische Signale weiterleitet, die durch Ladungsunterschiede (elektrischen Potential) zwischen der Umgebung und Zellinnerem entstehen. Wenn das aufsummierte Erregungspotenzial eine bestimmte Schwelle übersteigt, wird ein Aktionspotential fester Stärke ausgelöst, dass über das Axon und den Dendriten weitergeleitet wird.
 
@@ -84,11 +84,11 @@ Jedes künstliche neuronale Netz hat drei Grundelemente: Neuronen, die Verbindun
 	\label{img:scheme}
 
 \end{figure}
-Die Funktion der Dendriten erfüllen die Eingaben x$_i$, wobei i = 1, …, n. Beim modellieren eines KNN sollte man nicht vergessen, dass die Länge eines Neurons eine große Rolle bei der Bestimmung der Signalstärke spielt. Dies wird durch die Gewichtungen w$_i$$_j$ dargestellt. Die Gewichtung wird mit dem Eingabewert multiplikativ verknüpft. Es gibt verschiedene Vorgehenstechniken bei der Belegung der Gewichtungen, aber häufig werden dafür zufällige Werte in einem bestimmten Wertebereich ausgesucht. Je nachdem, ob die Gewichtung einen positiven oder einen negativen Wert hat, wirkt der Transmitter entweder verstärkend oder hemmend genau so wie bei den Menschen. Falls die Gewichtung gleich 0 ist, hat ein Neuron auf ein anderes Neuron keinen Einfluss.
+Die Funktion der Dendriten erfüllen die Eingaben x$_i$, wobei i = 1, …, n. Beim Modellieren eines KNN sollte man nicht vergessen, dass die Länge eines Neurons eine große Rolle bei der Bestimmung der Signalstärke spielt. Dies wird durch die Gewichtungen w$_i$$_j$ dargestellt. Die Gewichtung wird mit dem Eingabewert multiplikativ verknüpft. Es gibt verschiedene Vorgehenstechniken bei der Belegung der Gewichtungen, aber häufig werden dafür zufällige Werte in einem bestimmten Wertebereich ausgesucht. Je nachdem, ob die Gewichtung einen positiven oder einen negativen Wert hat, wirkt der Transmitter entweder verstärkend oder hemmend genau so wie bei den Menschen. Falls die Gewichtung gleich 0 ist, hat ein Neuron auf ein anderes Neuron keinen Einfluss.
 
 Die Übertragungsfunktion könnte man sich als Erregungspotenzial vorstellen. In dieser Funktion, genauso wie die Signale im Zellkern, werden die Eingaben entsprechend ihrer Gewichtungen aufsummiert und zu einem Wert umgerechnet, damit man danach eine reellwertige Funktion darauf anwenden kann.
 Der Schwellenwert $\theta$$_j$ dient als Schwellenpotenzial. Das Addieren eines Schwellwerts zur Netzeingabe verschiebt die gewichteten Eingaben.
-Die Aktivierungsfunktion $\phi$ berechnet aus dem aktuellen Aktivierungszustand und der Netzeingabe den neuen Aktivierungswert. Dieser Wert wird dann weitergeleitet. Die Aktivierungsfunktion kann wie die echten Neuronen dem Alles-oder-gar-nichts- Prinzip folgen. Dabei wird bei der Überschreitung des Schwellenpotenzials wie bei menschlichen Neuronen ein festes Aktionspotential generiert. So eine Aktivierungsfunktion heißt auch Sprungfunktion (siehe Abb. 3.2).
+Die Aktivierungsfunktion $\phi$ berechnet aus dem aktuellen Aktivierungszustand und der Netzeingabe den neuen Aktivierungswert. Dieser Wert wird dann weitergeleitet. Die Aktivierungsfunktion kann wie die echten Neuronen dem Alles-oder-gar-nichts-Prinzip folgen. Dabei wird bei der Überschreitung des Schwellenpotenzials wie bei menschlichen Neuronen ein festes Aktionspotential generiert. So eine Aktivierungsfunktion heißt auch Sprungfunktion (siehe Abb. 3.2).
 \begin{figure}[h]
 \centering
 \includegraphics[width=5cm]{chapters/neural_networks/sprung.jpg}
@@ -151,7 +151,7 @@ a) Einschichtige Netze: solche Netze besitzen nur eine Ausgabeschicht und sind d
 \end{figure}
 
 
-b) Mehrschichtige Netze: solche KNN verfügen neben der Ausgabeschicht auch über eine oder mehrere versteckte Schichten, die sich zwischen den Ein- und Ausgabeschichten befinden. Sie sind deshalb von Außen nicht sichtbar (siehe Abb. 3.6).
+b) Mehrschichtige Netze: solche KNN verfügen neben der Ausgabeschicht auch über eine oder mehrere versteckte Schichten, die sich zwischen den Ein- und Ausgabeschichten befinden. Sie sind deshalb von außen nicht sichtbar (siehe Abb. 3.6).
 
 \begin{figure}[h]
 \centering
@@ -161,7 +161,7 @@ b) Mehrschichtige Netze: solche KNN verfügen neben der Ausgabeschicht auch übe
 	\label{img:multi}
 \end{figure}
 
-c) Rekurrente Netze: solche KNN verfügen über rückgekopellte Verbindungen, was zu Schleifen im Datenfluß führt (feedback loops). Dadurch wird der Ausgabewert eines Knotens als Eingabewert desselben Knotens verwendet (siehe Abb. 3.7).
+c) Rekurrente Netze: solche KNN verfügen über rückgekopellte Verbindungen, was zu Schleifen im Datenfluss führt (feedback loops). Dadurch wird der Ausgabewert eines Knotens als Eingabewert desselben Knotens verwendet (siehe Abb. 3.7).
 
 \begin{figure}[h]
 \centering
@@ -172,7 +172,7 @@ c) Rekurrente Netze: solche KNN verfügen über rückgekopellte Verbindungen, wa
 
 \end{figure}
 
-Aus diesen grundlegenden Netzwerktypen lassen sich gemischte Topologien bilden, wie z.B.: einschichtige/mehrschichtige vorwärtsbetriebene KNN (single-layer/multiple-layer feed-forward networks), Strukturen mit direkten und indirekten Rückkopplungen, Topologien mit lateralen Rückkopplungen (lateral feedback networks), u. s. w.
+Aus diesen grundlegenden Netzwerktypen lassen sich gemischte Topologien bilden, wie z.B.: einschichtige/mehrschichtige vorwärtsbetriebene KNN (single-layer/multiple-layer feed-forward networks), Strukturen mit direkten und indirekten Rückkopplungen, Topologien mit lateralen Rückkopplungen (lateral feedback networks), usw.
 
 \subsection{Lernregeln}
 
@@ -180,28 +180,28 @@ Lernregeln sind eines der wichtigsten Elemente in KNN. Ihre Aufgabe ist es dafü
 
 \subsubsection{Hebbsche Lernregel}
 
-Diese Regel wurde im 1949 von Donald Olding Hebb aufgestellt und gilt als universelles Lernprinzip eines KNN. Diese Regel besagt, dass wenn zwei verbundene Neurone gleichzeitig aktiv sind, die Verbindung zwischen diesen Neuronen stärker ausgeprägt wird:
+Diese Regel wurde im 1949 von Donald Olding Hebb aufgestellt und gilt als universelles Lernprinzip eines KNN. Diese Regel besagt, dass, wenn zwei verbundene Neurone gleichzeitig aktiv sind, die Verbindung zwischen diesen Neuronen stärker ausgeprägt wird:
 
 %\centering
-$\Delta$w$_i$$_j$ = $\eta$a$_i$o$_j$ = $\eta$ $*$ g(a$_i$, t$_i$) $*$ h(o$_j$, w$_i$$_j$) ,
+$\Delta$w$_i$$_j$ = $\eta$a$_i$o$_j$ = $\eta$ $\cdot$ g(a$_i$, t$_i$) $\cdot$ h(o$_j$, w$_i$$_j$) ,
 \newline
- wobei:  $\Delta$w$_i$$_j$ - die Veränderung des Gewichtes zweier Neuronen i und j,  $\eta$ - eine Lernrate (konstant), a$_i$ - Aktivierung von Neuron i, o$_j$ - Ausgabe von Neuron j.
+ wobei:  $\Delta$w$_i$$_j$ -- die Veränderung des Gewichtes zweier Neuronen i und j,  $\eta$ -- eine Lernrate (konstant), a$_i$ -- Aktivierung von Neuron i, o$_j$ -- Ausgabe von Neuron j.
 
-Zusammen mit der Hebbschen Lernregel wird häufig eine binäre Aktivierungsfunktion benutzt. Dabei werden die Aktivierungen auf 1 oder -1 festgelegt. Das resultiert entweder in einer positiven Verstärkung oder in einer Verringerung der Gewichte, falls beide Neuronen nicht übereinstimmen.
+Zusammen mit der Hebbschen Lernregel wird häufig eine binäre Aktivierungsfunktion benutzt. Dabei werden die Aktivierungen auf $1$ oder $-1$ festgelegt. Das resultiert entweder in einer positiven Verstärkung oder in einer Verringerung der Gewichte, falls beide Neuronen nicht übereinstimmen.
 \subsubsection{Delta-Regel}
 
 Die Delta-Regel gilt als Weiterentwicklung der Regel von Hebb und berücksichtigt die Differenz zwischen der erwarteten Aktivierung t$_i$ (teaching output) und der tatsächlichen Aktivierung a$_i$:
 
-$\Delta$w$_i$$_j$ = $\eta$$\delta$$_i$o$_j$ = $\eta$(t$_i$ - a$_i$)o$_j$ .
+$\Delta$w$_i$$_j$ = $\eta$$\delta$$_i$o$_j$ = $\eta$(t$_i$ $-$ a$_i$)o$_j$ .
 
  Diese Regel wird nur zusammen mit den linearen Aktivierungsfunktionen eingesetzt.
 
 \subsubsection{Backpropagation-Regel}
 
-Dieses Verfahren dient zum Einlernen von KNN und ist die Verallgemeinerung von der Delta-Regel für die mehrstufigen Strukturen.
+Dieses Verfahren dient zum Einlernen von KNN und ist die Verallgemeinerung der Delta-Regel für die mehrstufigen Strukturen.
 KNN versuchen die Erkennungsfehler zu minimieren, indem sie jedes Mal die Abweichung von der Lösung durch das Netz rückwärts laufen lassen. Dadurch wird das KNN so angepasst, dass die Fehler besser erkannt werden.
 
-Die standartisierte Delta-Regel führt bei zu kleinen Abweichungen zu keiner ausreichenden Informationstiefe und ist durch die Abhängigkeit von linearen Aktivierungsfunktionen in ihrer Anwendung beschränkt. Zur Lösung dieses Problems wird die Sigmoidfunktion, die selbst kleineste Abweichungen mit nichtlinearen Aktivierungsfunktionen warhnehmen kann, zur Anpassung der Delta-Regel zu Hilfe genommen.
+Die standardisierte Delta-Regel führt bei zu kleinen Abweichungen zu keiner ausreichenden Informationstiefe und ist durch die Abhängigkeit von linearen Aktivierungsfunktionen in ihrer Anwendung beschränkt. Zur Lösung dieses Problems wird die Sigmoidfunktion, die selbst kleinste Abweichungen mit nichtlinearen Aktivierungsfunktionen warhnehmen kann, zur Anpassung der Delta-Regel zu Hilfe genommen.
 
 $\Delta$w$_i$$_j$ = $\eta$$\delta$$_i$o$_j$,
 \newline
@@ -221,15 +221,16 @@ Im Jahr 1958 entwickelte Frank Rosenblatt das sogenannte Perzeptron: ein Modell,
 \includegraphics[width=3cm]{chapters/neural_networks/perzeptron.jpg}
 
 \caption{Ein einlagiges Perzeptron}
+\label{preceptron}
 
 \end{figure}
-Diese Art Perzeptronen besteht aus einer einzigen Schicht, die gleichzeitig den Ausgabevektor repräsentiert. Auf der Abbildung 4.1 ist ein einlagiges Perzeptron dargestellt. Als Eingabe bekommt es den Eingabevektor (x$_1$, ..., x$_n$).
+Diese Art Perzeptronen besteht aus einer einzigen Schicht, die gleichzeitig den Ausgabevektor repräsentiert. Auf der Abbildung \ref{preceptron} ist ein einlagiges Perzeptron dargestellt. Als Eingabe bekommt es den Eingabevektor (x$_1$, ..., x$_n$).
 
 Das Perzeptron besitzt auch einen Gewichtsvektor (w$_1$, ..., w$_n$) und einen Schwellwert $\theta$.
 
 Aus dem Eingabe- und Gewichtsvektor berechnet man das Skalarprodukt, und wenn das Ergebnis größer oder gleich dem Schwellwert ist, dann „feuert“ unser Perzeptron.
 
-Als Beispiel betrachten wir nun ein binäres einlagiges Perzeptron, welches eine OR-Funktion modellieren kann (siehe Abb. 4.2). Bei einer binären Eingabe besteht unser Eingabe- bzw. Gewichtsvektor nur aus zwei Werten. Die erwartete Ausgabe wird als eine Tabelle in der Abbildung 4.3 dargestellt. Unser Neuron soll nur dann „feuern“, wenn das Ergebnis 1 ist, deswegen ist es sinnvoller die beiden Gewichte auf 1 zu setzen.  Der Ausgabewert y$\in$$\{$0, 1$\}$, wobei y folgendermaßen definiert ist:
+Als Beispiel betrachten wir nun ein binäres einlagiges Perzeptron, welches eine OR-Funktion modellieren kann (siehe Abb. \ref{orfct}). Bei einer binären Eingabe besteht unser Eingabe- bzw. Gewichtsvektor nur aus zwei Werten. Die erwartete Ausgabe wird als eine Tabelle in der Abbildung \ref{orfct} dargestellt. Unser Neuron soll nur dann „feuern“, wenn das Ergebnis 1 ist, deswegen ist es sinnvoller die beiden Gewichte auf 1 zu setzen.  Der Ausgabewert y$\in$$\{$0, 1$\}$, wobei y folgendermaßen definiert ist:
 \begin{figure}[h]
 \centering
 \includegraphics[width=3cm]{chapters/neural_networks/y.jpg}
@@ -240,7 +241,8 @@ Als Beispiel betrachten wir nun ein binäres einlagiges Perzeptron, welches eine
 \centering
 \includegraphics[width=7cm]{chapters/neural_networks/or.jpg}
 
-\caption{Das Perzeptron-Modell einer OR-Funktionl}
+\caption{Das Perzeptron-Modell einer OR-Funktion}
+\label{orfct}
 
 \end{figure}
 \begin{figure}[h]
@@ -248,10 +250,11 @@ Als Beispiel betrachten wir nun ein binäres einlagiges Perzeptron, welches eine
 \includegraphics[width=3cm]{chapters/neural_networks/linearsep.jpg}
 
 \caption{Linear separierbare Ergebnisse einer OR-Funktion}
+\label{linseporfct}
 
 \end{figure}
 
-Man sollte dabei erwähnen, dass einlagige Perzeptrone nur auf linear separierbaren Datensätzen gute Ergebnisse liefern. Linear separierbar bedeutet, dass man die Ergebnisse mit einer Linie in richtig oder falsch separieren kann. Die Abbildung 4.3 repräsentiert vier mögliche Ergebnisse aus unsem OR-Beispiel und zeigt, wie sie von einander durch eine Hyperebene separiert werden können.
+Man sollte dabei erwähnen, dass einlagige Perzeptrone nur auf linear separierbaren Datensätzen gute Ergebnisse liefern. Linear separierbar bedeutet, dass man die Ergebnisse mit einer Linie in richtig oder falsch separieren kann. Die Abbildung \ref{linseporfct} repräsentiert vier mögliche Ergebnisse aus unserem OR-Beispiel und zeigt, wie sie voneinander durch eine Hyperebene separiert werden können.
 
 
 \subsubsection{Mehrlagiges Perzeptron}
@@ -264,34 +267,35 @@ Die Lernregel eines binären einlagigen Perzeptrons könnte man folgendermaßen 
 \newline
 w$_i$$_j$(neu) = w$_i$$_j$ (alt) $\pm$ $\Delta$w$_i$$_j$,
 \newline wobei $\Delta$w$_i$$_j$ die Änderung des Gewichts w$_i$$_j$ ist. Das bedeutet:
-\newline
-- wenn das Ergebnis 1 und der Ausgabewert 1 sein soll, dann werden die Gewichte nicht geändert (das gleiche gilt für 0);
-\newline
-- wenn das Ergebnis 0 und der Ausgabewert 1 sein soll, dann werden die Gewichtungen inkrementiert;
-\newline
-- wenn das Ergebnis 1 und der Ausgabewert 0 sein soll, dann werden die Gewichtungen dekrementiert;
+\begin{itemize}
+\item Wenn das Ergebnis 1 und der Ausgabewert 1 sein soll, dann werden die Gewichte nicht geändert (das gleiche gilt für 0).
+\item Wenn das Ergebnis 0 und der Ausgabewert 1 sein soll, dann werden die Gewichtungen inkrementiert.
+\item Wenn das Ergebnis 1 und der Ausgabewert 0 sein soll, dann werden die Gewichtungen dekrementiert.
+\end{itemize}
 
-Als Beispiel betrachten wir die Funktion aus der Abbildung 4.4.
+Als Beispiel betrachten wir die Funktion aus der Abbildung \ref{perceptronlearning}.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=10cm]{chapters/neural_networks/schritt1.jpg}
 
 \caption{Eingabevektoren und Initialisierung des Gewichtsvektors}
+\label{perceptronlearning}
 
 \end{figure}
 
-Als erstes initialisieren wir den Gewichtsvektor und den Schwellenwert mit Nullen und berechnen die erwarteten Ausgabewerte. Danach berechnen wir das Skalarprodukt von den Gewichtungen und dem 1. Eingabevektor (siehe Abb. 4.5, Schritt 2). Die erwartete Ausgabe ist 1, wir bekommen aber 0 raus, deswegen müssen wir die Werte unseres Gewichtsvektors inkrementieren. Im Schritt 3 berechnen wir das Skalarprodukt von unserem neuen Gewichtsvektor und dem 2. Eingabevektor. Der Ausgabewert stimmt mit dem erwarteten Wert überein, deswegen müssen wir nichts ändern. Die gleiche Berechnung machen wir für den 3. Eingabevektor (Schritt 4) und merken, dass der Ausgabewert 0 statt 1 sein soll. Deswegen werden  die Werte des Gewichtsvektors dekrementiert. Das gleiche machen wir mit dem 4. Eingabevektor.
+Als erstes initialisieren wir den Gewichtsvektor und den Schwellenwert mit Nullen und berechnen die erwarteten Ausgabewerte. Danach berechnen wir das Skalarprodukt von den Gewichtungen und dem 1. Eingabevektor (siehe Abb. \ref{perceptronlearningsteps}, Schritt 2). Die erwartete Ausgabe ist 1, wir bekommen aber 0 raus, deswegen müssen wir die Werte unseres Gewichtsvektors inkrementieren. Im Schritt 3 berechnen wir das Skalarprodukt von unserem neuen Gewichtsvektor und dem 2. Eingabevektor. Der Ausgabewert stimmt mit dem erwarteten Wert überein, deswegen müssen wir nichts ändern. Die gleiche Berechnung machen wir für den 3. Eingabevektor (Schritt 4) und merken, dass der Ausgabewert 0 statt 1 sein soll. Deswegen werden  die Werte des Gewichtsvektors dekrementiert. Das gleiche machen wir mit dem 4. Eingabevektor.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=12cm]{chapters/neural_networks/schritte.jpg}
 
 \caption{Schritte 2-5}
+\label{perceptronlearningsteps}
 
 \end{figure}
 
-Wenn alle Eingabevektoren getestet wurden, fängt der neue Zyklus an. Im neuen Zyklus werden die gleichen Berechnung durchgeführt, bis die passenden Gewichte gefunden sind.
+Wenn alle Eingabevektoren getestet wurden, fängt der neue Zyklus an. Im neuen Zyklus werden die gleichen Berechnungen durchgeführt, bis die passenden Gewichte gefunden sind.
 
 
 \section{Fazit}
