@@ -4,17 +4,18 @@
 \section{Einleitung}
 Sprache ist ein natürliches Kommunikationsmittel, das der Übermittlung von Informationen dient.
 Es liegt daher auf der Hand, Sprache auch zur Kommunikation mit Computern nutzen zu wollen.
-Zeichenketten sind als Eingaben Gang und Gäbe.
+Zeichenketten sind als Eingaben gang und gäbe.
 Interessant für den Bereich der künstlichen Intelligenz werden solche Eingaben, wenn sie eine Interaktion mit einem Rechner ermöglichen, die nicht nur streng formal definierte und eng begrenzte Eingaben, sondern eine möglichst große Teilmenge einer natürlichen Sprache erlaubt.
 Dies setzt voraus, dass der Rechner in der Lage ist, die Eingabe zu analysieren und zu interpretieren.
 Insbesondere ist auch die gesprochene Kommunikation mit Computern ein aktueller Trend.
 Diese Eingabeschnittstelle gewinnt insbesondere durch die zunehmende Nutzung mobiler, tastaturloser Geräte in Form von Sprachassistenten wie Siri, Cortana und Google Now an immenser Bedeutung.
 Aber auch die Sprachsteuerung von Unterhaltungselektronik und Haushaltsgeräten (smart homes) sowie von Automobilen, die verstärkt computerisiert ausgestattet sind und sich während der Fahrt am besten per Sprache bedienen ließen\footnote{Zumindest solange wir noch nicht von selbstfahrenden Autos reden.}, sind hier zu nennen.
 Hier befassen wir uns mit zwei Formen von Sprache: gesprochene Sprache und Texte.\footnote{Darüber hinaus gibt es natürlich noch weitere Möglichkeiten sprachlicher Kommunikation, etwa Körpersprache und Gebärdensprache, für die aber wiederum andere Methoden der digitalen Erfassung notwendig wären.}
+
 Texte sind Folgen von Buchstaben und Zeichen aus einem gegebenen Alphabet.
 Die Menge der in einer Sprache gültigen Zeichenfolgen wird syntaktisch durch eine Grammatik definiert.
 Hinzu kommt aber noch eine semantische Ebene, die einen logischen Zusammenhang dieser Folgen herstellt und somit die eigentliche Information repräsentiert.
-Es ist also leicht möglich grammatikalisch korrekte Zeichenfolgen zu konstruieren, die keine verwertbare Information liefern (z.B.
+Es ist also leicht möglich grammatikalisch korrekte Zeichenfolgen zu konstruieren, die keine verwertbare Information liefern (z.~B.
 „Der Fisch fliegt grün.“).
 Wie wir sehen werden, ist die Konstruktion einer Grammatik, die eine natürliche Sprache definiert, bereits komplex genug.
 Deutlich schwieriger gestaltet sich jedoch die logische Erfassung des Kommunikationsprozesses und somit eine tatsächliche Kommunikation mit einer künstlichen Intelligenz.
@@ -35,8 +36,8 @@ Diese können wiederum durch eine gleichmäßige Abtastung diskretisiert werden.
 Es werden also in regelmäßigen Abständen Pegelinformationen über die Wellenform des Signals gespeichert.
 Sowohl für die Zeitachse als auch für die Amplitude sind verschiedene Granularitäten möglich.
 Verbreitet ist z.B.
-das CD-Format mit 44.100 Samples pro Sekunde (Maximalfrequenz 22,05kHz) und 16Bit pro Sample (Rauschabstand 96dBfs).
-Für die menschliche Stimme, die bis etwa 5kHz relevante Informationen enthält und in der Regel auch einen begrenzten Dynamikumfang hat, wäre eine geringere Auflösung nicht nur akzeptabel sondern sogar wünschenswert.
+das CD-Format mit 44.100 Samples pro Sekunde (Maximalfrequenz 22,05~kHz) und 16~Bit pro Sample (Rauschabstand 96~dBfs).
+Für die menschliche Stimme, die bis etwa 5~kHz relevante Informationen enthält und in der Regel auch einen begrenzten Dynamikumfang hat, wäre eine geringere Auflösung nicht nur akzeptabel sondern sogar wünschenswert.
 Durch die Reduktion auf den für die menschliche Sprache relevanten Tonumfang können bereits viele Störgeräusche eliminiert werden.
 
 Beispiel einer Wellenform von Sprache.
@@ -45,13 +46,13 @@ Man erkennt gut die Unterschiede zwischen langen, stimmhaften Vokalen und kürze
 \includegraphics{chapters/sprachverarbeitung/01.png}
 
 Ein Problem bei der Transformation von Sprache in Text ist zunächst, dass wir keine eindeutige Kodierung von der digitalen Information in das gemeinte Zeichen haben.
-Dies beginnt bereits damit, dass unterschiedliche Wellenformen von Aufnahmen des selben Textes nur Ähnlichkeiten haben, aber niemals identisch sind.
+Dies beginnt bereits damit, dass unterschiedliche Wellenformen von Aufnahmen desselben Textes nur Ähnlichkeiten haben, aber niemals identisch sind.
 Sie variieren in Lautstärke, Geschwindigkeit, Tonhöhe, Artikulation und insbesondere auch am unterschiedlichen Zeichensatz.
-Denn Sprache agiert nicht mit Buchstaben, sondern mit Lauten, die von Person zu Person, z.B.
+Denn Sprache agiert nicht mit Buchstaben, sondern mit Lauten, die von Person zu Person, z.~B.
 durch regionale Dialekte bedingt, stark variieren können.
-Zunächst muss einem Laut daher in ein Phonem zugewiesen werden, von denen es etwa 100 gibt, und die in einem eigenen Alphabet erfasst werden können.
+Zunächst muss einem Laut daher ein Phonem zugewiesen werden, von denen es etwa 100 gibt, und die in einem eigenen Alphabet erfasst werden können.
 Hierfür gibt es mehrere, international unterschiedlich verbreitete Varianten.
-Für ein Beispiel siehe z.B. \cite[S. 1056]{russelnorvig}.
+Für ein Beispiel siehe z.~B. \cite[S. 1056]{russelnorvig}.
 
 Aber selbst wenn ein Phonem identifiziert werden kann, besteht noch keine 1:1 Beziehung zwischen Phonemen und Buchstaben.
 Je nach Kontext können viele Buchstaben mit verschiedenen Phonemen artikuliert werden und manche Phoneme werden durch mehrere bzw.
@@ -68,7 +69,7 @@ Für die Erstellung eines Sprachmodells haben sich Hidden-Markov-Modelle (HMM) b
 Diese sind ein einfacher Spezialfall von Bayesschen Netzen und werden verwendet, um eine probabilistische Annahme über eine zeitliche Abfolge von Zuständen zu treffen.
 Ein Zustand ist eine Menge X von unbekannten Zustandsvariablen zu einem Zeitpunkt t (kurz: Xt).
 
-Uns liegen Kenntnisse (eigentlich Annahmen, s.u.) über frühere Zuständen zu jedem Zeitpunkt t–k (0 < k <= t) vor, aus denen wir die Wahrscheinlichkeit für das Eintreten von Xt in einem Übergangsmodell erhalten.
+Uns liegen Kenntnisse (eigentlich Annahmen, s.~u.) über frühere Zuständen zu jedem Zeitpunkt t-k (0 < k $\le$ t) vor, aus denen wir die Wahrscheinlichkeit für das Eintreten von Xt in einem Übergangsmodell erhalten.
 Prinzipiell könnten wir alle Zustände von X0 bis Xt-1 (kurz: X0:t-1) auswerten.
 Dies entspricht dem Übergangsmodell P( Xt | X0:t-1 ).
 Da t aber unbegrenzt sein kann, wäre es notwendig, nur eine endliche Menge an vorherigen Zuständen zu betrachten.
@@ -93,7 +94,7 @@ Kombinieren wir jetzt Übergangsmodell und Sensormodell ergibt sich für ein bel
 
 Angemerkt sei, dass unsere Beobachtungen erst bei E1 beginnen, während wir für X0, also unseren Startzustand, eine A-priori-Wahrscheinlichkeitsverteilung P(X0) angeben.
 
-Als Bayessches Netz lässt sich dieses kombinierte Modell z.B. Darstellen wie in \cite[S. 665]{russelnorvig}.
+Als Bayessches Netz lässt sich dieses kombinierte Modell z.~B. Darstellen wie in \cite[S. 665]{russelnorvig}.
 
 Hier ist beispielsweise die Wahrscheinlichkeit, dass es an Tag t regnet 70\%, wenn es an Tag t-1 geregnet hat, und die Wahrscheinlichkeit, dass eine Person an Tag t einen Regenschirm trägt 90\%, wenn es an Tag t tatsächlich regnet.
 Das Beispiel setzt voraus, dass wir nur den Regenschirm U (Evidenzvariable) beobachten können, nicht aber den Regen R (Zustandsvariable).
@@ -125,14 +126,14 @@ $O_3 = \begin{pmatrix}
 Wobei in diesem Beispiel U1 = true und U3 = false war.
 
 \subsection{Praktische Anwendung: akustisches Modell}
-Auf der unteren akustischen Ebene müssen zunächst die Phoneme erkannt werden, d.h.
+Auf der unteren akustischen Ebene müssen zunächst die Phoneme erkannt werden, d.~h.
 man betrachtet den Zeitverlauf des Audiosignals und schließt anhand eines auf einem HMM beruhenden akustischen Modells auf den Inhalt.
 Es wäre nicht nur zu aufwendig, sondern auch wenig hilfreich jedes einzelne Sample als Evidenzvariable zu begreifen.
-Da die menschliche Sprache keine relevanten Informationen unterhalb von 100Hz liefert, bietet es sich stattdessen an, Frames dieser Länge (= 10ms) zu bilden und die aus diesen Frames gewonnenen Informationen als Folge von Beobachtungen et zu nutzen.
-Bei 44,1kHz Samplerate enthält ein solcher Frame also 441 Samples.
+Da die menschliche Sprache keine relevanten Informationen unterhalb von 100Hz liefert, bietet es sich stattdessen an, Frames dieser Länge (= 10~ms) zu bilden und die aus diesen Frames gewonnenen Informationen als Folge von Beobachtungen et zu nutzen.
+Bei 44,1~kHz Samplerate enthält ein solcher Frame also 441 Samples.
 Da auch die Informationen oberhalb von ca.
-4-5kHz für die Spracherkennung nicht mehr relevant sind, bietet auch eine geringere Samplerate von 8-12kHz, wie sie in einfachen Spracherkennungssystemen oftmals verwendet wird, noch eine genügend hohe Auflösung.
-Hier fasst ein Frame entsprechend 80-120 Samples.
+4 – 5~kHz für die Spracherkennung nicht mehr relevant sind, bietet auch eine geringere Samplerate von 8 – 12~kHz, wie sie in einfachen Spracherkennungssystemen oftmals verwendet wird, noch eine genügend hohe Auflösung.
+Hier fasst ein Frame entsprechend 80 – 120 Samples.
 Um keine relevanten Signaländerungen durch ungünstige Platzierung der Framegrenzen zu verlieren, überlappen sich die Frames.
 
 Das Signal eines jeden Frames wird nun mittels Fourier-Transformation einer Spektralanalyse unterzogen und die Energieniveaus von 12 verschiedenen Frequenzen sowie des gesamten Frames ausgewertet.
@@ -148,12 +149,12 @@ Ein Beispiel für ein Laut-HMM ist z.B. in~\cite[S. 1058]{russelnorvig} zu finde
 Wir benötigen aber nicht nur Lautmodelle, sondern auf der nächst höheren Ebene auch Übergangsmodelle für Wörter, also für jede Vokabel ein Wortmodell.
 Das Prinzip ist hierbei ähnlich wie bei den Laut-HMMs, allerdings verwenden wir keine Schleifen, da Phoneme nicht ungewollt wiederholt werden.
 Stattdessen benötigen wir alternative Pfade für alternative Aussprachen.
-Ein Wort kann z.B.
+Ein Wort kann z.~B.
 aufgrund einer schnellen, gebundenen Sprechweise (Koartikulation) oder aufgrund eines Dialekts unterschiedlich ausgesprochen werden.
 
 In einem solchen Wortmodell-Graphen besteht also jeder Knoten aus einem Lautmodell.
 Beide Ebenen ergeben zusammen das Übergangsmodell P( Xt | Xt-1 ).
-Ein Beispiel für ein Wortmodell-Graphen ist z.B. in~\cite[S. 1058]{russelnorvig} zu finden.
+Ein Beispiel für ein Wortmodell-Graphen ist z.~B. in~\cite[S. 1058]{russelnorvig} zu finden.
 
 Beim Sprechen werden Worte oft aneinandergebunden (fehlende Segmentierung).
 Durch ungenaue Aussprache oder sogar dem Gleichlaut zweier Worte (Homophone) besteht darüber hinaus Verwechslungsgefahr.
@@ -166,7 +167,7 @@ Das heißt wir begnügen uns für einfachere Systeme mit denjenigen Vokabeln, di
 
 \section{Sprachanalyse}
 \subsection{Problemstellung}
-Im vorherigen Abschnitt haben wir Grundlagen kennen gelernt, wie man mittels Spracherkennung gesprochene Sprache in einen Text transformiert, wobei viele Probleme (z.B.
+Im vorherigen Abschnitt haben wir Grundlagen kennengelernt, wie man mittels Spracherkennung gesprochene Sprache in einen Text transformiert, wobei viele Probleme (z.~B.
 Interpunktion) noch ausgeklammert wurden.
 Bei der Sprachanalyse möchten wir nun einen Schritt weiter gehen und den Inhalt eines Textes logisch erfassen.
 Diese Analyse erfolgt in zwei Schritten.
@@ -178,7 +179,7 @@ Im nächsten Schritt wollen wir auf der semantischen Ebene mit Hilfe von Prädik
 Jedenfalls wäre dies die Idealvorstellung einer Textanalyse.
 In der Praxis ergeben sich zahlreiche Schwierigkeiten.
 Zunächst ist es nicht möglich ein lückenloses Vokabular und eine vollständige Grammatik einer natürlichen Sprache zu erstellen.
-Natürliche Sprachen haben zahlreiche (z.B.
+Natürliche Sprachen haben zahlreiche (z.~B.
 regionale) Unterschiede und insbesondere das Vokabular ist in einem stetigen Fluss begriffen.
 Sprecher einer Sprache halten sich selber nicht immer streng an die Sprachregeln und können meistens dennoch verstanden werden.
 Grammatiken natürlicher Sprachen sind zudem hochkomplex, enthalten zahlreiche Ausnahmeregeln und sind daher nur schwer in ein festes Regelwerk zu überführen.
@@ -334,7 +335,7 @@ Dadurch, dass wir die Bedeutung der Terminale in den Nichtterminalen als Argumen
 Der Parameter X wird wie im Fall intrans\_verb(X, paints(X)) noch einmal separat vorangestellt, um von außen sichtbar zu sein, so dass wir eine Prolog-Anfrage auf ihn formulieren können.
 
 Verwenden wir nicht konkret bezeichnete Subjekte (hier: bestimmte Personen), sondern abstraktere Akteure, wie ‚a woman‘ oder ‚every woman‘, so benötigen wir für den Logik-Ausdruck zusätzlich Quantoren.
-„a woman paints“ müssen wir dann ausdrücken durch: es existiert ein x, dieses x ist eine Frau und x malt $(\exists x: woman(x) \wedge paints(x))$.
+„a woman paints“ müssen wir dann ausdrücken durch: Es existiert ein x, dieses x ist eine Frau und x malt $(\exists x: woman(x) \wedge paints(x))$.
 Den Allquantor nutzen wir entsprechend für bspw.
 „every woman likes Bob“: $\forall x: woman(x) \Rightarrow likes(x, bob)$.
 Der Akteur ist hier eine Property und die Handlung eine Assertion.
@@ -365,7 +366,7 @@ S = paints(alice)
 
 In diesem Beispiel wurde der Übersicht halber sogar auf Allquantoren und transitive Verben verzichtet.
 Man bekommt aber bereits einen guten Eindruck davon, wie aufwendig eine solche Grammatik schon für einfache Sätze wird.
-Es ist leicht einsehbar, dass eine Grammatik, die weitere grammatikalische Eigenheiten wie Tempus, Numerus, Kasus, Fragen, Befehle, Konjunktivsätze, Nebensätze (z.B.
+Es ist leicht einsehbar, dass eine Grammatik, die weitere grammatikalische Eigenheiten wie Tempus, Numerus, Kasus, Fragen, Befehle, Konjunktivsätze, Nebensätze (z.~B.
 Beziehungen in Relativsätzen), Satzzeichen, Sonderformen und Ausnahmeregeln berücksichtigen muss, einen sehr hohen Komplexitätsgrad annimmt.
 Und dabei haben wir es hier mit einer grammatikalisch noch verhältnismäßig einfachen Sprache wie Englisch zu tun.
 Noch schwieriger gestaltet es sich allerdings, einen Logik-Korpus zu generieren, der die Bedeutung eines umfassenden Vokabulars einer Sprache umfasst.
