@@ -127,13 +127,13 @@ Somit sieht der Suchbaum nach Abschluss des Minimax-Algorithmus wie folgt aus, w
 	 	}
 	 	\Else{
 	 		$wert = \alpha$\\
-	 		\lForEach{k= Kind(s)}{
+	 		\ForEach{k= Kind(s)}{
 		 		$wert = max\{wert, minimalerWert(k, wert, \beta)\}$\\
 		 		\If {$wert >= \beta$}{
 			 		\textbf{return} wert}
 			 	$\alpha = max\{\alpha, wert\}$\\
-	 		\textbf{return} wert
 	 		}
+			\textbf{return} wert
 	 	}
 
 	\textbf{minimalerWert}(Knoten, $\alpha$, $\beta$)\\
@@ -143,15 +143,16 @@ Somit sieht der Suchbaum nach Abschluss des Minimax-Algorithmus wie folgt aus, w
 	}
 	\Else{
 		$wert = \beta$\\
-		\lForEach{k= Kind(Knoten)}{
+		\ForEach{k= Kind(Knoten)}{
 			$wert = min\{wert, minimalerWert(k, \alpha, wert)\}$\\
 			\If {$wert <= \alpha$}{
 				\textbf{return} wert}
 			$\beta = min\{\beta, wert\}$\\
-			\textbf{return} wert
 		}
+		\textbf{return} wert
+
 	}
- 	\caption{Alhpa-Beta-Algorithmus}
+ 	\caption{Alpha-Beta-Algorithmus}
 \end{algorithm}
 
 Betrachten wir ein Beispiel, um den Algorithmus besser zu verstehen.
