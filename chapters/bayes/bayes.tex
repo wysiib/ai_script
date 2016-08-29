@@ -220,7 +220,7 @@ Betrachten wir hierzu außerdem die Verschiedenen Faktorisierungen:
 Der IC Algorithmus ist eine Möglichkeit aus gegebenen Unabhängigkeiten ein Bayessches Netz zu erstellen.
 \begin{enumerate}
 \item Konstruiere einen ungerichteten Graphen; füge jede mögliche Kante (X,Y), für die es keine (bedingte) Abhängigkeit $X \perp Y | E$ bzw. $X \perp Y$ gibt, in den Graphen ein.
-\item Gilt für zwei Nachbarn X,Y von einem Knoten E die bedingte Unabhängigkeit $X \perp Y | E$, dann füge die Kanten (X,E) und (Y,E) hinzu. (V-Struktur)
+\item Gilt für zwei Nachbarn X,Y von einem Knoten E die bedingte Unabhängigkeit $X \perp Y | E$ nicht, dann füge die Kanten (X,E) und (Y,E) hinzu. (V-Struktur)
 \item Orientiere die verbleibenden Kanten beliebig, aber ohne neue V-Strukturen entstehen zu lassen.
 \end{enumerate}
 

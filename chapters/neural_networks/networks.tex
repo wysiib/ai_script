@@ -230,18 +230,24 @@ Das Perzeptron besitzt auch einen Gewichtsvektor (w$_1$, ..., w$_n$) und einen S
 
 Aus dem Eingabe- und Gewichtsvektor berechnet man das Skalarprodukt, und wenn das Ergebnis größer oder gleich dem Schwellwert ist, dann „feuert“ unser Perzeptron.
 
-Als Beispiel betrachten wir nun ein binäres einlagiges Perzeptron, welches eine OR-Funktion modellieren kann (siehe Abb. \ref{orfct}). Bei einer binären Eingabe besteht unser Eingabe- bzw. Gewichtsvektor nur aus zwei Werten. Die erwartete Ausgabe wird als eine Tabelle in der Abbildung \ref{orfct} dargestellt. Unser Neuron soll nur dann „feuern“, wenn das Ergebnis 1 ist, deswegen ist es sinnvoller die beiden Gewichte auf 1 zu setzen.  Der Ausgabewert y$\in$$\{$0, 1$\}$, wobei y folgendermaßen definiert ist:
+Als Beispiel betrachten wir nun ein binäres einlagiges Perzeptron, welches eine AND-Funktion modellieren kann (siehe Abb. \ref{orfct}).
+Bei einer binären Eingabe besteht unser Eingabe- bzw. Gewichtsvektor nur aus zwei Werten.
+Die erwartete Ausgabe wird als eine Tabelle in der Abbildung \ref{orfct} dargestellt.
+Unser Neuron soll nur dann „feuern“, wenn das Ergebnis 1 ist, deswegen ist es sinnvoller die beiden Gewichte auf 1 zu setzen.
+Der Ausgabewert y$\in$$\{$0, 1$\}$, wobei y folgendermaßen definiert ist:
+\begin{equation*}
+y =
+\begin{cases}
+1, <x,w> \geq 0\\
+0, \text{sonst}
+\end{cases}
+\end{equation*}
+
 \begin{figure}[h]
 \centering
-\includegraphics[width=3cm]{chapters/neural_networks/y.jpg}
+\includegraphics[width=7cm]{chapters/neural_networks/and.jpg}
 
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=7cm]{chapters/neural_networks/or.jpg}
-
-\caption{Das Perzeptron-Modell einer OR-Funktion}
+\caption{Das Perzeptron-Modell einer AND-Funktion}
 \label{orfct}
 
 \end{figure}
@@ -249,7 +255,7 @@ Als Beispiel betrachten wir nun ein binäres einlagiges Perzeptron, welches eine
 \centering
 \includegraphics[width=3cm]{chapters/neural_networks/linearsep.jpg}
 
-\caption{Linear separierbare Ergebnisse einer OR-Funktion}
+\caption{Linear separierbare Ergebnisse einer AND-Funktion}
 \label{linseporfct}
 
 \end{figure}
