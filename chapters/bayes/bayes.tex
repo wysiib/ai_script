@@ -139,13 +139,13 @@ Nehmen wir nun an, dass wir als hart arbeitender Mensch an einem Nicht-Werktag z
 Wir möchten nun wissen, wie wahrscheinlich es ist, dass man es abends bei der Rückfahrt rechtzeitig zum Essen schafft.
 Wir suchen also p(!Essen verpasst | !Werktag, Sonne).
 
-Dazu berechnen wir:
-p(!Essen verpasst | Stau) $\cdot$ p(Stau | Sonne, Werktag) + p(!Essen verpasst | !Stau) $\cdot$ p(!Stau | Sonne, Werktag)
+Dazu berechnen wir:\\
+p(!Essen verpasst | Stau) $\cdot$ p(Stau | Sonne, !Werktag) + p(!Essen verpasst | !Stau) $\cdot$ p(!Stau | Sonne, !Werktag)
 
-Die passenden Werte kennen wir entweder oder können sie direkt ableiten.
-p(Essen verpasst | Stau) = 0,5
-p(Essen verpasst | !Stau) = 0,05
-p(Stau | Sonne, !Werktag) = 0,15
+Die passenden Werte kennen wir entweder oder können sie direkt ableiten:\\
+p(Essen verpasst | Stau) = 0,5, entsprechend p(!Essen verpasst | Stau) = 0.5\\
+p(Essen verpasst | !Stau) = 0,05, entsprechend p(!Essen verpasst | !Stau) = 0.95\\
+p(Stau | Sonne, !Werktag) = 0,15, entsprechend p(!Stau | Sonne, !Werktag) = 0.85\\
 
 0,5 $\cdot$ 0,15 + 0,95 $\cdot$ 0,85 = 0,8825 bzw. die Wahrscheinlichkeit am Wochenende pünktlich zum Essen zu kommen ist 88\%.
 
