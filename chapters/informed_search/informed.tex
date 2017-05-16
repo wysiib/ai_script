@@ -649,3 +649,18 @@ Der Begriff Optimalität beruht hier auf dem der Dominanz. Das bedeutet, ein Ver
 Für den ganz allgemeinen Fall lässt sich leicht erkennen, dass A* nicht \textit{das} optimale Verfahren überhaupt ist. Es gibt in bestimmten Fällen offensichtlich Verfahren, welche nicht alle von A* untersuchten Knoten ebenfalls untersuchen. Gerade bei speziell auf eine Klasse von Graphen abgestimmten Verfahren ist dies der Fall.
 
 Jedoch ist unter bestimmten Einschränkungen eine konkretere Aussage bezüglich der Optimalität von A* möglich. Dafür schränkt man die Bedingungen auf eine Domäne ein, welche eine konsistente Heuristik $h$ besitzt, und setzt voraus, dass es mindestens einen optimalen Lösungspfad gibt, bei welchem $h < h^{*}$ für alle Knoten außer dem Zielknoten gilt. Dann gilt, dass A* dominant für alle Problem-Instanzen ist, und zwar für alle möglichen Entscheidungsregeln bei Nicht-Eindeutigkeit des Knotens mit minimalem $f$-Wert. Da dem Algorithmus A* bei konsistentem h zusätzlich eine sehr gute Verwaltung des Suchbaumes möglich ist, lässt sich sagen, dass A* unter diesen Voraussetzungen sehr effektiv ist.
+
+\section{Zusammenfassung}
+
+\subsection{Heuristiken Begriffsklärung}
+
+Heuristiken sind dafür da die Suche zu fokussieren, indem sie die Priorität auf eine oder mehrere Variablen legen. So kann das bei der Planung der Reise die Entfernung zum Ziel sein oder beim Lösen eines Puzzles die vielversprechendste Möglichkeit.
+Eine Zulässige Heuristik ist eine Heuristik, die die tatsächlichen Kosten nie überschätzt. Man könnte sie mit einer unteren Schranke verwechseln, aber das ist sie nicht. Sie liegt zwar immer unter den tatsächlichen Kosten muss aber nicht gleich den niedrigsten möglichen Kosten sein.
+
+Eine Heuristik ist Konsistent wenn die in der Weg-Suche die Dreiecksungleichung stets gilt. Betrachtet man die Entfernungen in einem Dreieck so wäre diese Heuristik Konsistent. Betrachtet man aber das selbe Dreieck nur diesmal nicht die Entfernungen der Ecken sondern die Zeit die man braucht um von einer Ecke zur anderen zu gelangen so kann es sein, dass der direkte Weg zwischen zwei Punkten langsamer ist als der Umweg über die jeweils andere Ecke des Dreiecks.
+
+\subsection{Suchmethoden Kurz Zusammenfassung}
+
+Besten-Suche (Best-First): Nimmt den vielversprechendsten Weg als erstes. Führt dieser nicht zum Ziel so wird der zweite Weg der die höchste Chance hat ausgewählt und so weiter. Im Beispiel der Weg Findung zum Ziel würde die Besten-Suche zunächst die Luftlinie wählen und sich dann immer weiter davon entfernen bis es klappt.
+A* ist eine weitere Methode die aber zusätzlich auch den bereits zurückgelegten Weg in Betracht zieht und nicht nur den Weg der vor einem liegt.
+Die Kombination dieser beiden ist es was die Suche effizient und schnell macht.
