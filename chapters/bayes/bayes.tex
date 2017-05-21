@@ -224,6 +224,108 @@ Der IC Algorithmus ist eine Möglichkeit aus gegebenen Unabhängigkeiten ein Bay
 \item Orientiere die verbleibenden Kanten beliebig, aber ohne neue V-Strukturen entstehen zu lassen.
 \end{enumerate}
 
+\section{Erstellung eines Bayesschen Netzes}
+Nach unseren theoretischen Überlegungen sind wir zur Erkenntnis gelangt, dass uns Bayessche Netze nicht nur ein intuitives Verständnis bzgl.
+bedingten Wahrscheinlichkeiten vermitteln, indem Abhängigkeitsverhältnisse zwischen Zufallsvariablen explizit angegeben werden, sondern
+auch langwierige Rechnungen erheblich vereinfachen können. Allerdings stellt sich für uns immer noch die Frage, wie wir aus einem
+probabilistischen Problem ein geeignetes Netz entwickeln können.
+
+
+\subsection{Aufbau eines Bayesschen Netzes aus Expertenwissen}   
+Eine Möglichkeit wäre die Hilfe von Experten in Anspruch zu nehmen. Ihre Aufgabe besteht darin Abhängigkeitsverhältnisse anzugeben und
+somit eine Topologie zu entwickeln sowie die entsprechenden Parameter der Knoten anzupassen. Diese Herangehensweise ist jedoch meist
+nur für kleine bzw. unveränderliche Probleme geeignet, da sie zahlreiche Schwierigkeiten mit sich bringt.
+Zum einen existiert ein Komplexitätsproblem. Offensichtlich kann allein die schiere Anzahl von Zufallsvariablen diesen Lösungsversuch
+zunichtemachen. Aber wie ist es mit einer begrenzten, übersichtlichen Anzahl an Zufallsvariablen? 
+
+Erinnern wir uns an die Kanten des Graphen. Jede Kante beschreibt eine Wahrscheinlichkeit und  kann einen Wert zwischen 0 und 1 annehmen.
+Somit ist jede Wahrscheinlichkeit maximal eine gute Approximation der Realität. Da es oft der Fall ist, dass jede Zufallsvariable von
+mehreren Eltern abhängt und ihrerseits die Wahrscheinlichkeit ihrer Kinder bestimmt, können bereits kleinste Fehler zu großem Schaden
+führen und das Bayes Netz somit unbrauchbar machen. 
+Dies lässt die Schlussfolgerung zu, dass ein konstruiertes Netz von verschiedenen Experten auf Fehler untersucht werden sollte, sodass
+der ganze Entwicklungsprozess sehr langwierig wird. Dennoch kann das Ergebnis nicht verifiziert werden.
+
+\subsection{Aufbau eines Bayesschen Netzes aus selbstlernenden Algorithmen} 
+Da der Aufbau eines Bayesschen Netzes aus Expertenwissen einige Probleme mit sich bringt, haben Wissenschaftler eine weitere Methode
+entwickelt. Sie besteht darin, dass Netz in die Lage zu versetzen, anfallende Daten zu analysieren und auf Grundlage des Ergebnis
+Justierungen vorzunehmen. Da solche Algorithmen sehr komplex sind, werden im folgenden nur die Grundzüge der Verfahren vorgestellt
+und einhergehende Schlüsselwörter genannt. Grundsätzlich gibt es zwei Möglichkeiten ein Netz zu erstellen bzw. zu verbessern.
+
+\subsubsection{Anpassung der Parameter}
+Ein Experte erstellt eine sinnvolle Topologie und fügt Parameter ein. Diese Parameter beruhen auf A-priori Wahrscheinlichkeiten und 
+sollten eine gute Approximation darstellen. Solch ein Netz wird „augmented Bayesian network“ genannt. Die Idee besteht darin,
+dass die Werte der Parameter kontinuierlich an die anfallenden Daten angepasst werden. Dies hat zur Folge, dass dasNetz umso bessere
+Vorhersagen treffen kann, je mehr Daten bereits verarbeitet wurden. In diesem Kontext spielt besonders dierelative Häufigkeit
+eine wichtige Rolle. Darunter versteht man wie oft ein gewisses Ereignis in einer Zeitspanne eintrat.\\
+Beispiel: Wir werfen eine Münze. Wir schätzen, dass die Wahrscheinlichkeit 50 \% beträgt, dass das Ereignis Kopf eintritt. Nach dem 
+10.000 Wurf stellen wir fest, dass 7000 mal das Ereignis Kopf eingetreten ist. Somit beträgt die relative Häufigkeit 70 \% und wir
+müssen unseren anfangs gewählten Wert anpassen. \\
+Diese Art von Berechnung ist jedoch nur möglich, wenn die relative Häufigkeit eines Parameters mit  [0,1] gleich wahrscheinlich ist. 
+In vielen Fällen muss jedoch ein anderer Weg eingeschlagen werden, da diese Art von Verteilung nicht angenommen werden kann. Somit
+benötigen wir eine Verteilungsfunktion, die in der Lage ist solche Verteilungen darzustellen.
+Zu diesem Zweck bietet sich besonders die Familie der Beta Wahrscheinlichkeitsdichtefunktionen an, da diese über die Eigenschaft
+verfügen, nach Dateneingang dynamisch und kontinuierlich angepasst werden zu können. 
+
+\subsubsection{Erstellung der Topologie}
+Die zweite Möglichkeit ein Bayes Netz durch Algorithmen konfigurieren zu lassen, besteht darin die Struktur eines Bayesschen
+Netzes entsprechend der Datenlage anzupassen.
+Eine populäre Methode ist der „score-based approach“. Dabei wird jeder Struktur ein Score zugewiesen, der angeben soll, wie geeignet
+gegebene Daten durch eine beliebige Struktur beschrieben werden. Der Score wird folgendermaßen berechnet:\\
+\\
+P(G|D) = Score(G, D),
+mithilfe der Bayesschen Formel zu
+
+\begin{equation}
+ P(G|D) = \frac{{P(D|G) * P(G)}}{{P(D)}}
+\end{equation}
+
+Da uns die zur Verfügung gestellten Daten nicht weiter interessieren, konzentrieren wir uns einzig auf den Zähler, da wir das Ziel
+haben diesen Ausdruck zu maximieren.
+P(G) kann durch verschiedene Möglichkeiten mithilfe von „prior information“ bestimmt werden.
+Prior information geben Wahrscheinlichkeitsverteilungen an,  bevor es Beweise für deren Richtigkeit gibt. Sie beruhen meist auf
+früheren Beobachtungen oder entstehen durch Vergleich mit ähnlichen Problemen.
+Somit liegt der Fokus in der Maximierung von P(D|G). Es wurden viele verschiedene Möglichkeiten entwickelt dieses Problem zu
+lösen, eine Standardmethode beinhaltet meistens die Likelihood-Berechnung, ein Schätzverfahren, dass die Maximierung eines
+Ausdrucks anstrebt durch  Schätzen der Parameter anstrebt. 
+
+
+
+\subsection{Vorteile von Bayesschen Netzen}			
+Bayessche Netze ersparen ihren Anwender enorm viel Arbeit. Sie reduzieren die benötigten Wahrscheinlichkeitstabellen auf ein Minimum,
+sodass manche Anwendungen laufzeit-technisch erst möglich werden.
+Beispielsweise benötigt die Berechnung der Joint probability eine Laufzeit aus O($2^{n}$), unter der Bedingung, dass die gewählten
+Zufallsvariablen binär sind, mithilfe von unserem Netz eine Laufzeit aus O($2^{pa(x)}$) wobei pa(x) für die Anzahl aller Eltern eines
+Knotens x steht. 
+
+Ein weiterer Vorteil von einem Bayes Netz liegt darin, dass der Aufbau des Netzes eine übersichtliche grafische Darstellung
+ermöglicht und im Gegensatz zu neuronalen Netzen nicht als Black-Boxen für viele Benutzer wahrgenommen werden. Es wird durch sie
+intuitiv erkennbar, welche Abhängigkeiten bestehen und mit welcher Wahrscheinlichkeit Ereignisse eintreten werden. Besonders für
+Fachfremde wird das Verständnis enorm verbessert, was direkte Folgen für die Lösung der Probleme hat. Ein Arzt wird der Interpretation
+von Symptomen einer Künstlichen Intelligenz mehr Vertrauen schenken, wenn er weiß, wie sie funktioniert.
+
+Außerdem sollte nicht unterschätzt werden, dass ein bereits angelegtes Bayessches Netz nicht auf einen einzigen Typus einer
+Problemstellung reduziert werden muss. Nennen wir als Beispiel ein Netz, dass die verschiedenen Mikrocontroller innerhalb eines
+PKW´s verknüpft, sodass diese im Zusammenspiel entscheiden können, wann die automatische Notbremsung eingeleitet werden soll.
+Produziert man nun ein ähnliches Modell mit einer unterschiedlichen Bremsvorrichtung, so muss man lediglich das Subnetz der
+Bremsen kappen um das neue System eingliedern zu können.   
+Dadurch können Bayessche Netze als flexibel interpretiert werden, da man bis zu einem bestimmtem Grad das System an seine 
+Bedürfnisse anpassen kann.
+
+\subsection{Nachteile von Bayesschen Netzen}			
+In der Praxis treten einige Probleme mit Bayesschen Netzen auf. In unseren theoretischen Überlegungen finden wir das Axiom
+der zyklenfreiheit unseres Graphen. Dies ist jedoch oft nicht vorhersagbar, da unbekannte Abhängigkeiten zwischen Zufallsvariablen
+existieren können. 
+
+Es treten insbesondere vermehrt Probleme auf, wenn das Netz selbst lernend ist.
+Zum einen besteht die Chance von Manipulation, wenn es von User-Inputs abhängt. Gibt ein User gezielt gefälschte Daten ein, 
+so kann es passieren, dass die Wahrscheinlichkeitsberechnungen der einzelnen Knoten gestört werden, was zur Folge hat, dass 
+auch ihre Kind-Knoten beeinflusst werden können. Da oft mehrere verschiedene Kind-Knoten pro Knoten existieren,  geben diese
+dann ihrerseits den Input weiter, sodass oft ein großer Teil des Netzes manipulierbar ist.
+
+Auch der automatische Aufbau der Topologie erweist sich als problematisch. Um die best mögliche Anordnung zu erreichen, muss 
+jede Anordnung berechnet werden. Dies kann sehr zeitintensiv werden und bei einer höheren Anzahl an Zufallsvariablen unter 
+Umständen unmöglich. Dieses Problem ist NP-schwer.
+
 \section{Quellen}
 \begin{itemize}
 \item Open Course „Artifical Intelligence“ am MIT
@@ -231,4 +333,9 @@ Der IC Algorithmus ist eine Möglichkeit aus gegebenen Unabhängigkeiten ein Bay
 \item http://www.informatik.uni-bremen.de/tdki/lehre/ss12/bayes/Intro.pdf
 \item http://www.fil.ion.ucl.ac.uk/~wpenny/bdb/bayes.pdf
 \item Bayesian Artificial Intelligence, Second Edition
+\item https://www.cs.cmu.edu/~dmarg/Papers/PhD-Thesis-Margaritis.pdf
+\item https://en.wikipedia.org/wiki/Prior\_probability
+\item http://www.markmeloon.com/some-advantages-of-bayesian-networks/
+\item http://niedermayer.ca/book/export/html/29
+\item http://www.cs.technion.ac.il/~dang/books/Learning\%20Bayesian\%20Networks(Neapolitan,\%20Richard).pdf
 \end{itemize}
