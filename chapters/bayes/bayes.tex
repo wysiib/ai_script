@@ -1,6 +1,8 @@
 \chapterimage{chapter_head_1.png}
 
 \chapter{Bayessche Netze}
+\setlength{\parindent}{0em} 
+
 \section{Intro}
 Ein Bayessches Netz stellt die Wahrscheinlichkeiten von Ereignissen und deren Abhängigkeit (bzw. Unabhängigkeit) zueinander dar.
 
@@ -100,7 +102,7 @@ p(A,B,C) = p(A | B,C) \cdot p(B,C) = p(A | B,C) \cdot p(B | C) \cdot p(C)
 \end{equation*}
 Dies lässt sich für N Ereignisse wie folgt darstellen (Chain Rule):
 \begin{equation*}
-    P\left(\bigcap_{k=1}^N A_k\right)  = \prod_{k=1}^N  \mathrm P\left(A_k \,\Bigg|\, \bigcap_{j=1}^{k-1} A_j\right)
+P\left(\bigcap_{k=1}^N A_k\right)  = \prod_{k=1}^N  \mathrm P\left(A_k \,\Bigg|\, \bigcap_{j=1}^{k-1} A_j\right)
 \end{equation*}
 Zudem bezeichnen wir A als von B unabhängig, wenn gilt:
 \begin{equation*}
@@ -110,72 +112,95 @@ und A als von B unabhängig unter der Prämisse C, wenn gilt:
 \begin{equation*}
 p(A | C) \cdot p(B | C) = p(A,B | C)
 \end{equation*}
-
+%
 Mit Hilfe der Chain-Rule können wir nun für das Beispiel von oben jede mögliche joint probability ausrechnen.
-
-Beispiel:
-p(Essen verpasst,Stau,Werktag,Rasensprinkler,Sonne)
-nach Anwendung der Chain Rule haben wir:
-p(Essen verpasst | Stau,Werktag,Rasensprinkler,Sonne) \\ $\cdot$ p(Stau | Werktag , Rasensprinkler, Sonne) \\ $\cdot$ p(Werktag | Rasensprinkler, Sonne)
-\\ $\cdot$ p( Rasensprikler | Sonne)
-\\ $\cdot$ p(Sonne)
-
-Wichtig ist hier den Aufbau des ersten Ausdrucks entlang der Abhängigkeiten zu formulieren. Die Reihenfolge der Ereignisse für die joint probabilty muss also eine umgedrehte topologische Anordnung unseres Graphen darstellen bzw. ein Ereignis A kann nicht vor einem Ereignis B stehen, wenn B abhängig von A ist.
-
-Nach dem kürzen der Unabhängigkeiten erhalten wir:
-p(Essen verpasst | Stau ) $\cdot$ p( Stau | Werktag, Sonne) $\cdot$ p( Werktag) $\cdot$ p( Rasensprinkler | Sonne) $\cdot$ p(Sonne)
-
-Man nennt dies auch die Faktorisierung.
-
+%
+\subsection{Rechenbeispiel}
+Wir suchen eine Möglichkeit folgenden Ausdruck zu berechnen:
+\begin{equation*}
+p(Essen ~verpasst,Stau,Werktag,Rasensprenger,Sonne)
+\end{equation*}
+Nach Anwendung der Chain Rule haben wir:
+\begin{align*}
+& p( Essen ~verpasst | Stau , Werktag, Essen ~verpasst, Sonne )\\
+\cdot & p( Stau | Werktag , Rasensprinkler, Sonne )\\
+\cdot & p( Werktag | Rasensprinkler, Sonne )\\
+\cdot & p( Rasensprinkler | Sonne )\\
+\cdot & p( Sonne )
+\end{align*}
+Wichtig ist hier den Aufbau des ersten Ausdrucks entlang der Abhängigkeiten zu formulieren. Die Reihenfolge der Ereignisse für die joint probabilty muss also eine umgedrehte topologische Anordnung unseres Graphen darstellen bzw. ein Ereignis A kann nicht vor einem Ereignis B stehen, wenn B abhängig von A ist.\\
+Nach dem Kürzen der Unabhängigkeiten erhalten wir:
+\begin{align*}
+p(Essen ~verpasst | Stau ) 
+\cdotp( Stau | Werktag, Sonne)
+\cdot p(Werktag) 
+\cdot p(Rasensprinkler | Sonne)
+\cdot p(Sonne)
+\end{align*}
+Man nennt dies auch die Faktorisierung.\\
 Die gesuchten Wahrscheinlichkeiten kennen wir bereits und können sie einsetzen:
-0,5 $\cdot$ 0,8 $\cdot$ 0,7 $\cdot$ 0,95 $\cdot$ 0,8 = 0,218.
-
+\begin{equation*}
+0,5 \cdot 0,8 \cdot 0,7 \cdot 0,95 \cdot 0,8 = 0,218.
+\end{equation*}
+%
 Es ist also durch simples Einsetzen unserer 10 Werte möglich sämtliche 31 Werte für die joint probability Tabelle zu berechnen.
 Gleichzeitig sind Lösungen für relevante Fragen zur bedingten Wahrscheinlichkeit, welche nicht alle Ereignisse umfassen, mit geringem Aufwand zu lösen.
-
-
+%
 In der Regel sind jedoch nicht alle Angaben bekannt.
 Nehmen wir nun an, dass wir als hart arbeitender Mensch an einem Nicht-Werktag zur Arbeit fahren und es sonnig ist.
 Wir möchten nun wissen, wie wahrscheinlich es ist, dass man es abends bei der Rückfahrt rechtzeitig zum Essen schafft.
-Wir suchen also p(!Essen verpasst | !Werktag, Sonne).
-
+Wir suchen also:
+\begin{equation*}
+p(!Essen ~verpasst | !Werktag, Sonne)
+\end{equation*}
 Dazu berechnen wir:\\
-p(!Essen verpasst | Stau) $\cdot$ p(Stau | Sonne, !Werktag) + p(!Essen verpasst | !Stau) $\cdot$ p(!Stau | Sonne, !Werktag)
-
-Die passenden Werte kennen wir entweder oder können sie direkt ableiten:\\
-p(Essen verpasst | Stau) = 0,5, entsprechend p(!Essen verpasst | Stau) = 0.5\\
-p(Essen verpasst | !Stau) = 0,05, entsprechend p(!Essen verpasst | !Stau) = 0.95\\
-p(Stau | Sonne, !Werktag) = 0,15, entsprechend p(!Stau | Sonne, !Werktag) = 0.85\\
-
-0,5 $\cdot$ 0,15 + 0,95 $\cdot$ 0,85 = 0,8825 bzw. die Wahrscheinlichkeit am Wochenende pünktlich zum Essen zu kommen ist 88\%.
-
+\begin{equation*}
+p(\!Essen ~verpasst | Stau) \cdot p(Stau | Sonne, \!Werktag) + p(\!Essen ~verpasst | \!Stau)
+\cdot p(\!Stau | Sonne, \!Werktag)
+\end{equation*}
+%
+Die passenden Werte kennen wir entweder oder können sie direkt ableiten:
+\begin{align*}
+&p(Essen ~verpasst | Stau) = 0,5 \rightarrow p(\!Essen ~verpasst | Stau) = 0.5\\
+&p(Essen ~verpasst | \!Stau) = 0,05 \rightarrow p(\!Essen ~verpasst | \!Stau) = 0.95\\
+&p(Stau | Sonne, \!Werktag) = 0,15 \rightarrow p(\!Stau | Sonne, \!Werktag) = 0.85\\\\
+&0,5 \cdot 0,15 + 0,95 \cdot 0,85 = 0,8825 
+\end{align*}
+%
+bzw. die Wahrscheinlichkeit am Wochenende pünktlich zum Essen zu kommen beträgt 88\%.\\
 Was jedoch, wenn ich in die andere Richtung rechnen möchte?
-Beispiel: Der Lebensgefährte kommt pünktlich zum Essen und ich möchte Wissen, wie wahrscheinlich es ist, dass er im Stau gesteckt hat.
-
-Wir kennen bereits die Formel:\\
-p(A,B) = p (A | B) $\cdot$ p(B) offensichtlich gilt auch\\
-p(B,A) = p (B | A) $\cdot$ p(A) wir folgern daraus:\\
-p(A | B) = p(A,B) / P(B) = p(B,A) / P(B) = p(B | A) $\cdot$ p(A)/p(B) (Satz von Bayes)
-
+Beispiel: Der Lebensgefährte kommt pünktlich zum Essen und ich möchte wissen, wie wahrscheinlich es ist, dass er im Stau gesteckt hat.
+%
+Wir kennen bereits die Formel:
+\begin{equation*}
+p(A,B) = p (A | B) \cdot p(B)
+\end{equation*}
+offensichtlich gilt auch:
+\begin{align*}
+&p(B,A) = p (B | A) \cdot p(A) \\
+\Rightarrow & p(A | B) = p(A,B) / P(B) = p(B,A) / P(B) = p(B | A) \cdot p(A)/p(B) ~\text{(Satz von Bayes)}
+\end{align*}
+%
 Wir wissen also:
-p(Stau | !Essen verpasst) = p(!Essen verpasst | Stau ) *P(Stau)/p(! Essen verpasst)
-
-p(!Essen verpasst | Stau) =0,5\\
-p(Stau) =\\
-p(Stau | Sonne, Werktag) $\cdot$ p(Sonne) $\cdot$ p(Werktag) + \\ p(Stau | Sonne, !Werktag) $\cdot$ p(Sonne) $\cdot$ p(!Werktag)+ \\ p(Stau | !Sonne, Werktag) $\cdot$ p(!Sonne) $\cdot$ p(Werktag) + \\ p(Stau | !Sonne, !Werktag) $\cdot$ p(!Sonne) $\cdot$ p(!Werktag)\\ = 0,382
-
-p(!Essen verpasst) =\\
-p(!Essen verpasst | Stau) $\cdot$ p(Stau)\\ + p(!Essen verpasst | !Stau) $\cdot$ p(!Stau)\\ = 0,7781
-
-$\Rightarrow$ p(Stau | !Essen verpasst)=0,5 $\cdot$ 0,382/0,7781 = 0,2454...
-
+\begin{align*}
+&p(Stau | !Essen ~verpasst) = p(!Essen ~verpasst | Stau ) *P(Stau)/p(! Essen ~verpasst)\\
+&p(!Essen ~verpasst | Stau) =0,5\\
+p(Stau) =&p(Stau | Sonne, Werktag) \cdot p(Sonne) \cdot p(Werktag) + \\
+&p(Stau | Sonne, !Werktag) \cdot p(Sonne) \cdot p(!Werktag)+ \\
+&p(Stau | !Sonne, Werktag) \cdot p(!Sonne) \cdot p(Werktag) + \\
+&p(Stau | !Sonne, !Werktag) \cdot p(!Sonne) \cdot p(!Werktag)= 0,382\\
+&p(!Essen ~verpasst) =\\
+&p(!Essen ~verpasst | Stau) \cdot p(Stau) + p(!Essen ~verpasst | !Stau) \cdot p(!Stau) = 0,7781 \\
+&\Rightarrow p(Stau | !Essen ~verpasst)=0,5 \cdot 0,382/0,7781 = 0,2454...
+\end{align*}
+%
 Ist die Person also pünktlich, so gab es mit einer Wahrscheinlichkeit von ~75\% keinen Stau.
-
+%
 An dieser Stelle ist anzufügen, dass das ganze Problem auch so hätte modelliert werden können, dass die Pünktlichkeit beim Essen ebenfalls vom Werktag abhängig ist, dann jedoch wäre die Abhängigkeit zum Stau zu hinterfragen, wenn es denn keinen Werktag gibt.
 Es gibt also durchaus komplexere Problemstellungen, die wir mit unseren einfachen Methoden nicht so einfach behandeln können und eventuell verschiedene Modelle für Abhängigkeiten die je nach der Menge der Daten möglicherweise nicht optimal sind.
-
+%
 Diese neue Methode hilft uns vor allen Dingen damit mit einem einzelnen Modell gleichzeitig z.B. Krankheiten und Symptome in beide Richtungen zu bestimmen. Ohne große Umstände kann eine Krankheit aus Symptomen bestimmt werden und direkt von der Wahrscheinlichkeit der Krankheit kann die Wahrscheinlichkeit für weitere Symptome berechnet werden.
-
+%
 \section{Graphische Darstellung}
 \begin{figure}[h]
     \centering
@@ -305,7 +330,7 @@ von Symptomen einer Künstlichen Intelligenz mehr Vertrauen schenken, wenn er we
 
 Außerdem sollte nicht unterschätzt werden, dass ein bereits angelegtes Bayessches Netz nicht auf einen einzigen Typus einer
 Problemstellung reduziert werden muss. Nennen wir als Beispiel ein Netz, dass die verschiedenen Mikrocontroller innerhalb eines
-PKW´s verknüpft, sodass diese im Zusammenspiel entscheiden können, wann die automatische Notbremsung eingeleitet werden soll.
+PKWs verknüpft, sodass diese im Zusammenspiel entscheiden können, wann die automatische Notbremsung eingeleitet werden soll.
 Produziert man nun ein ähnliches Modell mit einer unterschiedlichen Bremsvorrichtung, so muss man lediglich das Subnetz der
 Bremsen kappen um das neue System eingliedern zu können.   
 Dadurch können Bayessche Netze als flexibel interpretiert werden, da man bis zu einem bestimmtem Grad das System an seine 
