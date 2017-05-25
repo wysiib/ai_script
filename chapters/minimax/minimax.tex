@@ -2,12 +2,39 @@
 
 \chapter{Suchalgorithmen für Spiele}
 
+\usetikzlibrary{arrows}
 \usetikzlibrary{calc}
 \usetikzlibrary{positioning}
 \usetikzlibrary{matrix}
 
 \pgfdeclarelayer{background}
 \pgfsetlayers{background,main}
+
+\newsavebox\mybox
+\savebox\mybox{%
+    \tikz{
+        \draw[ultra thick,red] (-4pt,-4pt) -- (4pt,4pt);
+        \draw[ultra thick,red] (-4pt,4pt) -- (4pt,-4pt);
+    }%
+}
+
+\tikzset{
+    treenode/.style = {align=center, inner sep=0pt, text centered,
+        font=\sffamily},
+    arn_n/.style = {treenode, circle, white, font=\sffamily\bfseries, draw=blue, fill=blue,
+        text width=1.5em, minimum width=1.5em, minimum height=1.5em},% arbre rouge noir, noeud noir
+    arn_r/.style = {treenode, circle, white, draw=red, fill=red, 
+        text width=1.5em, very thick, minimum width=1.5em, minimum height=1.5em},% arbre rouge noir, noeud rouge
+    arn_x/.style = {treenode, rectangle, draw=black,
+        minimum width=1.5em, minimum height=1.5em},% arbre rouge noir, nil
+    myedge/.style={
+        decoration={
+            markings,
+            mark=at position 0.5 with \node {\usebox\mybox};
+        },
+        postaction=decorate
+    }
+}
 
 
 \section{Intro \& Motivation}
@@ -157,78 +184,143 @@ Somit sieht der Suchbaum nach Abschluss des Minimax-Algorithmus wie folgt aus, w
 
 Betrachten wir ein Beispiel, um den Algorithmus besser zu verstehen.
 
-\textbf{Beispiel:}\\
+\textbf{Beipiel:}\\
 
-Gegeben sei der folgende Spielbaum:
-\begin{center}
-	\includegraphics[width = 12 cm]{chapters/minimax/jpg/Alpha-beta1.jpg}
-\end{center}
-
-Wir betrachten das erste Blatt. Da MIN immer den Zug mit dem niedrigsten Nutzwert auswählt erreicht er einen Nutzwert $\le8$. Somit ist $\beta = 8$. Da $\beta > \alpha = -\infty$ müssen wir noch das andere Blatt betrachten.
+Gegeben sei der folgender Spielbaum, blaue Knoten sind MAX- und rote MIN-Entscheidungen.
+Wir folgen immer den linken Kindern. Zunächst treffen wir unsere erste Entscheidung, dafür müssen beide Kinder des linkesten Pfades evaluiert werden.
+Wir entscheiden uns für die 5. Dieser Wert ist der neue $\beta$ -Wert für seinen Schwester-Knoten. Heißt unser Gegenspieler MIN wird sich höchstens für den Wert 5 entscheiden.
 
 \begin{center}
-	\includegraphics[width = 12 cm]{chapters/minimax/jpg/Alpha-beta2.jpg}
+\begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
+    level distance = 1.5cm}] 
+\node [arn_n] {}
+child{ node [arn_r] {} 
+    child{ node [arn_n] {5}
+        child{ node [arn_x] {5}}
+        child{ node [arn_x] {0}} 
+    }
+    child{ node [arn_n] {}
+        child{ node [arn_x] {}}
+        child{ node [arn_x] {}}
+        node[right = 1em]{$\beta=5$}
+    }                            
+}
+child{ node [arn_r] {}
+    child{ node [arn_n] {} 
+        child{ node [arn_x] {}}
+        child{ node [arn_x] {}}
+    }
+    child{ node [arn_n] {}
+        child{ node [arn_x] {}}
+        child{ node [arn_x] {}}
+    }
+}
+; 
+\end{tikzpicture}
 \end{center}
 
-Das zweite Blatt hat den Nutzwert 7, somit ist er kleiner als der aktuelle Wert von $\beta$. Aus diesem Grund erhält der MIN-Knoten den Wert $min\{8,~7\} =7$. Somit ergibt sich für den darüberliegenden Knoten, dass er einen Wert $\ge7$ hat, da MAX immer den Knoten mit dem größten Nutzwert auswählt. Nun betrachten wir das Blatt mit dem Nutzwert 3.
+Wir evaluieren den nächsten Knoten im Nachbar-Graphen. Er ist 6. Da dieser Wert größer-gleich des $\beta$-Wert ist, müssen wir den Rest des Teil-Graphen nicht zu evaluieren. Dies ist überflüßig, da MIN den tiefsten Wert wählen wird, welcher mindestens 5 ist. Wir brauchen also nicht nach einem noch größeren Wert suchen. \\
+\textbf{Dies nennt man $\beta-Cut$.} \\
+Der neue $\alpha$-Wert des roten Schwester-Konten ist nun 5. Heißt: Wir können danach mindestens eine 5 wählen.
 
 \begin{center}
-	\includegraphics[width = 12 cm]{chapters/minimax/jpg/Alpha-beta3.jpg}
+\begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
+    level distance = 1.5cm}] 
+\node [arn_n] {}
+child{ node [arn_r] {5} 
+    child{ node [arn_n] {5}
+        child{ node [arn_x] {5}}
+        child{ node [arn_x] {0}}
+    }
+    child{ node [arn_n] {6}
+        child{ node [arn_x] {6}}
+        child[dashed]{ node [arn_x] {}}
+        node[right = 1em]{$\beta=5$}
+    }                            
+}
+child{ node [arn_r] {}
+    child{ node [arn_n] {} 
+        child{ node [arn_x] {}}
+        child{ node [arn_x] {}}
+    }
+    child{ node [arn_n] {}
+        child{ node [arn_x] {}}
+        child{ node [arn_x] {}}
+    }
+    node[left = 1em]{$\alpha=5$}
+}
+; 
+\end{tikzpicture}
 \end{center}
 
-Sein Elternknoten hat für $\alpha$ den Wert 7 (MAX erreicht mind. eine 7) und $\beta$ hat den Wert 3 (MIN erreicht höchstens den Wert 3). Vergleicht man $\alpha$ und den Wert des MIN Knotens fällt auf, dass $\alpha$ > 3 was bedeutet, dass man den Teilraum nicht weiter betrachten muss und hier ein Cutoff durchgeführt wird. Anders ausgedrückt MAX würde nicht diesen Zug wähle, da der andere Zug einen Nutzwert von 7 liefert und dieser nur einen von maximal 3.
+Da der ganze linke Teilbaum evaluiert ist, kann der rechte Baum evaluiert werden. 
+Dort wird wieder dem linkesten Pfad gefolgt. Wir evaluieren und setzen den $\beta$-Wert für den Schwesterknoten genauso wie im linken Teilbaum.
 
 \begin{center}
-	\includegraphics[width = 12 cm]{chapters/minimax/jpg/Alpha-beta3-1.jpg}
+\begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
+    level distance = 1.5cm}] 
+\node [arn_n] {}
+child{ node [arn_r] {5} 
+    child{ node [arn_n] {5}
+        child{ node [arn_x] {5}}
+        child{ node [arn_x] {0}} 
+    }
+    child{ node [arn_n] {6}
+        child{ node [arn_x] {6}}
+        child[dashed]{ node [arn_x] {}}
+        node[right = 1em]{$\beta=5$}
+    }                            
+}
+child{ node [arn_r] {}
+    child{ node [arn_n] {-1} 
+        child{ node [arn_x] {-1}}
+        child{ node [arn_x] {-2}}
+    }
+    child{ node [arn_n] {}
+        child{ node [arn_x] {}}
+        child{ node [arn_x] {}}
+        node[right = 1em]{$\beta=-15$}
+    }
+    node[left = 1em]{$\alpha=5$}
+}
+; 
+\end{tikzpicture}
 \end{center}
 
-Somit erreicht MAX an dem Knoten einen Nutzwert von 7 und der darüber liegende MIN-Knoten einen Wert von $\le7$, was bedeutet, dass $\beta = 7$. Betrachten wir nun das nächste Blatt, welches den Nutzwert 9 hat.
+Der Wert unserer letzten Entscheidung ist nun kleiner-gleich des nächsten $\alpha$-Werts. Dies bedeutet, dass unsere Seite des Graphens nicht mehr relevant ist. Wir (MAX) können mindestens eine 5 wählen. Der Gegner (MIN) wird allerdings in diesem Teil des Graphens höchstens eine -1 wählen. Wir brauchen den Rest des rechten Graphen also nicht weiter betrachten. \\
+\textbf{Dies ist ein $\alpha-Cut$.}
 
 \begin{center}
-	\includegraphics[width = 12 cm]{chapters/minimax/jpg/Alpha-beta4.jpg}
+\begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
+    level distance = 1.5cm}] 
+\node [arn_n] {5}
+child{ node [arn_r] {5} 
+    child{ node [arn_n] {5}
+        child{ node [arn_x] {5}}
+        child{ node [arn_x] {0}} 
+    }
+    child{ node [arn_n] {6}
+        child{ node [arn_x] {6}}
+        child[dashed]{ node [arn_x] {}}
+        node[right = 1em]{$\beta=5$}
+    }                            
+}
+child{ node [arn_r] {-1}
+    child{ node [arn_n] {-1} 
+        child{ node [arn_x] {-1}}
+        child{ node [arn_x] {-2}}
+    }
+    child[dashed]{ node [arn_n, fill=white] {}
+        child{ node [arn_x] {}}
+        child{ node [arn_x] {}}
+    }
+    node[left = 1em]{$\alpha=5$}
+}
+; 
+\end{tikzpicture}
 \end{center}
 
- Da $-\infty = \alpha <9$ müssen wir auch das nächste Blatt betrachten. Anders ausgedrückt, wir können nicht ausschließen, dass MIN das rechte Blatt wählen würde.
-
- \begin{center}
- 	\includegraphics[width = 12 cm]{chapters/minimax/jpg/Alpha-beta5.jpg}
- \end{center}
-
- Da das nächste Blatt den Nutzwert 8 hat, würde MIN diesen Zug wählen, da sein Nutzwert kleiner ist als der des anderen Zuges ($min\{\beta, 8\}= min\{9,8\}=8$). Somit aktualisiert sich der Wert von $\beta$ auf 8.
-
- \begin{center}
- 	\includegraphics[width = 12 cm]{chapters/minimax/jpg/Alpha-beta6.jpg}
- \end{center}
-
- Dies hat zur Folge, dass $\alpha =8$, da MAX im darüber liegenden Zug mindestens einen Nutzwert von 8 erreicht. Somit hat er einen größeren Wert als der linke MAX-Knoten, weshalb sich MIN nicht den rechten Knoten aussuchen würde und wir somit auch den Teilbaum nicht weiter betrachten müssen. Anders ausgedrückt, da für den rechten Teilbaum der MAX-Knoten einen Wert von mindestens 8 hat und  $\beta = 7$ ist, gilt $\beta<8$ und es findet ein Cutoff statt. Aufgrund dessen hat der MIN-Knoten den Wert 7.
-
- \begin{center}
- 	\includegraphics[width = 12 cm]{chapters/minimax/jpg/Alpha-beta7.jpg}
- \end{center}
-
- Für die Wurzel ergibt sich somit ein Wert von mindestens 7 und $\alpha = 7$.
- Die Betrachtung des nächsten Blattes liefert, dass der MIN-Knoten höchstes den Wert 1 hat. Da $1 < \alpha$, ist eine weitere Betrachtung des Teilbaumes nicht nötig und wir können ihn abschneiden. Mit anderen Worten würde MAX nicht den Zug dieses Teilbaumes wählen, da der Nutzwert des linken Teilbaumes einen höheren Nutzwert hat.
-
- \begin{center}
- 	\includegraphics[width = 12 cm]{chapters/minimax/jpg/Alpha-beta8.jpg}
- \end{center}
-
- Die Auswertung der nächsten beiden Blätter und ihres Elternknotens liefert keine Cutoffs.
-
- \begin{center}
- 	\includegraphics[width = 12 cm]{chapters/minimax/jpg/Alpha-beta9.jpg}
- \end{center}
-
- Betrachtet man nun die nächsten beiden Blätter liefert das einen Nutzwert von 9 für den MIN-Knoten ($\beta =9$) und somit für den MAX-Knoten einen Wert $\ge9$. Der darüber liegende MIN-Knoten würde jedoch nicht den rechten Knoten mit einem Nutzwert $\ge9$ wählen, da der linke Knoten nur einen Nutzwert von 8 hat. Somit ist eine weitere Betrachtung des Teilbaumes nicht nötig.\\
- Dies ist somit der endgültige Spielbaum.
-
- \begin{center}
- 	\includegraphics[width = 12 cm]{chapters/minimax/jpg/Alpha-beta10.jpg}
- \end{center}
-
- Der rot gekennzeichnete Pfad ist der Pfad, der den höchsten Nutzwert liefert, wenn beide Spieler, so wie von uns zu Beginn angenommen, optimal spielen. Dies bedeutet für den ersten Zug von MAX, dass er den rechten Knoten wählen sollte.
-
- Für die Berechnung dieses Pfades mussten wir uns 23 Knoten anschauen, wohingegen wir beim Minimax-Algorithmus alle 31 Knoten hätten betrachten müssen, um zu diesem Ergebnis zu gelangen. Somit bietet der Alpha-Beta-Algorithmus in diesem Beispiel eine deutliche Rechenzeitverbesserung.
+Die gestrichelten Teile sind nun (mögliche) Teilgraphen, welche mit dem normalen MiniMax Algorithmus hätten evaluiert werden müssen. In diesem Beispiel konnten wir uns 3/8 Blättern ignorieren können.
 
 \section{Abgrenzung / Vergleich zu den vorherigen Kapitel}
 
