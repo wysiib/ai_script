@@ -10,14 +10,6 @@
 \pgfdeclarelayer{background}
 \pgfsetlayers{background,main}
 
-\newsavebox\mybox
-\savebox\mybox{%
-    \tikz{
-        \draw[ultra thick,red] (-4pt,-4pt) -- (4pt,4pt);
-        \draw[ultra thick,red] (-4pt,4pt) -- (4pt,-4pt);
-    }%
-}
-
 \tikzset{
     treenode/.style = {align=center, inner sep=0pt, text centered,
         font=\sffamily},
@@ -27,13 +19,6 @@
         text width=1.5em, very thick, minimum width=1.5em, minimum height=1.5em},% arbre rouge noir, noeud rouge
     arn_x/.style = {treenode, rectangle, draw=black,
         minimum width=1.5em, minimum height=1.5em},% arbre rouge noir, nil
-    myedge/.style={
-        decoration={
-            markings,
-            mark=at position 0.5 with \node {\usebox\mybox};
-        },
-        postaction=decorate
-    }
 }
 
 
@@ -184,7 +169,7 @@ Somit sieht der Suchbaum nach Abschluss des Minimax-Algorithmus wie folgt aus, w
 
 Betrachten wir ein Beispiel, um den Algorithmus besser zu verstehen.
 
-\textbf{Beipiel:}\\
+\paragraph{Beispiel:}
 
 Gegeben sei der folgender Spielbaum, blaue Knoten sind MAX- und rote MIN-Entscheidungen.
 Wir folgen immer den linken Kindern. Zunächst treffen wir unsere erste Entscheidung, dafür müssen beide Kinder des linkesten Pfades evaluiert werden.
