@@ -1,8 +1,8 @@
 sudo: required
 language: ruby
 before_install:
-- sudo add-apt-repository ppa:jonathonf/texlive-2016
-- sudo apt-get update
+- sudo add-apt-repository ppa:jonathonf/texlive-2016 -y
+- sudo apt-get update -q
 script:
 - make clean
 - make build
