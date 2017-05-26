@@ -15,7 +15,7 @@
         font=\sffamily},
     arn_n/.style = {treenode, circle, white, font=\sffamily\bfseries, draw=blue, fill=blue,
         text width=1.5em, minimum width=1.5em, minimum height=1.5em},% arbre rouge noir, noeud noir
-    arn_r/.style = {treenode, circle, white, draw=red, fill=red, 
+    arn_r/.style = {treenode, circle, white, draw=red, fill=red,
         text width=1.5em, very thick, minimum width=1.5em, minimum height=1.5em},% arbre rouge noir, noeud rouge
     arn_x/.style = {treenode, rectangle, draw=black,
         minimum width=1.5em, minimum height=1.5em},% arbre rouge noir, nil
@@ -177,21 +177,21 @@ Wir entscheiden uns für die 5. Dieser Wert ist der neue $\beta$ -Wert für sein
 
 \begin{center}
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
-    level distance = 1.5cm}] 
+    level distance = 1.5cm}]
 \node [arn_n] {}
-child{ node [arn_r] {} 
+child{ node [arn_r] {}
     child{ node [arn_n] {5}
         child{ node [arn_x] {5}}
-        child{ node [arn_x] {0}} 
+        child{ node [arn_x] {0}}
     }
     child{ node [arn_n] {}
         child{ node [arn_x] {}}
         child{ node [arn_x] {}}
         node[right = 1em]{$\beta=5$}
-    }                            
+    }
 }
 child{ node [arn_r] {}
-    child{ node [arn_n] {} 
+    child{ node [arn_n] {}
         child{ node [arn_x] {}}
         child{ node [arn_x] {}}
     }
@@ -200,7 +200,7 @@ child{ node [arn_r] {}
         child{ node [arn_x] {}}
     }
 }
-; 
+;
 \end{tikzpicture}
 \end{center}
 
@@ -210,9 +210,9 @@ Der neue $\alpha$-Wert des roten Schwester-Konten ist nun 5. Heißt: Wir können
 
 \begin{center}
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
-    level distance = 1.5cm}] 
+    level distance = 1.5cm}]
 \node [arn_n] {}
-child{ node [arn_r] {5} 
+child{ node [arn_r] {5}
     child{ node [arn_n] {5}
         child{ node [arn_x] {5}}
         child{ node [arn_x] {0}}
@@ -221,10 +221,10 @@ child{ node [arn_r] {5}
         child{ node [arn_x] {6}}
         child[dashed]{ node [arn_x] {}}
         node[right = 1em]{$\beta=5$}
-    }                            
+    }
 }
 child{ node [arn_r] {}
-    child{ node [arn_n] {} 
+    child{ node [arn_n] {}
         child{ node [arn_x] {}}
         child{ node [arn_x] {}}
     }
@@ -234,41 +234,41 @@ child{ node [arn_r] {}
     }
     node[left = 1em]{$\alpha=5$}
 }
-; 
+;
 \end{tikzpicture}
 \end{center}
 
-Da der ganze linke Teilbaum evaluiert ist, kann der rechte Baum evaluiert werden. 
+Da der ganze linke Teilbaum evaluiert ist, kann der rechte Baum evaluiert werden.
 Dort wird wieder dem linkesten Pfad gefolgt. Wir evaluieren und setzen den $\beta$-Wert für den Schwesterknoten genauso wie im linken Teilbaum.
 
 \begin{center}
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
-    level distance = 1.5cm}] 
+    level distance = 1.5cm}]
 \node [arn_n] {}
-child{ node [arn_r] {5} 
+child{ node [arn_r] {5}
     child{ node [arn_n] {5}
         child{ node [arn_x] {5}}
-        child{ node [arn_x] {0}} 
+        child{ node [arn_x] {0}}
     }
     child{ node [arn_n] {6}
         child{ node [arn_x] {6}}
         child[dashed]{ node [arn_x] {}}
         node[right = 1em]{$\beta=5$}
-    }                            
+    }
 }
 child{ node [arn_r] {}
-    child{ node [arn_n] {-1} 
+    child{ node [arn_n] {-1}
         child{ node [arn_x] {-1}}
         child{ node [arn_x] {-2}}
     }
     child{ node [arn_n] {}
         child{ node [arn_x] {}}
         child{ node [arn_x] {}}
-        node[right = 1em]{$\beta=-15$}
+        node[right = 1em]{$\beta=-1$}
     }
     node[left = 1em]{$\alpha=5$}
 }
-; 
+;
 \end{tikzpicture}
 \end{center}
 
@@ -277,21 +277,21 @@ Der Wert unserer letzten Entscheidung ist nun kleiner-gleich des nächsten $\alp
 
 \begin{center}
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 5cm/#1,
-    level distance = 1.5cm}] 
+    level distance = 1.5cm}]
 \node [arn_n] {5}
-child{ node [arn_r] {5} 
+child{ node [arn_r] {5}
     child{ node [arn_n] {5}
         child{ node [arn_x] {5}}
-        child{ node [arn_x] {0}} 
+        child{ node [arn_x] {0}}
     }
     child{ node [arn_n] {6}
         child{ node [arn_x] {6}}
         child[dashed]{ node [arn_x] {}}
         node[right = 1em]{$\beta=5$}
-    }                            
+    }
 }
 child{ node [arn_r] {-1}
-    child{ node [arn_n] {-1} 
+    child{ node [arn_n] {-1}
         child{ node [arn_x] {-1}}
         child{ node [arn_x] {-2}}
     }
@@ -301,11 +301,11 @@ child{ node [arn_r] {-1}
     }
     node[left = 1em]{$\alpha=5$}
 }
-; 
+;
 \end{tikzpicture}
 \end{center}
 
-Die gestrichelten Teile sind nun (mögliche) Teilgraphen, welche mit dem normalen MiniMax Algorithmus hätten evaluiert werden müssen. In diesem Beispiel konnten wir uns 3/8 Blättern ignorieren können.
+Die gestrichelten Teile sind nun (mögliche) Teilgraphen, welche mit dem normalen MiniMax Algorithmus hätten evaluiert werden müssen. In diesem Beispiel haben wir 3/8 Blättern ignorieren können. Bei steigender Tiefe fallen so große Unterbäume weg.
 
 \section{Abgrenzung / Vergleich zu den vorherigen Kapitel}
 
