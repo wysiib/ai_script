@@ -2,6 +2,7 @@ dist: trusty
 sudo: required
 language: ruby
 before_install:
+- gem install travis-custom-deploy
 - sudo add-apt-repository ppa:jonathonf/texlive-2016 -y
 - sudo apt-get update -q
 - sudo apt-get --no-install-recommends install texlive texlive-lang-german texlive-science texlive-latex-extra texlive-bibtex-extra biber texlive-generic-extra
