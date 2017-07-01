@@ -1,0 +1,26 @@
+\chapterimage{chapter_head_1.png} % Chapter heading image
+
+\chapter{Allgemeine Definitionen}
+
+\subsection{Graphen}
+\newtheorem*{graphen_definition}{Definition}
+
+\begin{graphen_definition}
+Ungerichteter Graph. Ein Graph $G=(V,E)$ besteht aus einer endlichen Menge von Knoten $V = {u_{1}, ..., u_{n}}$ und einer endlichen Menge $E$ von Kanten. In einem ungerichteten Graphen ist jede Kante e ein Menge ${u,v}$ von zwei verschiedenen Knoten $u,v\in V$. 
+\end{graphen_definition}
+
+\begin{graphen_definition}
+Weg. Ein Weg p in einem ungerichteten Graphen $G=(V,E)$ ist eine Folge von $k$ Knoten $(v_{1}, ..., v_{k})$ aus der Knotenmenge $V$ des Graphen $G$, f\"ur die gilt, dass die Kanten ${v_{i}, v_{i+1}}$ in der Kantenmenge $E$ enthalten sind, f\"ur i aus ${1, ..., k-1}$. 
+\end{graphen_definition}
+
+\begin{graphen_definition}
+Wegl\"ange. Die Wegl\"ange Wf(p) eines Weges mit $k$ Knoten $p=(v_{1}, ..., v_{k})$ in einem Graphen $G=(V,E)$ mit der Kantenbewertung $f:E\rightarrow R$ die jeder Kante $e$ aus der Kantenmenge $E$ des Graphen $G$ einen reellen Kostenwert zuordnet, ist die Summe der Kostenwerte der $k$ Kanten des Weges $p$. 
+\end{graphen_definition}
+
+\begin{graphen_definition}
+K\"urzester Weg. Die k\"urzeste Wegl\"ange $k(m,n)$ von $m$ nach $n$ ist der Weg $p$, so dass  es keinen Weg $p'$ von $m$ nach $n$ gibt f\"ur den gilt, dass:
+\begin{center}
+$Wf(p') < Wf(p).$
+\end{center}
+Wenn $n$ von $m$ aus nicht erreichbar ist, dann ist $k(m, n)=\infty.$ 
+\end{graphen_definition}

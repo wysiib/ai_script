@@ -42,7 +42,7 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass[11pt,fleqn]{book} % Default font size and left-justified equations
+\documentclass[11pt,oneside]{book} % Default font size and left-justified equations
 
 %----------------------------------------------------------------------------------------
 
@@ -62,8 +62,8 @@
 {\begin{tikzpicture}[remember picture,overlay]
 \node[anchor=north west,inner sep=0pt] at (0,0) {\includegraphics[width=\paperwidth]{background}}; % Background image
 \draw[anchor=north] (midpoint) node [fill=hhublue!30!white,fill opacity=0.6,text opacity=1,inner sep=1cm]{\Huge\centering\bfseries\sffamily\parbox[c][][t]{\paperwidth}{\centering Grundlagen der künstlichen Intelligenz\\[15pt] % Book title
-{\Large Vorlesungsskript zum Seminar im SS 2016}\\[20pt] % Subtitle
-{\huge Michael Leuschel \& Sebastian Krings}}}; % Author name
+{\Large Vorlesungsskript}\\[20pt] % Subtitle
+{\huge Sebastian Krings, et al.}}}; % Author name
 \end{tikzpicture}};
 \end{tikzpicture}
 \vfill
@@ -74,31 +74,6 @@
 %----------------------------------------------------------------------------------------
 
 \newpage
-~\vfill
-\thispagestyle{empty}
-
-\noindent Copyright \copyright\ 2016 Michael Leuschel, Sebastian Krings and others\\ % Copyright notice
-
-%\noindent \textsc{Published by Publisher}\\ % Publisher
-
-\noindent \url{http://www.stups.hhu.de}\\ % URL
-
-\noindent
-\begin{wrapfigure}[4]{l}[0cm]{0.0\textwidth}
-%  \begin{center}
-\includegraphics{images/creativecommons.png}
- % \end{center}
-\end{wrapfigure}
- Licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License (the ``License''). You may not use this file except in compliance with the License. You may obtain a copy of the License at \url{http://creativecommons.org/licenses/by-nc-nd/4.0/}. Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \textsc{``as is'' basis, without warranties or conditions of any kind}, either express or implied. See the License for the specific language governing permissions and limitations under the License.\\ % License information
-
-%\noindent \textit{First printing, March 2013} % Printing/edition date
-
-%----------------------------------------------------------------------------------------
-%	COPYRIGHT AND THANKS PAGE
-%----------------------------------------------------------------------------------------
-
-\newpage
-%~\vfill
 \thispagestyle{empty}
 
 \noindent This book and the corresponding slides are based on work of the students of our artifical intelligence course. We would like to thank all contributors.
@@ -106,7 +81,7 @@
 \noindent
 The contributors are (in alphabetical order):
 \begin{itemize}
-\item Ahmadi, Sirat
+    \item Ahmadi, Sirat
     \item Batiukova, Olga
     \item Brecklinghaus, Anne
     \item Brenneis, Markus
@@ -141,6 +116,22 @@ The contributors are (in alphabetical order):
     \item Weißenfeld, Anke Leonie
 \end{itemize}
 
+~\vfill
+
+\noindent Copyright \copyright\ 2016-2017 Sebastian Krings, Michael Leuschel and others\\ % Copyright notice
+
+%\noindent \textsc{Published by Publisher}\\ % Publisher
+
+\noindent \url{http://www.stups.hhu.de}\\ % URL
+
+\noindent
+\begin{wrapfigure}[4]{l}[0cm]{0.0\textwidth}
+%  \begin{center}
+\includegraphics{images/creativecommons.png}
+ % \end{center}
+\end{wrapfigure}
+ Licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License (the ``License''). You may not use this file except in compliance with the License. You may obtain a copy of the License at \url{http://creativecommons.org/licenses/by-nc-nd/4.0/}. Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \textsc{``as is'' basis, without warranties or conditions of any kind}, either express or implied. See the License for the specific language governing permissions and limitations under the License.\\ % License information
+
 %\noindent \textit{First printing, March 2013} % Printing/edition date
 
 %----------------------------------------------------------------------------------------
@@ -155,14 +146,16 @@ The contributors are (in alphabetical order):
 
 \tableofcontents % Print the table of contents itself
 
-\cleardoublepage % Forces the first chapter to start on an odd page so it's on the right
+%\cleardoublepage % Forces the first chapter to start on an odd page so it's on the right
 
 \pagestyle{fancy} % Print headers again
 
 \part{Einleitung}
 \include{chapters/intro}
+\include{chapters/definitions/definitions}
 
 \part{Reasoning}
+\include{chapters/expertensysteme/expertensysteme}
 \input{chapters/theoremprovers/tp}
 \include{chapters/bayes/bayes}
 

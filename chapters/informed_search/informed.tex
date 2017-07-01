@@ -2,650 +2,369 @@
 
 \chapter{Informierte Suche}
 
-\section{Einf\"uhrung und Motivation}
-Im vorherigen Kapitel haben wir bereits einige Algorithmen zur uninformierten (\glqq blinden\grqq) Suche, wie die Breitensuche und Tiefensuche, kennengelernt. Diese haben jedoch im Allgemeinen einen recht hohen Aufwand und garantieren teilweise nicht für das Finden einer Lösung ($\rightarrow$ Tiefensuche in unendlichen Bäumen). Daher haben wir ebenfalls zwei einfache informierte Suchalgorithmen kennengelernt, nämlich Hill-Climbing und Beam-Search. Jedoch bringen auch diese noch einige Schwierigkeiten mit sich.
-Deshalb werden wir uns in diesem Kapitel tiefergehend mit informierter Suche beschäftigen.
-Es soll vor allem darum gehen Algorithmen kennenzulernen, welche durch Einbeziehen von zusätzlichem heuristischen Wissen einen geringeren Aufwand zum Erreichen eines Ziels benötigen und gleichzeitig die Kosten einer Lösung mit einbeziehen.
-Ebenfalls beschäftigen werden wir uns mit der Zulässigkeit und der Optimalität dieser Algorithmen.
-Im Näheren werden wir Branch and Bound und Best-First-Search (Bestensuche) kennenlernen. Das bekannteste Verfahren aus dem Bereich Best-First-Search ist der Algorithmus A*, welcher in der folgenden Ausarbeitung besonders genau erläutert und an einigen Beispielen verdeutlicht wird.
-
-
-
-\section{Problemstellung}
-
-In diesem Kapitel geht es um das Lösen verschiedener Probleme mittels heuristischer Suche, welche durch heuristische Suche in entsprechenden Graphen modelliert wird.
-Reale Beispiele solcher Probleme sind Routenberechnungsprobleme, Navigationsprobleme, das Travelling-Salesman-Problem und das Problem von Roboternavigation. Aber auch abstraktere Probleme, wie das 8-Puzzle und das 8-Damen-Problem, lassen sich durch entsprechende heuristische Suchen lösen.
-
-Wir haben also einen Suchraum mit verschiedenen Zuständen des Problems gegeben. Diese entsprechen den Knoten des dazugehörigen Problemgraphen $G_{P}$=(V,E).
-Die Kanten des Graphen entsprechen den Übergangsoperationen der Zustände.
-Die Zielknoten entsprechen den Zielzuständen, und der Startknoten dem Startzustand.
-
-Des Weiteren existiert eine Kostenfunktion für die Überführung der einzelnen Zustände. Dementsprechend gibt es eine Gewichtsfunktion $c:E\to \mathbb{N}$, welche jeder Kante des Problemgraphen feste Kosten zuordnet.
-
-Die Aufgabe ist nun in diesem Problemgraphen einen Weg zu finden, und zwar von einem gegebenen Startzustand zu einem Zustand, welcher eine festgelegte Zielbedingung erfüllt.
-Dieser Weg soll dabei möglichst geringe Kosten haben. Das heißt, man sucht bezüglich der gegebenen Kostenfunktion nach einer optimalen Lösung des Problems.
-
-Einige Suchalgorithmen zur Lösung dieses Problems, welche in diesem Kapitel erörtert werden, nutzen eine heuristische Komponente.
-Diese hat den Zweck, den Aufwand zum Finden dieser optimalen Lösung möglichst gering zu halten.
-
-
-
-
-\section{Branch and Bound}
-
-Die Idee, auf welcher Branch and Bound beruht, ist folgende: Hat man für seinen Problemgraphen einen Lösungspfad gegeben und möchte wissen, ob dies auch eine optimale Lösung ist, so genügt es, alle restlichen Pfade nur so weit zu betrachten, bis ihre Kosten größer werden als jene des bekannten Lösungspfades.
-In der Umsetzung des Algorithmus sieht dies wie folgt aus.
-
-\subsection{Intuitiver Algorithmus}
-
-Startknoten $s$ wird in den Such-Baum $G_{S}$ eingefügt. Anbei wird der Wert $g(s)=0$ gespeichert, welcher die Kosten zum Erreichen dieses Knotens repräsentiert.
-Nun wird folgende Schleife behandelt, und zwar so lange, bis es keinen unbehandelten Knoten mehr gibt:
-Wähle aus den noch unbehandelten Blättern des Such-Baums $G_{S}$ denjenigen Knoten $n$ mit geringsten Kosten $g(n)$ vom Startknoten $s$ bis nach $n$. (Gibt es mehrere Knoten mit demselben minimalen Wert, dann wähle von diesen zufällig einen aus.)
-Ist $n$ ein Zielknoten, so terminiert die Suche erfolgreich und der Pfad vom Startknoten $s$ nach $n$ ist eine optimale Lösung.
-Ansonsten erweitere den Such-Baum $G_{S}$ durch Anhängen aller möglichen Nachfolger an Knoten $n$. (Lasse dabei alle Knoten aus, welche bereits auf dem Pfad von $s$ nach $n$ vorkommen.) Berechne dann für jeden dieser Nachfolger $t$ die Pfadkosten bis nach $t$. Addiere dafür die Kosten der Kante von $n$ nach $t$ auf die Pfadkosten des Vaters $n$ auf: $g(t)=c({n,t})+g(n)$.
-
-Veranschaulichen wir den Algorithmus nun an folgendem Beispiel. Gegeben sei ein Problemgraph mit eingezeichneter Kostenfunktion. S sei der Startknoten und G der Zielknoten. Der entstehende Such-Baum $G_{S}$ ist ebenfalls auf der kommenden Seite dargestellt.
+\section{Schw\"achen uninformierter Suche}
+Im folgenden zeigen wir noch einmal die, bereits bekannte, uninformierte Suche, um die Vorteile von informierter Suche besser darstellen zu k\"onnen. Wir beginnen mit folgendem Graphen (es k\"onnte eine Abstraktion einer Stra\ss enkarte sein). 
 
 \begin{figure}[h!]
-	\includegraphics[scale=0.6]{chapters/informed_search/bab.png}
-	\caption{Problemgraph}
-	\label{fig:figure3}
+	\centering
+	\includegraphics[scale=0.9]{chapters/informed_search/Anfangsproblem.png}
+	\caption{Beispiel Graph}
 \end{figure}
+
+Wir sehen unsere Startknoten $S1$ und $S2$, sowie den Zielknoten $T$.  Au\ss erdem sind alle Kanten zwischen den Knoten mit einer L\"ange versehen. Im folgenden werden wir mit Hilfe der Breitensuche erst den Weg von $S1$ zu $T$ und dann den Weg von $S2$ zu $T$ suchen. In der folgenden Grafik sind die Zwischenknoten mit Kleinbuchstaben beschriftet, des weiteren sind Start und Ziel in gelb eingef\"arbt. In jedem Schritt werden die aktuell zu untersuchenden Knoten gr\"un und die bereits besuchten Knoten blau markiert.
 
 \begin{figure}[h!]
-	\includegraphics[scale=0.6]{chapters/informed_search/babsearch.png}
-	\caption{Such-Baum $G_{S}$}
-	\label{fig:figure4}
+	\centering
+	\includegraphics[scale=0.76]{chapters/informed_search/BeispielGraphen1.png}
+	\caption{Beispiel Graph mit Breitensuche. Zu jedem Graphen sind die besuchten Wege angegeben. Die durch "..."\ zusammengefassten Wegst\"ucke der Wege des letzten Graphen entsprechen denen der Wegen von $S1$ nach $S2$ des vorletzten Graphens.}
 \end{figure}
 
-Der gefundene optimale Pfad lautet hier (S,C,F,G).
-Die roten Zahlen geben an, in welcher Reihenfolge die Knoten betrachtet werden. Die schwarzen Zahlen sind die berechneten Pfadkosten.
-
-Nachdem wir diesen intuitiven Algorithmus verstanden haben, möchte ich noch eine Implementierung von Branch and Bound angeben, welche die Suche mittels einer Queue (Warteschlange) realisiert. In dieser werden zur Laufzeit des Algorithmus die bisher aufgebauten Pfade gespeichert und geordnet.
-
-\subsection{Implementierung mittels Queue}
-
-\begin{itemize}
-	\item Initialisiere die Queue.
-	\item Erzeuge einen Pfad, welcher nur aus dem Startknoten besteht, und schreibe ihn in die Queue.
-	\item Solange der erste Pfad in der Queue nicht mit einem Zielknoten endet und die Queue nicht leer ist:
-	\begin{itemize}
-		\item Nehme den ersten Pfad aus der Queue. Ermittle den Endknoten dieses Pfades und erzeuge für jeden Nachbarn dieses Endknotens je einen neuen Pfad, indem dieser an den bisherigen Pfad angehangen wird.
-		\item Entferne alle neuen Pfade, welche Schleifen enthalten.
-		\item Füge die übrigen Pfade in die Queue ein.
-		\item Sortiere die Queue aufsteigend nach den Pfadkosten.
-	\end{itemize}
-	\item Falls ein Zielknoten erreicht wurde, gib den Pfad als Lösung aus.
-\end{itemize}
-
-\section{Best-First Search} \label{BFS}
-
-Best-First Search ist eine Klasse von informierten Such-Algorithmen, welche nach dem Prinzip arbeiten, dass sie stets denjenigen Knoten zuerst untersuchen, welcher für den Erfolg der Suche am \glqq vielversprechendsten\grqq\ erscheint. Die Wahl dieses \glqq vielversprechenden\grqq\ Knotens geschieht anhand einer gewissen Heuristik.
-Der wohl bekannteste Algorithmus aus diesem Bereich ist A*, welcher auch als eine Erweiterung von Branch and Bound gesehen werden kann. An ihm wollen wir im Folgenden das Prinzip von Best-First Search verdeutlichen.
-
-\subsection{A* Algorithmus}
-
-Die verwendete Heuristik sei mit $f(n)$ bezeichnet und auf allen Knoten $n$ des Problemgraphen $G_{P}$ definiert. Somit ist $f$ auch für alle Knoten des später aufgebauten Such-Graphen $G_{S}$ definiert.
-
-Die Idee des Algorithmus besteht darin, dass die Kosten eines optimalen Pfades durch Knoten $n$ als Summe der Kosten vom Start zu $n$ und der Kosten von $n$ zu einem Ziel dargestellt werden.
-Dazu definieren wir folgende Funktionen:
-
-\begin{description}
-	\item[$g^{*}(n)$]{Kosten eines optimalen Pfades vom Start zu $n$}
-	\item[$h^{*}(n)$]{Kosten eines optimalen Pfades von $n$ zu einem Knoten, welcher die Endbedingung erfüllt}
-	\item[$f^{*}(n)$]{Kosten eines optimalen Pfades vom Start über $n$ zu einem Knoten, welcher die Endbedingung erfüllt}
-\end{description}
-Also gilt: \[f^{*}(n)=g^{*}(n)+h^{*}(n)\]
-
-
-Da zum Zeitpunkt der Suche für gewöhnlich aber kein Wissen über die tatsächlichen Kosten eines solchen optimalen Pfades vorliegt, ist es an diesem Punkt nötig, eine Schätzung für $g^{*}(n)$ und $h^{*}(n)$ einzuführen.
-Wir definieren:
-
-\begin{description}
-	\item[$g(n)$]{Kosten des günstigsten bisher gefundenen Pfades vom Start zu $n$}
-	\item[$ h(n)$]{geschätzte Kosten von $n$ zu einem Knoten, welcher die Endbedingung erfüllt}
-	\item[$ f(n)$]{geschätzte Kosten eines optimalen Pfades vom Start über $n$ zu einem Knoten, welcher die Endbedingung erfüllt
-
-		$\rightarrow$ resultierende Heuristikfunktion}
-\end{description}
-Auch hier gilt: \[f(n)=g(n)+h(n)\]
-
-Die Funktion $g$ lässt sich dabei leicht mittels des bisher aufgebauten Such-Baumes $G_{S}$ bestimmen, indem die einzelnen Kantengewichte aufsummiert werden.
-Es ist zu bemerken, dass durch diese Art der Pfadbewertung der heuristische Wert $g$ niemals die tatsächlichen Kosten $g^{*}$ unterschreitet.
-Es gilt also $g(n) \geq g^{*}(n)$ für alle $n \in G_{P}$.
-(Denkbar wären auch andere Funktionen, aus denen sich die Bewertungen eines Pfades berechnen. Beispielsweise könnte statt der Summe der Kantengewichte auch das Produkt, Maximum oder der Median herangezogen werden. Welche Auswirkungen dies mit sich bringt, wird an dieser Stelle offen gelassen. Der interessierte Leser kann eine genauere Behandlung dieser Fälle in \cite{Dechter:1985:GBS:3828.3830} nachlesen.)
-
-\subsection{Beispiel}
-
-Wir wollen nun den $\text{A}^*$ Algorithmus an einem Beispiel anwenden.
-Sei dazu der Graph $G$ und die Heuristik $h$ durch
-\fbox{
-\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
-                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
-
-  \node[main node, label={\color{red}\small 9}] (1) at (1, 3) {1};
-  \node[main node, label={\color{red}\small 6}] (2) at (4, 3) {2};
-  \node[main node, label={\color{red}\small 7}] (3) at (3, 4) {3};
-  \node[main node, label={\color{red}\small 5}] (4) at (5, 4) {4};
-  \node[main node, label=left:{\color{red}\small 5}] (5) at (5, 1) {5};
-  \node[main node, label={\color{red}\small 1}] (6) at (9, 3) {6};
-  \node[main node, label={\color{red}\small 2}] (7) at (8, 4) {7};
-  \node[main node, label=left:{\color{red}\small 2}] (8) at (8, 1) {8};
-  \node[main node, label={\color{red}\small 8}] (9) at (2, 1) {S};
-  \node[main node, label={\color{red}\small 0}] (10) at (10, 2) {Z};
-
-  \path[every node/.style={font=\sffamily\small}]
-  (9) edge node [sloped, below] {2.5} (1)
-  (1) edge node [sloped] {3} (2)
-  (2) edge node [sloped, above] {4.5} (7)
-  (7) edge node [left, yshift=0.5cm] {3} (8)
-  (8) edge node [sloped, above] {2.5} (10)
-  (9) edge node [sloped] {3.5} (3)
-  (3) edge node [sloped] {2} (4)
-  (4) edge node [right] {3} (5)
-  (5) edge node [sloped] {4.5} (6)
-  (6) edge node [sloped, above] {1.5} (10)
-  (4) edge node [sloped, above] {1.5} (2);
-
-\end{tikzpicture}}\vspace{5pt}\\
-gegeben. Wir wollen einen Weg von $S$ nach $Z$ suchen. Man erhält Folgendes
-(hierbei ist eine Zahl im Knoten rot, falls er in der Extended-List
-ist, grün, wenn er gerade expandiert wird, und gelb, falls er auf der Open-List
-ist):\vspace{5pt}\\
-\fbox{
-\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
-                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
-
-  \node[main node, label={\color{red}\small 9}] (1) at (1, 3) {1};
-  \node[main node, label={\color{red}\small 6}] (2) at (4, 3) {2};
-  \node[main node, label={\color{red}\small 7}] (3) at (3, 4) {3};
-  \node[main node, label={\color{red}\small 5}] (4) at (5, 4) {4};
-  \node[main node, label=left:{\color{red}\small 5}] (5) at (5, 1) {5};
-  \node[main node, label={\color{red}\small 1}] (6) at (9, 3) {6};
-  \node[main node, label={\color{red}\small 2}] (7) at (8, 4) {7};
-  \node[main node, label=left:{\color{red}\small 2}] (8) at (8, 1) {8};
-  \node[main node, color=green, label={\color{red}\small 8}] (9) at (2, 1) {S};
-  \node[main node, label={\color{red}\small 0}] (10) at (10, 2) {Z};
-
-  \path[every node/.style={font=\sffamily\small}]
-  (9) edge node [sloped, below] {2.5} (1)
-  (1) edge node [sloped] {3} (2)
-  (2) edge node [sloped, above] {4.5} (7)
-  (7) edge node [left, yshift=0.5cm] {3} (8)
-  (8) edge node [sloped, above] {2.5} (10)
-  (9) edge node [sloped] {3.5} (3)
-  (3) edge node [sloped] {2} (4)
-  (4) edge node [right] {3} (5)
-  (5) edge node [sloped] {4.5} (6)
-  (6) edge node [sloped, above] {1.5} (10)
-  (4) edge node [sloped, above] {1.5} (2);
-
-\end{tikzpicture}}
-\hfill
-\fbox{\begin{minipage}[b][4.27cm][t]{0.34\textwidth}
-    \begin{tabular}{|l|r|}
-      Queue & Prio\\
-      (S) & 8\\
-      \phantom{(S, 3, 4, 5, 6, Z)} & \phantom{14.5}
-    \end{tabular}
-\end{minipage}}\vspace{5pt}\\
-\fbox{
-\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
-                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
-
-  \node[main node, color=yellow, label={\color{red}\small 9}] (1) at (1, 3) {1};
-  \node[main node, label={\color{red}\small 6}] (2) at (4, 3) {2};
-  \node[main node, color=green, label={\color{red}\small 7}] (3) at (3, 4) {3};
-  \node[main node, label={\color{red}\small 5}] (4) at (5, 4) {4};
-  \node[main node, label=left:{\color{red}\small 5}] (5) at (5, 1) {5};
-  \node[main node, label={\color{red}\small 1}] (6) at (9, 3) {6};
-  \node[main node, label={\color{red}\small 2}] (7) at (8, 4) {7};
-  \node[main node, label=left:{\color{red}\small 2}] (8) at (8, 1) {8};
-  \node[main node, color=red, label={\color{red}\small 8}] (9) at (2, 1) {S};
-  \node[main node, label={\color{red}\small 0}] (10) at (10, 2) {Z};
-
-  \path[every node/.style={font=\sffamily\small}]
-  (9) edge node [sloped, below] {2.5} (1)
-  (1) edge node [sloped] {3} (2)
-  (2) edge node [sloped, above] {4.5} (7)
-  (7) edge node [left, yshift=0.5cm] {3} (8)
-  (8) edge node [sloped, above] {2.5} (10)
-  (9) edge node [sloped] {3.5} (3)
-  (3) edge node [sloped] {2} (4)
-  (4) edge node [right] {3} (5)
-  (5) edge node [sloped] {4.5} (6)
-  (6) edge node [sloped, above] {1.5} (10)
-  (4) edge node [sloped, above] {1.5} (2);
-
-\end{tikzpicture}}\hfill
-\fbox{\begin{minipage}[b][4.27cm][t]{0.34\textwidth}
-    \begin{tabular}{|l|r|}
-      Queue & Prio\\
-      (S, 3) & 10\\
-      (S, 1) & 11.5\\
-      \phantom{(S, 3, 4, 5, 6, Z)} & \phantom{14.5}
-    \end{tabular}
-\end{minipage}}
-\vspace{5pt}\\
-\fbox{
-\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
-                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
-
-  \node[main node, color=yellow, label={\color{red}\small 9}] (1) at (1, 3) {1};
-  \node[main node, label={\color{red}\small 6}] (2) at (4, 3) {2};
-  \node[main node, color=red, label={\color{red}\small 7}] (3) at (3, 4) {3};
-  \node[main node, color=green, label={\color{red}\small 5}] (4) at (5, 4) {4};
-  \node[main node, label=left:{\color{red}\small 5}] (5) at (5, 1) {5};
-  \node[main node, label={\color{red}\small 1}] (6) at (9, 3) {6};
-  \node[main node, label={\color{red}\small 2}] (7) at (8, 4) {7};
-  \node[main node, label=left:{\color{red}\small 2}] (8) at (8, 1) {8};
-  \node[main node, color=red, label={\color{red}\small 8}] (9) at (2, 1) {S};
-  \node[main node, label={\color{red}\small 0}] (10) at (10, 2) {Z};
-
-  \path[every node/.style={font=\sffamily\small}]
-  (9) edge node [sloped, below] {2.5} (1)
-  (1) edge node [sloped] {3} (2)
-  (2) edge node [sloped, above] {4.5} (7)
-  (7) edge node [left, yshift=0.5cm] {3} (8)
-  (8) edge node [sloped, above] {2.5} (10)
-  (9) edge node [sloped] {3.5} (3)
-  (3) edge node [sloped] {2} (4)
-  (4) edge node [right] {3} (5)
-  (5) edge node [sloped] {4.5} (6)
-  (6) edge node [sloped, above] {1.5} (10)
-  (4) edge node [sloped, above] {1.5} (2);
-
-\end{tikzpicture}}\hfill
-\fbox{\begin{minipage}[b][4.27cm][t]{0.34\textwidth}
-    \begin{tabular}{|l|r|}
-      Queue & Prio\\
-      (S, 3, 4) & 10\\
-      (S, 1) & 11.5\\
-      \phantom{(S, 3, 4, 5, 6, Z)} & \phantom{14.5}
-    \end{tabular}
-\end{minipage}}\vspace{5pt}\\
-\fbox{
-\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
-                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
-
-  \node[main node, color=green, label={\color{red}\small 9}] (1) at (1, 3) {1};
-  \node[main node, color=yellow, label={\color{red}\small 6}] (2) at (4, 3) {2};
-  \node[main node, color=red, label={\color{red}\small 7}] (3) at (3, 4) {3};
-  \node[main node, color=red, label={\color{red}\small 5}] (4) at (5, 4) {4};
-  \node[main node, color=yellow, label=left:{\color{red}\small 5}] (5) at (5, 1) {5};
-  \node[main node, label={\color{red}\small 1}] (6) at (9, 3) {6};
-  \node[main node, label={\color{red}\small 2}] (7) at (8, 4) {7};
-  \node[main node, label=left:{\color{red}\small 2}] (8) at (8, 1) {8};
-  \node[main node, color=red, label={\color{red}\small 8}] (9) at (2, 1) {S};
-  \node[main node, label={\color{red}\small 0}] (10) at (10, 2) {Z};
-
-  \path[every node/.style={font=\sffamily\small}]
-  (9) edge node [sloped, below] {2.5} (1)
-  (1) edge node [sloped] {3} (2)
-  (2) edge node [sloped, above] {4.5} (7)
-  (7) edge node [left, yshift=0.5cm] {3} (8)
-  (8) edge node [sloped, above] {2.5} (10)
-  (9) edge node [sloped] {3.5} (3)
-  (3) edge node [sloped] {2} (4)
-  (4) edge node [right] {3} (5)
-  (5) edge node [sloped] {4.5} (6)
-  (6) edge node [sloped, above] {1.5} (10)
-  (4) edge node [sloped, above] {1.5} (2);
-
-\end{tikzpicture}}\hfill
-\fbox{\begin{minipage}[b][4.27cm][t]{0.34\textwidth}
-    \begin{tabular}{|l|r|}
-      Queue & Prio\\
-      (S, 1) & 11.5\\
-      (S, 3, 4, 2) & 13\\
-      (S, 3, 4, 5) & 13.5\\
-      \phantom{(S, 3, 4, 5, 6, Z)} & \phantom{14.5}
-    \end{tabular}
-\end{minipage}}\vspace{5pt}\\
-\fbox{
-\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
-                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
-
-  \node[main node, color=red, label={\color{red}\small 9}] (1) at (1, 3) {1};
-  \node[main node, color=green, label={\color{red}\small 6}] (2) at (4, 3) {2};
-  \node[main node, color=red, label={\color{red}\small 7}] (3) at (3, 4) {3};
-  \node[main node, color=red, label={\color{red}\small 5}] (4) at (5, 4) {4};
-  \node[main node, color=yellow, label=left:{\color{red}\small 5}] (5) at (5, 1) {5};
-  \node[main node, label={\color{red}\small 1}] (6) at (9, 3) {6};
-  \node[main node, label={\color{red}\small 2}] (7) at (8, 4) {7};
-  \node[main node, label=left:{\color{red}\small 2}] (8) at (8, 1) {8};
-  \node[main node, color=red, label={\color{red}\small 8}] (9) at (2, 1) {S};
-  \node[main node, label={\color{red}\small 0}] (10) at (10, 2) {Z};
-
-  \path[every node/.style={font=\sffamily\small}]
-  (9) edge node [sloped, below] {2.5} (1)
-  (1) edge node [sloped] {3} (2)
-  (2) edge node [sloped, above] {4.5} (7)
-  (7) edge node [left, yshift=0.5cm] {3} (8)
-  (8) edge node [sloped, above] {2.5} (10)
-  (9) edge node [sloped] {3.5} (3)
-  (3) edge node [sloped] {2} (4)
-  (4) edge node [right] {3} (5)
-  (5) edge node [sloped] {4.5} (6)
-  (6) edge node [sloped, above] {1.5} (10)
-  (4) edge node [sloped, above] {1.5} (2);
-
-\end{tikzpicture}}\hfill
-\fbox{\begin{minipage}[b][4.27cm][t]{0.34\textwidth}
-    \begin{tabular}{|l|r|}
-      Queue & Prio\\
-      (S, 1, 2) & 11.5\\
-      (S, 3, 4, 2) & 13\\
-      (S, 3, 4, 5) & 13.5\\
-      \phantom{(S, 3, 4, 5, 6, Z)} & \phantom{14.5}
-    \end{tabular}
-\end{minipage}}\vspace{5pt}\\
-\fbox{
-\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
-                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
-
-  \node[main node, color=red, label={\color{red}\small 9}] (1) at (1, 3) {1};
-  \node[main node, color=red, label={\color{red}\small 6}] (2) at (4, 3) {2};
-  \node[main node, color=red, label={\color{red}\small 7}] (3) at (3, 4) {3};
-  \node[main node, color=red, label={\color{red}\small 5}] (4) at (5, 4) {4};
-  \node[main node, color=yellow, label=left:{\color{red}\small 5}] (5) at (5, 1) {5};
-  \node[main node, label={\color{red}\small 1}] (6) at (9, 3) {6};
-  \node[main node, color=green, label={\color{red}\small 2}] (7) at (8, 4) {7};
-  \node[main node, label=left:{\color{red}\small 2}] (8) at (8, 1) {8};
-  \node[main node, color=red, label={\color{red}\small 8}] (9) at (2, 1) {S};
-  \node[main node, label={\color{red}\small 0}] (10) at (10, 2) {Z};
-
-  \path[every node/.style={font=\sffamily\small}]
-  (9) edge node [sloped, below] {2.5} (1)
-  (1) edge node [sloped] {3} (2)
-  (2) edge node [sloped, above] {4.5} (7)
-  (7) edge node [left, yshift=0.5cm] {3} (8)
-  (8) edge node [sloped, above] {2.5} (10)
-  (9) edge node [sloped] {3.5} (3)
-  (3) edge node [sloped] {2} (4)
-  (4) edge node [right] {3} (5)
-  (5) edge node [sloped] {4.5} (6)
-  (6) edge node [sloped, above] {1.5} (10)
-  (4) edge node [sloped, above] {1.5} (2);
-
-\end{tikzpicture}}\hfill
-\fbox{\begin{minipage}[b][4.27cm][t]{0.34\textwidth}
-    \begin{tabular}{|l|r|}
-      Queue & Prio\\
-      (S, 1, 2, 7) & 12\\
-      (S, 3, 4, 2) & 13\\
-      (S, 3, 4, 5) & 13.5\\
-      \phantom{(S, 3, 4, 5, 6, Z)} & \phantom{14.5}
-    \end{tabular}
-\end{minipage}}\vspace{5pt}\\
-\fbox{
-\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
-                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
-
-  \node[main node, color=red, label={\color{red}\small 9}] (1) at (1, 3) {1};
-  \node[main node, color=red, label={\color{red}\small 6}] (2) at (4, 3) {2};
-  \node[main node, color=red, label={\color{red}\small 7}] (3) at (3, 4) {3};
-  \node[main node, color=red, label={\color{red}\small 5}] (4) at (5, 4) {4};
-  \node[main node, color=green, label=left:{\color{red}\small 5}] (5) at (5, 1) {5};
-  \node[main node, label={\color{red}\small 1}] (6) at (9, 3) {6};
-  \node[main node, color=red, label={\color{red}\small 2}] (7) at (8, 4) {7};
-  \node[main node, color=yellow, label=left:{\color{red}\small 2}] (8) at (8, 1) {8};
-  \node[main node, color=red, label={\color{red}\small 8}] (9) at (2, 1) {S};
-  \node[main node, label={\color{red}\small 0}] (10) at (10, 2) {Z};
-
-  \path[every node/.style={font=\sffamily\small}]
-  (9) edge node [sloped, below] {2.5} (1)
-  (1) edge node [sloped] {3} (2)
-  (2) edge node [sloped, above] {4.5} (7)
-  (7) edge node [left, yshift=0.5cm] {3} (8)
-  (8) edge node [sloped, above] {2.5} (10)
-  (9) edge node [sloped] {3.5} (3)
-  (3) edge node [sloped] {2} (4)
-  (4) edge node [right] {3} (5)
-  (5) edge node [sloped] {4.5} (6)
-  (6) edge node [sloped, above] {1.5} (10)
-  (4) edge node [sloped, above] {1.5} (2);
-
-\end{tikzpicture}}\hfill
-\fbox{\begin{minipage}[b][4.27cm][t]{0.34\textwidth}
-    \begin{tabular}{|l|r|}
-      Queue & Prio\\
-      (S, 3, 4, 5) & 13.5\\
-      (S, 1, 2, 7, 8) & 15\\
-      \phantom{(S, 3, 4, 5, 6, Z)} & \phantom{14.5}
-    \end{tabular}\\
-    Der Weg $(S, 3, 4, 2)$ wurde entfernt, da $2$ schon in der Closed-List ist.
-\end{minipage}}\vspace{5pt}\\
-\fbox{
-\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
-                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
-
-  \node[main node, color=red, label={\color{red}\small 9}] (1) at (1, 3) {1};
-  \node[main node, color=red, label={\color{red}\small 6}] (2) at (4, 3) {2};
-  \node[main node, color=red, label={\color{red}\small 7}] (3) at (3, 4) {3};
-  \node[main node, color=red, label={\color{red}\small 5}] (4) at (5, 4) {4};
-  \node[main node, color=red, label=left:{\color{red}\small 5}] (5) at (5, 1) {5};
-  \node[main node, color=green, label={\color{red}\small 1}] (6) at (9, 3) {6};
-  \node[main node, color=red, label={\color{red}\small 2}] (7) at (8, 4) {7};
-  \node[main node, color=yellow, label=left:{\color{red}\small 2}] (8) at (8, 1) {8};
-  \node[main node, color=red, label={\color{red}\small 8}] (9) at (2, 1) {S};
-  \node[main node, label={\color{red}\small 0}] (10) at (10, 2) {Z};
-
-  \path[every node/.style={font=\sffamily\small}]
-  (9) edge node [sloped, below] {2.5} (1)
-  (1) edge node [sloped] {3} (2)
-  (2) edge node [sloped, above] {4.5} (7)
-  (7) edge node [left, yshift=0.5cm] {3} (8)
-  (8) edge node [sloped, above] {2.5} (10)
-  (9) edge node [sloped] {3.5} (3)
-  (3) edge node [sloped] {2} (4)
-  (4) edge node [right] {3} (5)
-  (5) edge node [sloped] {4.5} (6)
-  (6) edge node [sloped, above] {1.5} (10)
-  (4) edge node [sloped, above] {1.5} (2);
-
-\end{tikzpicture}}\hfill
-\fbox{\begin{minipage}[b][4.27cm][t]{0.34\textwidth}
-    \begin{tabular}{|l|r|}
-      Weg & Prio\\
-      (S, 3, 4, 5, 6) & 14\\
-      (S, 1, 2, 7, 8) & 15\\
-      \phantom{(S, 3, 4, 5, 6, Z)} & \phantom{14.5}
-    \end{tabular}
-\end{minipage}}\vspace{5pt}\\
-\fbox{
-\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
-                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
-
-  \node[main node, color=red, label={\color{red}\small 9}] (1) at (1, 3) {1};
-  \node[main node, color=red, label={\color{red}\small 6}] (2) at (4, 3) {2};
-  \node[main node, color=red, label={\color{red}\small 7}] (3) at (3, 4) {3};
-  \node[main node, color=red, label={\color{red}\small 5}] (4) at (5, 4) {4};
-  \node[main node, color=red, label=left:{\color{red}\small 5}] (5) at (5, 1) {5};
-  \node[main node, color=red, label={\color{red}\small 1}] (6) at (9, 3) {6};
-  \node[main node, color=red, label={\color{red}\small 2}] (7) at (8, 4) {7};
-  \node[main node, color=yellow, label=left:{\color{red}\small 2}] (8) at (8, 1) {8};
-  \node[main node, color=red, label={\color{red}\small 8}] (9) at (2, 1) {S};
-  \node[main node, color=green, label={\color{red}\small 0}] (10) at (10, 2) {Z};
-
-  \path[every node/.style={font=\sffamily\small}]
-  (9) edge node [sloped, below] {2.5} (1)
-  (1) edge node [sloped] {3} (2)
-  (2) edge node [sloped, above] {4.5} (7)
-  (7) edge node [left, yshift=0.5cm] {3} (8)
-  (8) edge node [sloped, above] {2.5} (10)
-  (9) edge node [sloped] {3.5} (3)
-  (3) edge node [sloped] {2} (4)
-  (4) edge node [right] {3} (5)
-  (5) edge node [sloped] {4.5} (6)
-  (6) edge node [sloped, above] {1.5} (10)
-  (4) edge node [sloped, above] {1.5} (2);
-
-\end{tikzpicture}}\hfill
-\fbox{\begin{minipage}[b][4.27cm][t]{0.34\textwidth}
-    \begin{tabular}{|l|r|}
-      Weg & Prio\\
-      (S, 3, 4, 5, 6, Z) & 14.5\\
-      (S, 1, 2, 7, 8) & 15\\
-      \phantom{(S, 3, 4, 5, 6, Z)} & \phantom{14.5}
-    \end{tabular}\\
-    Hier bricht der Algorithmus ab, da $Z$ zu suchen war, und gibt
-    $(S, 3, 4, 5, 6, Z)$ aus.
-\end{minipage}}\vspace{5pt}\\
-Somit ist $(S, 3, 4, 5, 6, Z)$ der kürzeste Weg von $S$ nach $Z$.
-
-\subsection{Beispiel des 8-Puzzles}
-
-
-Beim 8-Puzzle handelt es sich um ein Spiel, bestehend aus einem Spielbrett der Größe 3-mal-3 und acht Kacheln, nummeriert von 1 bis 8, welche auf dem Spielbrett verteilt sind. Ein Feld des Spielbrettes bleibt also frei. Grenzt eine Kachel an dieses freie Feld, so kann sie an dessen Stelle verschoben werden. Das Ziel des Spieles ist, von einer ungeordneten Stellung der Kacheln durch eine Folge von Verschiebungen zu einer Zielstellung zu gelangen.
-Die folgende Abbildung zeigt ein konkretes Problem mittels Start- und Zielkonfiguration.
-
-\includegraphics[scale=0.7]{chapters/informed_search/startziel.png}
-
-Zur Anwendung von A* brauchen wir nun zunächst eine Heuristik, um die Anzahl der benötigten Züge zu schätzen. Eine mögliche Heuristik ist durch die Hamming-Distanz gegeben. Diese entspricht für einen gegebenen Zustand der Anzahl der Plättchen, welche an einer falschen Position (also nicht an ihrer Zielposition) liegen. Im Startzustand der obigen Abbildung beträgt diese Drei, da Kacheln 1, 2 und 8 verkehrt liegen.
-
-\begin{description}
-	\item[$h_{1}(n)$]{Anzahl falsch positionierter Kacheln in der durch Knoten $n$ dargestellten Konfiguration}
-\end{description}
-
-Eine weitere Bewertungsfunktion liefert die Manhattan-Distanz. In diesem Fall wird zu jeder Kachel zusätzlich geprüft, wie weit sie von ihrer korrekten Position entfernt liegt. Es wird also gezählt, wie oft die jeweilige Kachel verschoben werden müsste, um an ihrem korrekten Platz anzukommen, wenn keine anderen Kacheln im Weg lägen. Die entsprechende Heuristik ergibt sich dann als Summe der Distanzen der falsch positionierten Kacheln im Vergleich zur Zielkonfiguration. Im obigen Startzustand ergibt sich eine Manhattan-Distanz von Vier (Zwei für Kachel 2 und je Eins für Kacheln 1 und 8).
-
-\begin{description}
-	\item[$h_{2}(n)$]{Summe der Distanzen der falsch positionierten Kacheln zu ihrer Zielposition}
-\end{description}
-
-Wie man auf solche Bewertungsfunktionen kommt, werden wir im nächsten Unterkapitel behandeln. Sehen wir uns nun zunächst den konkreten Suchbaum  $G_{S1}$ an, welcher entsteht, wenn A* unter Verwendung von $h_{1}(n)$ auf das obige Problem angewendet wird.
-Dieser ist in Abbildung \ref{fig:figure1} am Ende dieses Kapitels zu finden.
-
-\begin{figure}[p]
-	\includegraphics[width=14cm]{chapters/informed_search/tree1.png}
-	\caption{Suchbaum $G_{S1}$ zu $h_{1}$}
-	\label{fig:figure1}
-\end{figure}
-
-Die in der jeweiligen Konfiguration falsch liegenden Kacheln sind blau markiert. Die Werte $g(n)$, $h(n)$ und $f(n)$ sind jeweils linkerhand des Knotens $n$ angegeben. Weiterhin ist die Reihenfolge angegeben, in welcher die Knoten selektiert werden.
-Der Such-Baum beginnt mit der Startkonfiguration in der Wurzel des Baumes und generiert daraufhin alle vier möglichen Nachfolger. Zu diesen werden mittels $g$ und der Heuristik $h_{1}$ die jeweiligen $f$-Werte berechnet. Von diesen wird nun der geringste Wert selektiert. Da von den vier Nachfolgern zwei denselben minimalen Wert besitzen, wird zufällig einer der beiden gewählt, in unserem Fall der Knoten ganz links. Dieser wird nun expandiert, indem wiederum seine möglichen Nachfolger generiert werden. Knoten, die zu Schleifen führen (also nur eine Operation rückgängig machen), lassen wir hier bewusst weg. Auch zu den neu generierten Knoten werden die $f$-Werte berechnet. Nun wird wiederum aus den noch nicht expandierten Knoten derjenige mit geringstem $f$-Wert selektiert. Dies trifft auf den Knoten rechts mit $f$-Wert 4 zu. Dieser wird nun expandiert. Nach weiteren Iterationen kommt es dann dazu, dass eine Zielkonfiguration generiert wird. Der zugehörige Knoten wird kurz darauf aufgrund seines minimalen $f$-Wertes selektiert und die Suche endet erfolgreich.
-
-Für Heuristik $h_{2}(n)$ ergibt sich der folgende Suchbaum $G_{S2}$, welcher in Abbildung \ref{fig:figure2} am Ende dieses Kapitels zu finden ist.
-
-\begin{figure}[p]
-	\includegraphics[width=14cm]{chapters/informed_search/tree2.png}
-	\caption{Suchbaum $G_{S2}$ zu $h_{2}$}
-	\label{fig:figure2}
-\end{figure}
-
-Wie wir sehen, ist hier eine geringere Anzahl von Expansionen nötig als bei unserer ersten Heuristik. Der Aufwand ist also geringer. Die Wahl des zu expandierenden Knotens ist stets eindeutig. Heuristik $h_{2}$ scheint also ein besserer Schätzer zu sein als $h_{1}$. Um zu verstehen, was einen vermeintlich guten Schätzer ausmacht, werden wir uns in Abschnitt \ref{theo} mit ein wenig Theorie beschäftigen und einige wünschenswerte Eigenschaften bezüglich Heuristikfunktionen und Suchverfahren kennenlernen.
-
-%Zunächst möchte ich im folgenden jedoch eine konkrete Implementierung von A* festhalten.
-
-%\subsection{Implementierung von A*}
-
-
-
-%\glqq blinden\grqq
-
-%\begin{SCfigure}
-%	\centering
-%	\includegraphics[width=0.8\textwidth]%
-%	{tree1}% picture filename
-%	\caption{Such-Baum zu h1}
-%\end{SCfigure}
-
-
-\section{Findung von Bewertungsfunktionen}
-
-Im Beispiel des 8-Puzzles hatten wir folgende Vorbedingungen, welche erfüllt sein mussten, damit eine Verschiebe-Operation einer Kachel k von Feld x nach y ausgeführt werden konnte:
 \begin{enumerate}
-	\item Die Kachel k, welche bewegt werden soll, befindet sich auf Feld x.
-	\item Feld y, in welches verschoben werden soll, ist benachbart zu Feld x.
-	\item Dieses benachbarte Feld y ist leer -- dort befindet sich also keine Kachel.
+	\item Wir besuchen zuerst Knoten $a$, $b$ und $c$ und stellen offensichtlich fest, dass wir $T$ noch nicht erreicht haben. 
+	\item Wir besuchen nun $d$, $e$ und $f$. Wir haben $T$ immer noch nicht erreicht.
+	\item In diesem Schritt gibt es nur $S2$ zu besuchen. 
+	\item Ab hier Suchen wir effektiv den k\"urzesten Weg von $S2$ zu $T$, weshalb dieses Beispiel sp\"ater nicht mehr extra erl\"autert wird. Hier besuchen wir die Knoten $g$ und $h$.
+	\item Dann besuchen wir noch $i$, $j$ und $k$.
+	\item Jetzt bilden wir noch die letzen Wege und diese enden beim Knoten $T$. Also sind wir fertig. 
 \end{enumerate}
-Die beiden im obigen Beispiel angegebenen Heuristiken $h_{1}(n)$ (Hamming-Distanz) und $h_{2}(n)$ (Manhattan-Distanz) sind durch Betrachten eines vereinfachten Modelles entstanden, bei welchem eine bzw. mehrere dieser konjunktiv verknüpften Bedingungen weggelassen wurden.
-Betrachtet man das stark vereinfachte Modell, bei welchem zum Verschieben einer Kachel nur Bedingung 1 erfüllt sein muss, so gelangen wir zu Heuristik $h_{1}(n)$, bei welcher jede falsch positionierte Kachel direkt an ihre Zielposition gebracht werden kann und somit genau eine Verschiebe-Operation benötigt.
-Erweitert man dieses einfache Modell ein wenig, indem ebenfalls Bedingung 2 vorausgesetzt wird, so ergibt sich als Heuristik die Manhattan-Distanz $h_{2}(n)$.
+Der k\"urzeste Weg von $S1$ zu $T$ ist also:
+\begin{itemize}
+	\item  $S1\rightarrow c\rightarrow b\rightarrow f\rightarrow S2\rightarrow h\rightarrow k\rightarrow T$
+\end{itemize}
+Und daraus folgt der k\"urzeste Weg von S2 zu T ist: 
+\begin{itemize}
+	\item $S2\rightarrow h\rightarrow k\rightarrow T$
+\end{itemize}
+Fazit:
 
-Dieses Prinzip des Konstruierens von vereinfachten Modellen durch systematisches Weglassen konjunktiv verknüpfter Einschränkungen scheint auch allgemein eine gute Herangehensweise zu sein, um leicht heuristische Schätzungen zu ermitteln.
-So erhalten wir mit dieser Technik auch in folgendem Beispiel eine einfache Heuristik.
+Wie man sieht ist das Problem gut l\"osbar mit uninformierte Suche, aber es f\"allt sofort auf das wir alle Knoten besuchen mussten und alle Wege bilden mussten.
+Dies hat nicht nur hohe Speicherkosten zur Folge, sondern auch eine hohe Laufzeit. 
+Bereits bei diesen simplen Beispiel sieht man die enorme Menge von Wegen die man speichern muss. 
+Als Mensch w\"urde man bei dieser Suche weniger Wege betrachten:
+\begin{itemize}
+	\item W\"are es nicht einfacher Wege auszulassen die offensichtlich zu lang sind?
+	\item Oder w\"are es nicht besser Wege wie $S1\rightarrow b$ durch den k\"urzeren $S1\rightarrow c\rightarrow b$ zu ersetzen?
+\end{itemize}
+Unterbewusst benutzt man eine Menge Vereinfachungen die der Computer vielleicht auch anwenden sollte. 
+Im folgenden Kapitel werden wir versuchen diese Suche intuitiv zu optimieren. /newpage
 
-\theoremstyle{definition}
-\newtheorem*{bsp}{Beispiel}
-\begin{bsp}
-	Gegeben ist ein Karte mit einem Straßennetz, sowie ein Start- und ein Endpunkt auf dieser Karte. Gesucht ist nun die kürzeste Verbindung vom Start zum Ziel, wobei nur die Wege dieser Karte verwendet werden dürfen. Lässt man die letztere Bedingung außer Acht, so erhält man eine für dieses Problem geeignete Heuristik: die Luftlinie zwischen dem betrachteten Knoten und dem Zielknoten.
-\end{bsp}
+\section{Verbesserungen}
+\subsection{Intuitiver Algorithmus}
+Statt alle Knoten zu besuchen wie bisher, werden wir im folgenden unser Wissen \"uber den Graphen nutzen um schneller zum Ergebnis zu kommen. Folgende Regeln werden angewandt:
+\begin{enumerate}
+	\item Wir besuchen immer den Knoten mit der niedrigsten Kantenl\"ange zuerst.
+	\item Wenn wir einen neuen Weg zu einem Knoten finden und dieser k\"urzer ist als der vorherige, brauchen wir nur noch diesen neuen Weg zu betrachten. Ansonsten kann der neue Weg ignoriert werden.
+	\item Wenn wir zwei Wege zur Auswahl haben, die gleichlang sind, w\"ahlen wir zuf\"allig.
+	\item Wenn ein Weg keine nicht besuchten Kinder mehr hat gehen wir zur\"uck zum letzten Knoten der noch offene Kinder hatte.
+	\item Aufgrund der oben genannten Regeln muss der erste Weg zum Ziel der k\"urzeste sein. (Um das Beispiel nicht unn\"otig lang zu machen, wird dies an dieser Stelle nicht bewiesen)
+\end{enumerate}
 
-\section{Theorie} \label{theo}
+\subsection{Anwendung}
+Wir beginnen mit dem Graphen aus Kapitel 1. Die Knoten werden genau wie bereits bekannt eingef\"arbt werden. 
 
-\theoremstyle{plain} %oder definition
-\newtheorem*{zul}{Zulässigkeit}
-\newtheorem*{os}{optimistische Schätzung}
-\newtheorem*{zula}{Zulässigkeit von A*}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.76]{chapters/informed_search/BeispielGraphen2.png}
+	\caption{Beispiel Graph mit intuitiven Algorithmus.}
+\end{figure}
 
-\subsection{Zulässigkeit eines Such-Verfahrens (insbesondere A*)}
+\begin{enumerate}	\item Wir beginnen mit Knoten $c$ da mit einer L\"ange von $2$ seine Kante am k\"urzesten ist $(Regel 1)$. 
+Wir haben also den Weg:
+	\begin{itemize}
+		\item $S1\rightarrow c(2)$
+	\end {itemize}
+	\item Nun besuchen wir $b$ und erhalten den Weg:
+	\begin{itemize}
+		\item $S1\rightarrow c\rightarrow b(3)$
+	\end{itemize}
+	\item Jetzt m\"ussen wir erst $a$ betrachten, da die Kante mit einer L\"ange von $3$ k\"urzer ist als $b\rightarrow f$ mit $4$. Wir haben also die Wege:
+	\begin{itemize}
+		\item $S1\rightarrow c\rightarrow b(3)$
+		\item $S1\rightarrow a(3)$
+	\end{itemize}
+	\item Als n\"achstes besuchen wir $d$, da $a\rightarrow d$ am k\"urzesten ist. Es werden die Wege:
+	\begin{itemize}
+		\item $S1\rightarrow c\rightarrow b(3)$
+		\item $S1\rightarrow a\rightarrow d(4)$
+	\end{itemize}
+	gespeichert.	\item Wir mussten uns zwischen $d\rightarrow f$ und $b\rightarrow f$ entscheiden und haben zuf\"allig $d\rightarrow f$ gew\"ahlt $(Regel 3)$. Damit ergeben sich die Wege:
+	\begin{itemize}
+		\item $S1\rightarrow c\rightarrow b(3)$
+		\item $S1\rightarrow a\rightarrow d\rightarrow f(8)$
+	\end{itemize}
+	\item Im n\"achsten Schritt w\"ahlen wir $f\rightarrow S2$. Die Wege sind:
+	\begin{itemize}
+		\item $S1\rightarrow c\rightarrow b(3)$
+		\item $S1\rightarrow a\rightarrow d\rightarrow f\rightarrow S2(9)$
+	\end{itemize}
+	\item Jetzt besuchen wir $e$. Wir haben also die Wege:
+	\begin{itemize}
+		\item $S1\rightarrow c\rightarrow b(3)$
+		\item $S1\rightarrow a\rightarrow d\rightarrow f\rightarrow S2\rightarrow e(11)$
+	\end{itemize}
+	Stellen aber fest, dass $e$ f\"ur den n\"achsten Schritt keine unbesuchten Kinder hat. Also gehen wir zur\"uck zu $S2$ da dieser noch Kinder hatte $(Regel 4)$. Die Wege werden wieder zu:
+	\begin{itemize}
+		\item $S1\rightarrow c\rightarrow b(3)$
+		\item $S1\rightarrow a\rightarrow d\rightarrow f\rightarrow S2(9)$
+	\end{itemize}
+	Wir besuchen noch einmal $f$, dieses Mal als $b\rightarrow f$ (zuf\"allig gew\"ahlt aus $b\rightarrow f$ und $S2\rightarrow h$). Damit haben wir einen neuen Weg zu $f$, der k\"urzer ist als $S1\rightarrow a\rightarrow d\rightarrow f$. Wir ersetzen ihn $(Regel 2)$. Damit ergibt sich der Weg:
+	\begin{itemize}
+		\item $S1\rightarrow c\rightarrow b\rightarrow f\rightarrow S2(8)$
+	\end{itemize}	\item Wir w\"ahlen $h$ und erhalten den Weg:
+	\begin{itemize}
+		\item $S1\rightarrow c\rightarrow b\rightarrow f\rightarrow S2\rightarrow h(12)$
+	\end{itemize}
+	\item Aus $h\rightarrow g$ und $h\rightarrow k$ w\"ahlen wir $g$. Der Weg ist:
+	\begin{itemize}
+		\item $S1\rightarrow c\rightarrow b\rightarrow f\rightarrow S2\rightarrow h\rightarrow g(14)$
+	\end{itemize}
+	\item Wir besuchen $k$. Damit ergeben sich die Wege:
+	\begin{itemize}
+		\item $S1\rightarrow c\rightarrow b\rightarrow f\rightarrow S2\rightarrow h\rightarrow g(14)$
+		\item $S1\rightarrow c\rightarrow b\rightarrow f\rightarrow S2\rightarrow h\rightarrow k(14)$
+	\end{itemize}
+	\item Wir w\"ahlen $j$ und erhalten die Wege: 
+	\begin{itemize}
+		\item $S1\rightarrow c\rightarrow b\rightarrow f\rightarrow S2\rightarrow h\rightarrow g(14)$
+		\item $S1\rightarrow c\rightarrow b\rightarrow f\rightarrow S2\rightarrow h\rightarrow k(14)$
+		\item $S1\rightarrow c\rightarrow b\rightarrow f\rightarrow S2\rightarrow h\rightarrow j(15)$
+	\end{itemize}	\item Jetzt besuchen wir erst $j\rightarrow i$. 
+	\item Dann besuchen wir sofort $g\rightarrow i$, aber wir haben \"uber $j$ bereits einen k\"urzeren Weg zu $i$ und k\"onnen den neuen ignorieren. Es folgen die Wege:
+	\begin{itemize}
+		\item $S1\rightarrow c\rightarrow b\rightarrow f\rightarrow S2\rightarrow h\rightarrow k(14)$
+		\item $S1\rightarrow c\rightarrow b\rightarrow f\rightarrow S2\rightarrow h\rightarrow j\rightarrow i(18)$
+	\end{itemize}
+	Und wir sehen, dass $i$ keine Kinder mehr hat:
+	\begin{itemize}
+		\item $S1\rightarrow c\rightarrow b\rightarrow f\rightarrow S2\rightarrow h\rightarrow k(14)$
+		\item $S1\rightarrow c\rightarrow b\rightarrow f\rightarrow S2\rightarrow h\rightarrow j(15)$
+	\end{itemize}
+	\item Als letztes nehmen wir noch $k \rightarrow  T$. Wir bekommen also den Weg:
+	\begin{itemize}
+		\item $S1 \rightarrow  c \rightarrow  b \rightarrow  f \rightarrow  S2 \rightarrow  h \rightarrow  k \rightarrow  T (22)$ 
+	\end{itemize}
+	und aus $Regel 5$ folgt, dass dies der k\"urzeste Weg sein muss. 
+\end{enumerate}
+Fazit:
 
-Welche Bedingungen muss eine Heuristik erfüllen, damit unser Such-Verfahren ordnungsgemäß funktioniert? Dazu sollten wir zuerst definieren, wie wir uns ein korrekte Funktionsweise vorstellen.
+Zuallererst unser Ergebnis ist identisch mit dem aus Kapitel 1, wir haben also ebenfalls den besten Weg gefunden.  Es es leicht sichtbar, dass unser intuitiver Algorithmus nicht perfekt ist. Wir mussten trotzdem alle Knoten besuchen, genau wie die Breitensuche. Aber man sieht ebenfalls sofort, dass wir deutlich weniger Wege betrachten und speichern mussten als zuvor. Und besonders hervorzuheben ist, dass wir die Suche beenden konnten als wir den ersten Weg gefunden hatten. Das wirkt sich nat\"urlich positiv auf Laufzeit und Speicherverbrauch aus. In den folgenden Kapiteln wollen wir die hier intuitiv erarbeiteten Konzepte formal definieren, die echten Algorithmen der informierten Suche vorstellen und deren Eigenschaften \"uberpr\"ufen. 
+ 
+\section{Einleitung}
+Statt blind alle M\"oglichkeiten zu probieren um die Beste zu erhalten, zieht man, wie ein Mensch es intuitiv machen w\"urde, weitere Informationen \"uber das Problem zurate (Heuristiken) und ignoriert L\"osungen die offensichtlich schlechter sind als bereits gefundene (Branch and Bound). Damit ergibt sich eine deutlich bessere Laufzeit, wie sie in Echtzeitanwendungen (z.B. in Spielen) n\"otig ist. Nat\"urlich stellt sich auch die Frage, ob diese einfacher erhaltene L\"osung immer noch die optimale L\"osung ist (Optimalit\"at). Im folgenden werden die Verschiedenen Arten (Best-First Search und A*) informierter Suche von und deren Vor- und Nachteile erkl\"art. 
 
-\begin{zul}
-	Ein Such-Verfahren heißt zulässig, falls es stets mit einer optimalen Lösung terminiert, falls diese existiert.
-\end{zul}
+\section{Definitionen}
+\subsection{Branch and Bound}
+Branch and Bound (h\"aufig abgek\"urzt mit B\&B\footnote{Branch and Bound Algorithms - Principles and Examples. Jens Clausen, March 12, 1999}) ist eine Optimierungsstrategie f\"ur Algorithmen, hier im speziellen Suchverfahren. Um nicht alle Knoten eines Baumes durchsuchen zu m\"ussen, kann man, wie bereits intuitiv oben gesehen, die Aufgabe in Teile aufteilen ("Branch"\ engl. "to branch" verzweigen\footnote{www.dict.cc}) und diese Teile nach Relevanz f\"ur die L\"osung einteilen ("Bound\ engl. "to bound" beschr\"anken\footnote{www.dict.cc}). 
+Damit man dies bei Suchalgorithmen bewerkstelligen kann benutzt man eine Absch\"atzung, intuitiv war dies "k\"urzeste Luftlinie zum Ziel"\, auch Heuristik genannt.\footnote{Anwendungen von Branch and Bound, Frederik Wollny und Philipp Schmid, Hochschule Aalen, 2016}
 
-Da bei unserem heuristischen Such-Verfahren A* die Wahl der Heuristik bisher nicht klar eingeschränkt ist, liegt es nahe, dass in dieser Wahl ein entscheidender Punkt für die Zulässigkeit unseres Algorithmus liegt. Man kann sich leicht Heuristiken überlegen, welche die Funktionsweise von A* stören und dafür sorgen, dass der Algorithmus keine optimale Lösung findet oder womöglich gar nicht erst terminiert.
+\subsection{Extended List}
+Bei der Anwendung von Branch and Bound kann es dazu kommen, dass Wege p'=(\dots, A) zu einen Knoten A weiter verfolgt werden, f\"ur die es einen Weg p=(\dots, A) gibt, so dass gilt:
+\begin{center} 
+$Wf(p) < Wf(p')$
+\end{center}
+Dies f\"uhrt dazu, dass der Suchbaum unn\"otig gro\ss wird. Um zu erreichen, dass nicht die l\"angeren Wege weiter verfolgt werden, wird die Extended List eingef\"uhrt. In der Extended List wird f\"ur jeden Knoten zum Zeitpunkt an dem dieser besucht wird, die Knoten Identifikation und die Wegl\"ange zu diesem gespeichert. F\"uhrt nun im Verlauf der Suche ein Weg zu einem Knoten, der bereits in der Extended List gespeichert ist, so wird die gespeicherte mit der Aktuellen Wegl\"ange zum Knoten verglichen. Ist die Aktuelle Wegl\"ange gr\"o\ss er, muss der Weg nicht weiter verfolgt werden, es gibt bereits einen k\"urzeren Weg zu dem Knoten. Ist sie geringer, wird der neue Wert eingetragen und der \"altere Weg \"uber diesen Knoten muss nicht weiter betrachtet werden.\footnote{https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-034-artificial-intelligence-fall-2010/lecture-videos/lecture-5-search-optimal-branch-and-bound-a/} Mit Branch and Bound + Extended List ergibt sich in unserem Beispiel Graphen:
 
-Wir sollten uns also genauer mit der Beschaffenheit von Heuristikfunktionen auseinandersetzen.
-Eine erste wichtige Eigenschaft einer Heuristik $h$ zur Schätzung von $h^{*}$ ist, ob diese optimistisch schätzt.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.4]{chapters/informed_search/ExtendedListBeispiel.png}
+	\caption{Links ist der linke Teil des Beispiel Graphen abgebildet, rechts ein Teil des Suchbaums von Branch and Bound + Extended List. Wie abgebildet wird der Weg (S1, b, \dots) nicht weiter verfolgt, da, $Wf((S1, c, b)) < Wf(S1,b)$.}
+\end{figure}
 
-\begin{os}
-Eine Schätzung $h$ von $h^{*}$ ist genau dann eine optimistische Schätzung, falls sie die Kosten eines optimalen Pfades nie überschätzt. Das heißt:
-\[h(n) \leq h^{*}(n) \textrm{ für alle Knoten } n \in G_{P}\]
-\end{os}
+\section{Best-First Search}
+Best-First Search ist eine Klasse von informierten Such-Algorithmen, welche nachdem Prinzip arbeiten, dass sie stets denjenigen Knoten zuerst untersuchen, welcher f\"ur den Erfolg der Suche am "vielversprechendsten"\ erscheint. Die Wahl dieses "vielversprechenden"\ Knotens geschieht anhand einer gewissen Heuristik. Der wohl bekannteste Algorithmus aus diesem Bereich ist A*, welcher auch als eine Erweiterung von Branch and Bound gesehen werden kann. An ihm wollen wir im Folgenden das Prinzip von Best-First Search verdeutlichen. 
 
-Die von uns aufgestellten Heuristiken $h_{1}$ und $h_{2}$ zur Schätzung der Züge im 8-Puzzle erfüllen dieses Kriterium und sind beide optimistische Schätzungen.
-Diese Eigenschaft liefert uns nun die ausschlaggebende Bedingung für die Zulässigkeit von A*.
-
-\begin{zula}
-Falls die verwendete Heuristik $h$ eine optimistische Schätzung von $h^{*}$ ist, dann ist A* zulässig.
-\end{zula}
-
-Der Beweis dieses Satzes und einige genauere Erörterungen können in \cite{kaindl} nachgelesen werden.
+\section{Heuristik}
+Die Heuristik ist im Falle der Informierten Suche die Representation der menschlichen L\"osungsfindung im Such-Algorithmus. Sie weist jedem Knoten einen gesch\"atzten Wert zu, der dar\"uber Auskunft gibt, ob es sich lohnen k\"onnte, einen Weg \"uber diesen Knoten einzuschlagen. Bei der Findung des k\"urzesten Weges gilt, desto h\"oher der durch die Heuristik bestimmte Wert f\"ur einen Knoten ist, desto unwahrscheinlicher ist es, dass der K\"urzeste Weg \"uber diesen Knoten verl\"auft. Aufgrund der Vielfalt von Gegebenheiten unter denen eine Suche stattfinden kann, ist es offensichtlich, dass eine Heuristik die ein Problem L\"ost nicht ohne weiteres auf andere Probleme \"ubertragen werden kann. Deswegen werden zun\"achst einige wichtige Begrifflichkeiten gekl\"art, die beim Umgang mit Heuristiken helfen k\"onnen.\footnote{http://www.duden.de/rechtschreibung/Heuristik}
 
 \subsection{Eigenschaften von Heuristiken}
-
-In diesem Kapitel sollen einige interessante Eigenschaften bezüglich Heuristikfunktionen erörtert werden.
-Die Definitionen wurden aus \cite{kaindl} übernommen.
-\theoremstyle{plain} %oder definition
-\newtheorem*{theor}{Theorem}
+Im folgenden werden einige Eigenschaften definiert, die eine Heuristikfunktion erf\"ullen kann. Diese Eigenschaften k\"onnen dabei helfen ein Urteil, \"uber die Zul\"assigkeit einer Heuristik f\"ur eine Problemstellung, zu f\"allen.
+\newtheorem*{theore}{Theorem}
 \theoremstyle{definition}
 \newtheorem*{defi}{Definition}
 
-\begin{theor}
-		$A_{1}^{*}$ und $A_{2}^{*}$ seien zwei Versionen von $A^{*}$ mit $h_{1}(n) \leq h^{*}(n)$ und $h_{2}(n) \leq h^{*}(n)$ für alle Knoten $n \in G$ und mit $h_{1}(n) \leq h_{2}(n)$ für alle Knoten $n \in G$ \textbackslash \ $\{$t $|$ t erfüllt die Endbedingung $\}$. ($A_{2}^{*}$ sei \glqq besser informiert\grqq\ als $A_{1}^{*}$.) Falls es eine Lösung gibt, so wird bis zur Terminierung jeder von $A_{2}^{*}$ expandierte Knoten auch von $A_{1}^{*}$ expandiert, ($A_{2}^{*}$ \glqq dominiert\grqq\ $A_{1}^{*}$.)
-\end{theor}
+\begin{defi}
+Eine heuristische Funktion $h(n)$ wird als admissible (zul\"assig) bezeichnet, wenn f\"ur alle Knoten $n$ erf\"ullt ist: 
+\begin{center}
+$h(m) \leq k(m, n)$
+\end{center}
+mit $k(m, n)$ als k\"urzeste Wegl\"ange von $m$ nach $n$ und f\"ur alle Knoten $t \in G$, die die Endbedingung erf\"ullen, gilt: 
+\begin{center}
+$h(t)=0.\footnote{https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-034-artificial-intelligence-fall-2010/lecture-videos/lecture-5-search-optimal-branch-and-bound-a/}$
+\end{center}
+\end{defi}
+
+Admissible Heuristiken reichen bereits aus, um auf Landkarten o.\"a. nach der k\"urzesten Route zu suchen. Damit eine Heuristik auch f\"ur Suchen verwendet werden kann die nicht auf geografischer Ebene stattfinden, werden die Eigenschaften konsistent und monoton definiert. Die Definitionen wurden aus [Kai13] \"ubernommen. 
 
 \begin{defi}
-	Eine heuristische Funktion $h(n)$ ist konsistent, wenn für alle Knotenpaare $m,n \in G$ folgendes erfüllt ist: \[h(m)\leq k(m,n)+h(n)\] mit $k(m,n)$ also Kosten des \glqq billigsten\grqq\ Pfades von $m$ nach $n$ ($k(m,n) = \infty$, wenn $n$ von $m$ aus nicht erreichbar ist); und für alle Knoten $t \in G$, die die Endbedingung erfüllen, gilt: \[h(t)=0\textrm{.}\]
+Eine heuristische Funktion $h(n)$ ist konsistent, wenn f\"ur alle Knotenpaare $m, n \in G$ folgendes erf\"ullt ist: 
+\begin{center}
+$h(m) \leq k(m, n) + h(n)$
+\end{center}
+mit $k(m, n)$ als k\"urzeste Wegl\"ange von $m$ nach $n$ und f\"ur alle Knoten $t \in G$, die die Endbedingung erf\"ullen, gilt: 
+\begin{center}
+$h(t)=0$.
+\end{center}
 \end{defi}
 
 \begin{defi}
-	Eine heuristische Funktion $h(n)$ ist monoton, wenn für alle Knotenpaare $m,n \in G$ mit $n$ als unmittelbarem Nachbar von $m$ folgendes erfüllt ist: \[h(m)\leq c(m,n)+h(n)\] mit $c(m,n)$ als Kosten der Kante von $m$ nach $n$; und für alle Knoten $t \in G$, die die Endbedingung erfüllen, gilt: \[h(t)=0\textrm{.}\]
+Eine heuristische Funktion $h(n)$ ist monoton, wenn f\"ur alle Knotenpaare $m, n \in G$ mit $n$ als unmittelbarem Nachbar von $m$ folgendes erf\"ullt ist: 
+\begin{center}
+$h(m) \leq c(m, n) + h(n)$
+\end{center}
+mit $c(m, n)$ als Kosten der Kante von $m$ nach $n$; und f\"ur alle Knoten $t \in G$, die die Endbedingung erf\"ullen, gilt: 
+\begin{center}
+$h(t)=0$.
+\end{center}
 \end{defi}
 
-\begin{theor}
-	Die Eigenschaften konsistent und monoton sind äquivalent.
-\end{theor}
+\begin{theore}
+Die Eigenschaften konsistent und monoton sind \"aquivalent.
+\end{theore}
 
-\begin{theor}
-	Für jede konsistente Funktion h gilt: \[h(n)\leq h^{*}(n)\textrm{ für alle Knoten } n \in G\]
-\end{theor}
-Jede konsistente bzw. monotone Funktion $h$ schätzt also optimistisch. Dadurch ist A* unter Verwendung von konsistentem $h$ zulässig.
+\begin{theore}
+F\"ur jede konsistente Funktion $h$ gilt:
+$h(n) \leq h*(n)$ f\"ur alle Knoten $n \in G$.
+\end{theore}
 
-\subsection{Komplexität von A*}
+Um den unterschied zwischen einer Heuristik die admissible ist und einer die konsistent ist zu verdeutlichen, sei ein Beispiel angef\"uhrt: 
 
-Es lässt sich leicht erkennen, dass A* in der Regel eine weit bessere Komplexität hat, als blinde Such-Verfahren. Die Anzahl der expandierten Knoten ist bei A* oft sogar um ein Vielfaches geringer. Sei nun die Länge einer optimalen Lösung mit $d$ bezeichnet. Des Weiteren kann man von Einheitskosten ausgehen und die Existenz genau einer optimalen Lösung voraussetzen.
-Je nachdem wie optimistisch nun der Fehler von $h$ bezüglich $h^{*}$ angenommen wird, kommt man auf eine quadratische oder sogar lineare Komplexität bezüglich d. Im eher realistischen Fall lässt sich jedoch nur auf eine exponentielle Komplexität schließen.
-\subsection{Optimalität von A*}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{chapters/informed_search/BeispielHeuristik.png}
+	\caption{Die Abbildungen G1 und G2 beschreiben das selbe Problem mit zwei verschiedenen Heuristiken. Ziel ist es den k\"urzesten Weg von Knoten A nach Knoten E zu finden. G1 stellt die Verwendung einer admissible Heuristik und G2 die einer konsistenten Heuristik dar. Die roten Zahlen geben die Werte der Heuristikfunktionen an den relevanten Knoten an. Wird nun eine Suche, mit Branch and Bound + Extended List + Heuristik durchgef\"uhrt, liefert die Suche f\"ur G1 den Weg(A,B,D,E) und f\"ur G2 den Weg(A,C,D,E). Entscheidend f\"ur diese L\"osung ist, dass bei G1 zun\"achst A,B, und D betrachtet werden und somit aufgrund der Extended List der Weg (A,C,D,E) wegf\"allt. Im Gegensatz dazu beginnt die Suche bei G2 mit einem Weg \"uber C, da die gesch\"atzten Kosten von C mit 101 kleiner als die von B sind.}
+\end{figure}
 
-Nun interessieren wir uns für die Optimalität von A* im Hinblick auf die Anzahl der expandierten Knoten.
-Der Begriff Optimalität beruht hier auf dem der Dominanz. Das bedeutet, ein Verfahren ist optimal gegenüber einer Klasse von Verfahren, wenn es alle Elemente aus dieser Klasse dominiert.
+\subsection{Verschiedene Heuristiken}
+In diesem Abschnitt werden drei Heuristiken vorgestellt, angefangen mit der Hamming-Distanz. Aufgrund dessen, dass in einigen Kapiteln Bezug auf die folgenden Heuristiken genommen wird, wurden einige Bezeichnungen in den Definitionen entsprechend angepasst.\\
+Die Hamming-Distanz hh(m,n) beschreibt wie gro\ss der Unterschied zwischen den Zeichenketten m und n ist und ist wie folgt definiert: 
+\begin{defi}
+$\sum$ sei ein endliches Alphabet sowie $m = (m_{1}, \dots, m_{k})$ und $y = (n_{1}, \dots, n_{k})$ zwei $k$ Zeichen lange Worte aus $\sum^{k}$. Die Hamming-Distanz zwischen $m$ und $n$ ist definiert als:
+\begin{center}
+$h_{h}(m,n) := |{j \in \{1 , \dots , k\} | m_{j} \neq n_{j}}|$.
+\end{center}
+\end{defi}
+Eine Heuristik w\"are z.B. $h(n)=h_{h}(n,x)$, mit $x$ als Ziel-Konstellation der Suche.\footnote{http://sb.fluomedia.org/hamming/, https://de.wikipedia.org/wiki/Hamming-Abstand}
+\begin{defi}
+Die Manhattan Distanz $h_{m}(m,n)$ f\"ur die Punkte $n$ und $m$ beschreibt die Distanz, die zustande kommt, wenn nur horizontale und vertikale Wege genommen werden, um $n$ von $m$ aus zu erreichen. Die Manhattan-Distanz ist wie folgt definiert:
+\begin{center}
+$h_{m}(m,n) = \sum_{i} |m_{i} - n_{i}|.$
+\end{center}
+\end{defi}
+Eine Heuristik w\"are z.B $h(n)=h_{m}(n,x)$, mit $x$ als Ziel-Knoten der Suche.\footnote{http://mathworld.wolfram.com/TaxicabMetric.html}
+\begin{defi}
+Der Euklidischer Abstand $h_{e}(m,n)$ von $m$ und $n$ entspricht der "Luftlinie" zwischen diesen. Der Euklidische Abstand f\"ur zwei Vektoren im $k$-Dimensionalen Raum ist wie folgt definiert:
+\begin{center}
+$h_{e}(m,n) =\sqrt{((m_{1} - n_{1})^{2}+\dots+(m_{k} - n_{k})^{2})}.$
+\end{center}
+\end{defi}
+Eine Heuristik w\"are z.B $h(n)= h_{e}(n,x)$, mit $x$ als Ziel-Knoten der Suche.\footnote{http://mathworld.wolfram.com/EuclideanMetric.html}
 
-Für den ganz allgemeinen Fall lässt sich leicht erkennen, dass A* nicht \textit{das} optimale Verfahren überhaupt ist. Es gibt in bestimmten Fällen offensichtlich Verfahren, welche nicht alle von A* untersuchten Knoten ebenfalls untersuchen. Gerade bei speziell auf eine Klasse von Graphen abgestimmten Verfahren ist dies der Fall.
+\subsection{Findung von Bewertungsfunktionen}
+Die Frage Lautet:"Wie findet sich die richtige Heuristikfunktion f\"ur die gegebene Problemstellung". Um einen L\"osungsansatz f\"ur eine allgemeine Vorgehensweise zu finden, wird zun\"achst das Beispiel aus 5.1 betrachtet. Die Aufgabe im Beispiel ist es, den k\"urzesten Weg von dem Knoten S1 bzw. S2 zum Zielknoten T im Graphen zu finden. Die Problemstellung l\"asst sich in eine Konjunktion von zwei Bedingungen aufteilen:
+\begin{enumerate}
+	\item Die zur\"uckgelegte Strecke von S1 bzw. S2 nach T soll minimal sein.
+	\item Die Strecke entspricht einem Weg (Graphentheorie).
+\end{enumerate}
+W\"urde die zweite Bedingung weggelassen, w\"urde immer eine Strecke entsprechend der Luftlinie von $S1$ bzw. $S2$ nach $T$ gew\"ahlt werden. Es liegt also nahe $h(n)=h_{e}(n,x)$ zu w\"ahlen, um einem Knoten nach seiner Distanz zu $T$ zu bewerten. Wird Bedingung zwei nun hinzugezogen, werden mit der gew\"ahlten Heuristik immer die erreichbaren Knoten bevorzugt, die am n\"achsten zum Ziel liegen. So ist eine Akzeptable Heuristik f\"ur die Problemstellung gefunden. Dieses Prinzip des Konstruieren von vereinfachten Modellen durch systematisches Weglassen von Bedingungen der Konjunktion der Problemstellung scheint auch allgemein eine gute Herangehensweise zu sein, um leicht heuristische Sch\"atzungen zu ermitteln.
 
-Jedoch ist unter bestimmten Einschränkungen eine konkretere Aussage bezüglich der Optimalität von A* möglich. Dafür schränkt man die Bedingungen auf eine Domäne ein, welche eine konsistente Heuristik $h$ besitzt, und setzt voraus, dass es mindestens einen optimalen Lösungspfad gibt, bei welchem $h < h^{*}$ für alle Knoten außer dem Zielknoten gilt. Dann gilt, dass A* dominant für alle Problem-Instanzen ist, und zwar für alle möglichen Entscheidungsregeln bei Nicht-Eindeutigkeit des Knotens mit minimalem $f$-Wert. Da dem Algorithmus A* bei konsistentem h zusätzlich eine sehr gute Verwaltung des Suchbaumes möglich ist, lässt sich sagen, dass A* unter diesen Voraussetzungen sehr effektiv ist.
+\section{A* Algorithmus}
+A* beschreibt eine Gruppe von Algorithmen, die auf alle Kniffe der Informierten Suche, die bis jetzt vorgestellt wurden, zur\"uckgreifen:\footnote{https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-034-artificial-intelligence-fall-2010/lecture-videos/lecture-5-search-optimal-branch-and-bound-a/}
+\begin{itemize}
+	\item Branch and Bound
+	\item Extended List
+	\item Heuristik
+\end{itemize}
+F\"ur ein gegebenes Problem gibt es innerhalb dieser Gruppe bessere und schlechtere Algorithmen. Um zwei A* Algorithmen zu vergleichen hilft das folgende Theorem: 
+
+\begin{theore}
+A*1 und A*2 seien zwei Versionen von A* mit $h1(n) ? h*(n)$ und $h2(n) ? h*(n)$ f\"ur alle Knoten $n \in G$ und mit $h1(n) ? h2(n)$ f\"ur alle Knoten $n \in G \ {t | t erf\"ullt die Endbedingung }$. (A*2 sei "besser informiert" als A*1.) Falls es eine L\"osung gibt, so wird bis zur Terminierung jeder von A*2 expandierte Knoten auch von A*1 expandiert, (A*2 "dominiert" A*1.)\footnote{[Kai13]} 
+\end{theore}
+
+In den folgenden Abschnitten wird auf weitere Eigenschaften des A* eingegangen und anschlie\ss end wird der A* durch Beispiele veranschaulicht. 
+
+\subsection{Zul\"assigkeit}
+Welche Bedingungen muss eine Heuristik erf\"ullen, damit unser Such-Verfahren ordnungsgem\"a\ss funktioniert? Dazu sollten wir zuerst definieren, wie wir uns ein korrekte Funktionsweise vorstellen.
+\begin{itemize}
+	\item Zul\"assigkeit Ein Such-Verfahren hei\ss t zul\"assig, falls es stets mit einer optimalen L\"osung terminiert, falls diese existiert.
+\end{itemize}
+Da bei unserem heuristischen Such-Verfahren A* die Wahl der Heuristik bisher nicht klar eingeschr\"ankt ist, liegt es nahe, dass in dieser Wahl ein entscheidender Punkt f\"ur die Zul\"assigkeit unseres Algorithmus liegt. Man kann sich leicht Heuristiken \"uberlegen, welche die Funktionsweise von A* st\"oren und daf\"ur sorgen, dass der Algorithmus keine optimale L\"osung findet oder wom\"oglich gar nicht erst terminiert. Wir sollten uns also genauer mit der Beschaffenheit von Heuristikfunktionen auseinandersetzen. Eine erste wichtige Eigenschaft einer Heuristik h zur Sch\"atzung von h* ist, ob diese optimistisch sch\"atzt.
+\begin{itemize}
+	\item optimistische Sch\"atzung Eine Sch\"atzung h von h* ist genau dann eine optimistische Sch\"atzung, falls sie die Kosten eines optimalen Pfades nie \"ubersch\"atzt.
+\end{itemize}
+Das heisst:
+\begin{itemize}
+	\item $h(n) \leq h*(n)$ f\"ur alle Knoten $n \in GP$
+\end{itemize}
+
+Diese Eigenschaft liefert uns nun die ausschlaggebende Bedingung f\"ur die Zul\"assigkeit von A*. Zul\"assigkeit von A*. Falls die verwendete Heuristik h eine optimistische Sch\"atzung von h* ist, dann ist A* zul\"assig. 
+Der Beweis dieses Satzes und einige genauere Er\"orterungen k\"onnen in [Kai13] nachgelesen werden. 
+
+\subsection{Komplexit\"at}
+Es l\"asst sich leicht erkennen, dass A* in der Regel eine weit bessere Komplexit\"at hat, als blinde Such-Verfahren. Die Anzahl der expandierten Knoten ist bei A* oft sogar um ein Vielfaches geringer. Sei nun die L\"ange einer optimalen L\"osung mit d bezeichnet. Des Weiteren kann man von Einheitskosten ausgehen und die Existenz genau einer optimalen L\"osung voraussetzen. Je nachdem wie optimistisch nun der Fehler von h bez\"uglich h* angenommen wird, kommt man auf eine quadratische oder sogar lineare Komplexit\"at bez\"uglich d. Im eher realistischen Fall l\"asst sich jedoch nur auf eine exponentielle Komplexit\"at schliessen. 
+
+\subsection{Optimalit\"at}
+Nun interessieren wir uns f\"ur die Optimalit\"at von A* im Hinblick auf die Anzahl der expandierten Knoten. Der Begriff Optimalit\"at beruht hier auf dem der Dominanz. Das bedeutet, ein Verfahren ist optimal gegen\"uber einer Klasse von Verfahren, wenn es alle Elemente aus dieser Klasse dominiert. F\"ur den ganz allgemeinen Fall l\"asst sich leicht erkennen, dass A* nicht das optimale Verfahren \"uberhaupt ist. Es gibt in bestimmten F\"allen offensichtlich Verfahren, welche nicht alle von A* untersuchten Knoten ebenfalls untersuchen. Gerade bei speziell auf eine Klasse von Graphen abgestimmten Verfahren ist dies der Fall. Jedoch ist unter bestimmten Einschr\"ankungen eine konkretere Aussage bez\"uglich der Optimalit\"at von A* m\"oglich. Daf\"ur schr\"ankt man die Bedingungen auf eine Dom\"ane ein, welche eine konsistente Heuristik h besitzt, und setzt voraus, dass es mindestens einen optimalen L\"osungspfad gibt, bei welchem h < h* f\"ur alle Knoten au\ss er dem Zielknoten gilt. Dann gilt, dass A* dominant f\"ur alle Problem-Instanzen ist, und zwar f\"ur alle m\"oglichen Entscheidungsregeln bei Nicht-Eindeutigkeit des Knotens mit minimalem f-Wert. Da dem Algorithmus A* bei konsistentem h zus\"atzlich eine sehr gute Verwaltung des Suchbaumes m\"oglich ist, l\"asst sich sagen, dass A* unter diesen Voraussetzungen sehr effektiv ist. 
+
+\subsection{Beispiel des 8-Puzzles}
+Beim 8-Puzzle handelt es sich um ein Spiel, bestehend aus einem Spielbrett der Gr\"o\ss e 3-mal-3 und acht Kacheln, nummeriert von 1 bis 8, welche auf dem Spielbrett verteilt sind. Ein Feld des Spielbrettes bleibt also frei. Grenzt eine Kachel an dieses freie Feld, so kann sie an dessen Stelle verschoben werden. Das Ziel des Spieles ist, von einer ungeordneten Stellung der Kacheln durch eine Folge von Verschiebungen zu einer Zielstellung zu gelangen. Die folgende Abbildung zeigt ein konkretes Problem mittels Start- und Zielkonfiguration.
+\begin{center}\includegraphics[scale=0.7]{chapters/informed_search/startziel.png}\end{center}
+Die Problemstellung ist, zu einer gegebenen Kachelkonstellation die k\"urzeste Abfolge von Verschiebungen zu finden, die n\"otig ist, um zur Zielkonfiguration zu gelangen.
+
+Wird das Problem abstrakt betrachtet, ist es m\"oglich einen Graphen zu konstruieren, auf den eine informierte Suche angewendet werden kann. Die Knoten des Graphen repr\"asentieren die Konstellationen die das Kachelfelde annehmen kann und zwei Knoten sind genau dann \"uber eine Kante miteinander verbunden, wenn sich die Kachelkonstellationen der Knoten um genau 1 Verschiebung unterscheidet. Als Kantenbewertung $f:E \rightarrow \Re$ wird die Anzahl der Verschiebungen gew\"ahlt die n\"otig ist, um die Kachelkonstellation des Zielknotens zu erhalten. In dem konstruierten Graphen ist die l\"ange jeder Kante 1.
+
+Auf den so erhaltenen Graphen l\"asst sich nun eine informierte Suche mit einem A* Algorithmus durchf\"uhren. Um die Heuristik des A* leichter zu bestimmen, wird die Problemstellung in eine
+Konjunktion aus den folgenden Bedingungen zerlegt:
+\begin{enumerate}
+	\item Die Anzahl der Verschiebungen soll minimal sein.
+	\item Es d\"urfen nur Kacheln auf benachbarte Felder verschoben werden.
+	\item Das benachbarte Feld muss leer sein.
+\end{enumerate}
+F\"ur Bedingung 1 bietet sich die Hamming-Distanz an. Diese gibt f\"ur jede Kachelkonstellation die Anzahl der falsch positionierten Felder an. Wird nun die 2 Bedingung hinzugezogen, muss ber\"ucksichtigt werden, dass keine diagonalen Z\"uge m\"oglich sind. Durch diese Versch\"arfung ist die Manhattan-Distanz eine passendere Heuristik. Die Manhattan-Distanz berechnet f\"ur eine gegebene Kachelkonstellation die Anzahl der horizontalen und vertikalen Verschiebungen, die n\"otig sind, um die Zielkonstellation zu erhalten. Wird zuletzt noch die 3 Bedingung hinzugezogen kann bei der Manhattan Distanz verblieben werden. Nichts desto trotz k\"onnen beide Heuristiken f\"ur das Problem verwendet werden und dies wird auch getan. Im folgenden bezeichnet die Heuristikfunktion\dots 
+\begin{itemize}
+	\item $h_{1}(n)$, die Anzahl falsch positionierter Kacheln in der durch Knoten n dargestellten Konfiguration (Hamming-Distanz)
+	\item $h_{2}(n)$, die Summe der Distanzen der falsch positionierten Kacheln zu ihrer Zielposition (Manhattan-Distanz)
+\end{itemize}
+Der Ablauf des Algorithmus unter Verwendung von $h_{1}(n)$ bzw. $h_{2}(n)$ wird durch die Suchb\"aume $G_{S1}$ bzw. $G_{S2}$ dargestellt. $g$ bezeichnet die zur\"uckgelegte Wegstrecke, $h$ den Wert von $h_{1}(n)$ bzw. $h_{2}(n)$ f\"ur die gegebene Kachelkonstellation und $f$ die Summe von $h$ und $g$.
+
+Wie an den folgenden beiden Suchb\"aumen zu sehen, ben\"otigt der A* Algorithmus unter Verwendung von $h_{2}(n)$ eine geringere Anzahl von Expansionen als bei der Verwendung von $h_{1}(n)$ ). Der Aufwand ist also geringer. Die Wahl des zu expandierenden Knotens ist stets eindeutig. Heuristik $h_{2}(n)$ scheint also ein besserer Sch\"atzer zu sein als $h_{1}(n)$. 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.45]{chapters/informed_search/tree1.png}
+	\caption{Suchbaum $G_{S1}$ zu $h_{1}$}
+\end{figure}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.65]{chapters/informed_search/tree2.png}
+	\caption{Suchbaum $G_{S2}$ zu $h_{2}$}
+\end{figure} 
+\subsection{A* am Beispiel Graphen}
+Abschlie\ss end soll ein A* Algorithmus f\"ur das in Abschnitt 6.1 pr\"asentierte Problem entworfen werden. Branch and Bound + Extended List wird wie beschrieben verwendet, die Heuristikfunktion 
+\begin{center}
+$h(n) = h_{e}(n,x) =sqrt((n^{1} - x^{1})^{2}+\dots+(n^{k} - x^{k})^{2})$, mit $x$ als Ziel-Knoten der Suche, 
+\end{center}
+wird f\"ur die Problemstellung \"ubernommen. Da es sich um die vereinfachte representation einer Karte handelt, wird $k=2$ gew\"ahlt. Der resultierende Graph mit den in rot durch die Heuristik bestimmten Werten: 
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.9]{chapters/informed_search/AnfangsproblemHeuristik.png}
+	\caption{Beispiel Graph mit Heuristik}
+\end{figure}
+
+F\"ur die Suche des k\"urzesten Weges von S1 bzw. S2 nach T ergeben sich die beiden Suchb\"aume B1 (Abbildung6.9) und B2 (Abbildung6.10). Die in blau gekennzeichneten Zahlen geben die Reihenfolge an in der die Pfade begangen werden. Rote Zahlen geben den von der Heuristik gesch\"atzten Wert f\"ur den entsprechenden Knoten an. Die Schwarzen Zahlen geben die tats\"achliche Wegl\"ange vom Startknoten zum betrachteten Knoten an. In lila werden die gesch\"atzten Gesamtkosten eines Knotens angegeben. Als Grau markierte Pfade wurden aufgrund der Extended List ausgeschlossen.
+
+An beiden Suchb\"aumen ist gut zu erkennen, dass viele Abzweigungen aufgrund der Extended List nahezu sofort abgeschnitten werden (gekennzeichnet durch graue Pfade). Am Baum mit Wurzel S2 l\"asst sich der nutzen einer Heuristik nachvollziehen. Die Kosten der Abzweigungen e, f in den linken Teil des Graphen nehmen durch die Heuristik schneller zu und dies sorgt daf\"ur, dass eine Suche dort obsolet (auch durch graue Pfade gekennzeichnet) wird, sobald die gesch\"atzten Kosten gr\"o\ss er als 14 sind (Der k\"urzeste Weg von S2 nach T hat die l\"ange 14). 
+Die unterschiedliche Struktur der B\"aume l\"asst sich durch den Startpunkt der Suche erkl\"aren. Aufgrund dessen, dass die Knoten S1 und T auf entgegengesetzten Seiten des Graphen liegen, ergibt sich ein tiefer Baum und da der Knoten S2 den Graphen in zwei Partitionen auftrennt, bildet sich bei der Suche des k\"urzesten Weges von S2 nach T ein breiter Suchbaum. 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.9]{chapters/informed_search/AStarBaum1.png}
+	\caption{Such Baum B1 von T nach S1}
+	\label{fig:searchtrees1}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.9]{chapters/informed_search/AStarBaum2.png}
+	\caption{Such Baum B2 von T nach S2}
+	\label{fig:searchtrees2}
+\end{figure}
+\newpage 
