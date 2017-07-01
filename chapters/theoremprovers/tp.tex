@@ -194,6 +194,31 @@ nur als weiterer Vertreter mit aufgeführt.
 Grundlegend wird bei diesem versucht die
  Gegenaussage zu widerlegen.
 
+\section{Maschinengestützte Beweistechniken}
+
+\subsection{Resolution}
+Der Begriff der Resolution bezeichnet ein Verfahren der formalen Logik, mit dem eine logische Formel auf Gültigkeit getestet werden kann. Das Resolutionsverfahren, auch Resolutionskalkül genannt, ist ein Widerlegungsverfahren. Hierbei wird ein logischer Widerspruch aus der Negation einer Formel abgeleitet, statt die Allgemeingültigkeit der Formel auf direktem Wege zu zeigen.\\
+Diese Ableitung erfolgt mithilfe eines Algorithmus auf rein formalem Weg und kann aus diesem Grund von einem Computerprgramm durchgeführt werden.\\
+
+\subsection{Termersetzungssysteme}
+Termersetzungssysteme (TES) sind ein formales Berechnungsmodell in der Theoretischen Informatik. Sie bilden insbesondere die Grundlage der logischen und funktionalen Programmierung. Weiterhin spielen sie eine wichtige Rolle beim Wortproblem und der Terminierungsanalyse.\\
+Termersetzungssysteme sind Mengen von so genannten Termersetzungsregeln. Diese Mengen kann man sich wie Gleichungssysteme von Termen vorstellen, bei denen die Gleichung nur von links nach rechts angewendet werden dürfen.\\
+Termersetzungssystem sind turing-vollständig, deren Berechnungsstärke ist also in etwa auf einem Level mit anderen Formalismen wie etwa dem Lambda-Kalkül oder den Turingmaschinen.
+
+\subsection{Modellprüfung}
+Modellprüfung(engl. Model Checking) ist ein Methode zur vollautomatischen Verifikation einer Systembeschreibung(Modell) gegen eine Spezifikation(Formel). Der Begriff ist abgeleitet von der mathematischen Formulierung des Problems: Für eine gegebene Systembeschreibung M und eine gegebene logische Eigenschaft $\Phi$, prüfe, ob M Modell für $\Phi$ ist (formal M $\models$  $\Phi$).\\
+Model Checking wird als ein vollautomatisches Verfahren bezeichnet, da es bei der Durchführung keine Benutzerinteraktion nötig ist, anders als etwa beim interaktiven Theorembeweisen. Die Systembeschreibung wird in einer formalen Sprache erstellt, etwa mit einem Programm, einem endlichen Automaten oder einem Transitionssystem. Die Spezifikation ist eine formale Eigenschaft des Systems, die nachzuweisen ist.\\
+Will man nun eine Spezifikation für ein System nachweisen, so gibt man diese in einen Modellprüfer ein und dieser stoppt und gibt ein Korrektheitszertifikat aus, falls die Systembeschreibung die Spezifikation erfüllt. Andernfalls gibt  der model checker ein Gegenbeispiel aus, das eine Verletzung der Verifikation nachweist.
+
+\subsection{Induktion}
+Die vollständige Induktion ist, wie aus Mathevorlesungen bekannt, eine Bewismethode, bei der eine Aussage für alle natürlichen Zahlen, die größer als ein Startwert sind, gezeigt wird.\\
+Ein Induktionsbeweis wird in zwei Phasen durchgeführt. Zuerst erfolgt der Induktionsanfang, bei dem die Aussage für eine kleinste Zahl gezeigtn wird, um sie dann im Induktionsschritt für eine variable Zahl n für die nächste Zahl n+1 logisch abzuleiten.\\
+Dieses Verfahren ist von grundlegender Bedeutung für alle Gebiete der Mathematik und somit auch für maschinengestütztes Beweisen, bei dem man dem Computer die formale Aussage übergibt und sie von diesem durchgeführt wird, wobei hierfür meist einige Hilffsätze vom Computer benötigt werden, die man ihm ebenfalls übergibt.
+
+\subsection{Binäre Entscheidungsdiagramme}
+Ein Binäres Entscheidungsdiagramm(BED; engl. binary decision diagram, BDD) ist eine Datenstruktur zur Repräsentaion Boolescher Funktionen. Diese Diagramme werden hauptsächlich im Bereich der Hardwaresynthese und -verifikation eingesetzt.\\
+Ein BED ist ein Graph mit den Variablen der Funktion als Knoten und den Entscheidungsmöglichkeiten \textit{Wahr} oder \textits{Falsch} als gerichtete Kanten. So kann man die Variablenbelegungen einer Funktion durchgehen und schauen, welche den Wert \texit{wahr} beziehungsweise den Wert \textit{falsch} haben.\\
+Solche Diagramme können dann von einem Computer genutzt werden, um zwei Funktionen auf Gleichheit zu überprüfen oder zu testen, ob es eine Variablenbelegung einer Funktion mit dem Funktionswert \textit{wahr} gibt, also, ob die Funktion erfüllbar ist.
 
 \section{Schlusswort}
 Nachdem wir nun einen Einblick in der Welt der TB erhalten haben und in Grundzügen wissen was TB sind und wie sie arbeiten, sollen folgend einige Anwendungen vorgestellt werden.
