@@ -146,7 +146,7 @@ Es gibt verschiedene Ansätze von der Fitness zur Überlebenswahrscheinlichkeit 
 
 Im Folgenden bezeichne ich mit $f(x)$ die Fitness eines Individuums $x$ und mit $P(x)$ dessen Überlebenswahrscheinlichkeit. Dabei ist die aktuelle Population die Menge $\{x_1,x_2,\dots,x_n\}$. (Achtung! Es ist auch möglich, dass nicht nur die Kinder, sondern auch die Eltern in die nächste Generation übernommen werden. Dies nennt sich "`steady state"'.)
 \setcounter{algo}{0}
-\begin{algo}\ \\
+\begin{algo}(Fitnessproprotionale Selektion)\\
 	Eine Möglichkeit ist ein simpler Stochastischer Ansatz:
 	
 	$$P(x_j)=\frac{f(x_j)}{\sum_{i=1}^{n}f(x_i)}$$
@@ -177,7 +177,7 @@ Um diese Probleme zu lösen kann man nun einen etwas anderen Ansatz wählen:
 	Ein Problem bleibt aber bestehen:
 	Lokale Maxima in der Fitnessfunktion können schnell dazu führen, dass kein Fortschritt mehr auftritt und der Algorithmus somit nicht mehr funktioniert.
 \end{algo}
-Um dieses Problem zu umgehen muss eine hohe Varianz in der neuen Population gesichert werden. Dafür kann man folgenden Ansatz verwenden:
+Um dieses Problem zu umgehen, muss eine hohe Varianz in der neuen Population gesichert werden. Dafür kann man folgenden Ansatz verwenden:
 \begin{algo}(Uniform-Fitness-Selection)\\
 	Man bewertet im Folgenden nicht mehr ausschließlich nach der höchsten Fitness eines Individuums, sondern zieht dabei auch die Vielfalt der nächsten Generation in Betracht. Das optimale Ergebnis wäre also eine Population mit sehr hoher Varianz und maximaler Fitness aller Individuen. Dafür bewertet man die Individuen nach folgendem Schema:
 	\begin{figure}[h]
@@ -186,9 +186,22 @@ Um dieses Problem zu umgehen muss eine hohe Varianz in der neuen Population gesi
 	
 	Der Startpunkt der Linien ist hierbei oben Rechts in der Ecke, also bei einem Maximum an Varianz und Fitness, also dem besten Individuum. Dabei symbolisieren die Linien einen immer weiteren Abstand zum Optimum und damit eine schlechtere Überlebenschance. Man sieht hier auch eine gewisse Abwägung zwischen Varianz und Fitness, da zum Beispiel bei der 5. Linie ein Individuum mit einer Fitness von nahezu 0 gleich bewertet wird wie eines mit maximaler Fitness, aber einer Varianz von nahezu 0.
 	
-	Ein Problem, das hierbei bestehen bleibt, ist, dass durch die hohe Varianz der Algorithmus nicht wirklich konvergiert. Dies kann man lösen indem man zunächst Uniform-Fitness-Selection betreibt und danach zur Ranked-Fitness-Selection wechselt
+	Ein Problem, das hierbei bestehen bleibt, ist, dass durch die hohe Varianz der Algorithmus nicht wirklich konvergiert. Dies kann man lösen indem man zunächst Uniform-Fitness-Selection betreibt und danach zur Ranked-Fitness-Selection wechselt.
 \end{algo}
+Eine weitere Methode, um anfangs eine hohe Varianz zu haben, aber später den Algorithmus zum Konvergieren zu bringen, ist die nächste Selektionsart:
+\begin{algo}(Tournament-Selection)\\
+	Das Prinzip ist einfach: Man wählt eine bestimmte Anzahl an Individuen aus und lässt sie gegeneinander "antreten", was einfach bedeutet, das Individuum mit der höchsten Fitness wird in die nächste Generation übernommen. Ob es danach weiterhin an "Turnieren" teilnehmen kann oder nicht, bleibt dem Programmierer überlassen.
 
+	Der Vorteil, den man hierbei gewinnt, besteht darin, dass man die "Turniergröße", also die Anzahl der Individuen, die gegeneinander antreten, während der Algorithmus läuft, verändern kann. Wenn man also am Anfang eine hohe Varianz beibehalten möchte, wählt man eine kleine "Turniergröße", da so die Wahrscheinlichkeit, dass auch Individuen mit geringer Fitness in die nächste Generation übernommen werden, entsprechend hoch ist. Soll der Algorithmus später dann konvergieren, kann die "Turniergröße" größer gewählt werden, damit mehr Inidividuen mit einer wirklich hohen Fitness überleben.
+\end{algo}
+Wenn man sich nun für eine dieser Methoden (oder gegebenenfalls einer anderen) entschieden hat, bleibt noch zu klären, wie man die erhaltenen Wahrscheinlichkeiten nutzt, um die neue Generation zu entscheiden (Tournament-Selection ausgenommen, da hier keine Wahrscheinlichkeiten berechnet werden, sondern die neue Generation sofort bestimmt wird). Häufig verwendet wird dazu folgende Methode:
+\begin{algo}(Roulette-Wheel-Selection)\\
+	Man simuliert ein Glücksrad, welches in n Abschnitte unterteilt ist, wobei jeder Abschnitt einem Individuum zugeordnet ist und die Größe des Abschnittes des Wahrscheinlichkeit entspricht, dass das zugehörige Individuum in die nächste Generation übernommen wird. Dieses Glücksrad wird dann n mal gedreht und somit die nächste Population bestimmt.
+	\begin{figure}[h]
+		\includegraphics[width=0.7\linewidth]{chapters/genetic/rouletteWheel.png}
+	\end{figure}
+	
+\end{algo}
 \section{Anwendungsbereiche}
 Ein theoretisches Anwendungsbeispiel ist das sogenannte Traveling-Salesman-Problem. Es geht dabei darum, dass ein Kaufmann von seinem Warenlager aus mehrere Stationen in einer Stadt beliefern und am Ende wieder zum Lager zurückkehren möchte. Dabei soll jede Station genau einmal besucht werden. Nummeriert man die Stationen mit 1 bis n durch, so erhält man eine Codierung für die Gene als Permutationen von 1 bis n. Die Fitnessfunktion ergibt sich dann als Kehrwert der Gesamtlänge des Weges. Bei der Reproduktion muss man jedoch vorsichtig sein, damit jedes mal gültige Permutationen entstehen. Dabei bietet es sich an eine Swap-Mutation durchzuführen. Die Kreuzung zweier Individuen erweist sich als komplizierter. Hier bietet es sich an ein Crossover durchzuführen, dann auf Gültigkeit zu testen und falls diese nicht vorhanden ist, das ganze rückgängig zu machen. Die entsprechenden Wahrscheinlichkeiten erhält man durch systematisches Probieren. Für die Selektion bietet sich dann die Ranked-Fitness-Selection an.
 
@@ -219,11 +232,14 @@ Genetische Algorithmen sind eine gute Möglichkeit um Optimierungsprobleme und S
 \href{http://www2.cs.uni-paderborn.de/cs/ag-klbue/de/courses/ws04/ea/students/ga_report.pdf}{(Skript Uni Paderporn)}\\
 \href{http://www.mathematik.tu-dortmund.de/papers/MehmetiAmreinKulmsMacinLoenserBogonosWaidhas2014.pdf}{(Skript TU Dortmund)}\\
 \href{http://www.spinfo.phil-fak.uni-koeln.de/fileadmin/spinfo/ki10/Genetische_algorithmen.pdf}{(Skript Uni Köln)}\\
-\href{http://www.borgelt.net/slides/ga.pdf}{(Otto-von-Guericke-Universität )}
-\href{http://www-e.uni-magdeburg.de/harbich/genetische_algorithmen/genetische_algorithmen.pdf}{(Skript Uni Magdeburg)}
+\href{http://www.borgelt.net/slides/ga.pdf}{(Otto-von-Guericke-Universität )}\\
+\href{http://www-e.uni-magdeburg.de/harbich/genetische_algorithmen/genetische_algorithmen.pdf}{(Skript Uni Magdeburg)}\\
 \href{https://www.youtube.com/watch?v=kHyNqSnzP8Y}{(Vorlesung des MIT)}\\
 \href{https://www.youtube.com/watch?v=6l6b78Y4V7Y}{(Vortrag von Kickstarter)}\\
 \href{http://www.spektrum.de/lexikon/neurowissenschaft/zelle/14161}{(Spektrum Artikel zu Zellen)}\\
 \href{http://www.spektrum.de/lexikon/biologie/genom/27365}{(Spektrum Artikel zu Genom)}\\
 \href{http://semantic-web-grundlagen.de/w/images/e/e9/IntroAI-V06.pdf}{(Semantic Web)}\\
-Grafik von Denis Krzysztala\\
+\href{http://comcute.eti.pg.gda.pl/wp-content/uploads/2012/12/image_9_5.png}{(Roulette-Wheel-Grafik)}\\
+\href{http://janmonschke.com/Genetic-Algorithms/presentation/#/}{(Slides von Jan Monschke, TSP)}\\
+\href{https://en.wikipedia.org/wiki/Tournament_selection}{(Tournament-Selection)}\\
+Uiform-Fitness-Grafik von Denis Krzysztala\\
