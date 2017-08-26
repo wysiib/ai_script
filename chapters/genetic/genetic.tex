@@ -142,7 +142,7 @@ Eine weitere Variante dafür ist die sogenannte Boltzmann-Selektion. Dabei wähl
 Wir haben nun bereits die Individuen nach ihrer Fitness bewertet, aber nun stellt sich die Frage:
 Wie wirkt sich das eigentlich aus?
 
-Es gibt verschiedene Ansätze von der Fitness zur Überlebenswahrscheinlichkeit zu kommen und ich möchte euch drei davon vorstellen:
+Es gibt verschiedene Ansätze von der Fitness zur Überlebenswahrscheinlichkeit zu kommen und ich möchte euch fünf davon vorstellen:
 
 Im Folgenden bezeichne ich mit $f(x)$ die Fitness eines Individuums $x$ und mit $P(x)$ dessen Überlebenswahrscheinlichkeit. Dabei ist die aktuelle Population die Menge $\{x_1,x_2,\dots,x_n\}$. (Achtung! Es ist auch möglich, dass nicht nur die Kinder, sondern auch die Eltern in die nächste Generation übernommen werden. Dies nennt sich "`steady state"'.)
 \setcounter{algo}{0}
@@ -190,13 +190,13 @@ Um dieses Problem zu umgehen, muss eine hohe Varianz in der neuen Population ges
 \end{algo}
 Eine weitere Methode, um anfangs eine hohe Varianz zu haben, aber später den Algorithmus zum Konvergieren zu bringen, ist die nächste Selektionsart:
 \begin{algo}(Tournament-Selection)\\
-	Das Prinzip ist einfach: Man wählt eine bestimmte Anzahl an Individuen aus und lässt sie gegeneinander "antreten", was einfach bedeutet, das Individuum mit der höchsten Fitness wird in die nächste Generation übernommen. Ob es danach weiterhin an "Turnieren" teilnehmen kann oder nicht, bleibt dem Programmierer überlassen.
+	Das Prinzip ist einfach: Man wählt eine bestimmte Anzahl an Individuen aus und lässt sie sozusagen gegeneinander antreten, was bedeutet, das Individuum mit der höchsten Fitness wird in die nächste Generation übernommen. Ob es danach weiterhin an "Turnieren" teilnehmen kann oder nicht, bleibt dem Programmierer überlassen.
 
 	Der Vorteil, den man hierbei gewinnt, besteht darin, dass man die "Turniergröße", also die Anzahl der Individuen, die gegeneinander antreten, während der Algorithmus läuft, verändern kann. Wenn man also am Anfang eine hohe Varianz beibehalten möchte, wählt man eine kleine "Turniergröße", da so die Wahrscheinlichkeit, dass auch Individuen mit geringer Fitness in die nächste Generation übernommen werden, entsprechend hoch ist. Soll der Algorithmus später dann konvergieren, kann die "Turniergröße" größer gewählt werden, damit mehr Inidividuen mit einer wirklich hohen Fitness überleben.
 \end{algo}
 Wenn man sich nun für eine dieser Methoden (oder gegebenenfalls einer anderen) entschieden hat, bleibt noch zu klären, wie man die erhaltenen Wahrscheinlichkeiten nutzt, um die neue Generation zu entscheiden (Tournament-Selection ausgenommen, da hier keine Wahrscheinlichkeiten berechnet werden, sondern die neue Generation sofort bestimmt wird). Häufig verwendet wird dazu folgende Methode:
 \begin{algo}(Roulette-Wheel-Selection)\\
-	Man simuliert ein Glücksrad, welches in n Abschnitte unterteilt ist, wobei jeder Abschnitt einem Individuum zugeordnet ist und die Größe des Abschnittes des Wahrscheinlichkeit entspricht, dass das zugehörige Individuum in die nächste Generation übernommen wird. Dieses Glücksrad wird dann n mal gedreht und somit die nächste Population bestimmt.
+	Man simuliert ein Glücksrad, welches in n Abschnitte unterteilt ist, wobei jeder Abschnitt einem Individuum zugeordnet ist und die Größe des Abschnittes der Wahrscheinlichkeit entspricht, dass das zugehörige Individuum in die nächste Generation übernommen wird. Dieses Glücksrad wird dann n mal gedreht und somit die nächste Population bestimmt.
 	\begin{figure}[h]
 		\includegraphics[width=0.7\linewidth]{chapters/genetic/rouletteWheel.png}
 	\end{figure}
