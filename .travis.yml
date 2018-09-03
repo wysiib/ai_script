@@ -1,11 +1,15 @@
 dist: trusty
 sudo: required
-language: ruby
+language: go
+go:
+- master
 before_install:
 - sudo add-apt-repository ppa:jonathonf/texlive-2016 -y
 - sudo apt-get update -q
 - sudo apt-get --no-install-recommends install texlive texlive-lang-german texlive-science
   texlive-latex-extra texlive-bibtex-extra biber texlive-generic-extra -y
+install:
+  - go get github.com/spf13/hugo
 script:
 - make clean
 - make build
