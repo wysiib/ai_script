@@ -28,5 +28,4 @@ build:
 homepage:
 	mkdir docs/static/
 	cp $(OUTPUTDIR)/ai_script.pdf docs/static
-	cd docs
-	hugo
+	cd docs; hugo
