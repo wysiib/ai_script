@@ -14,3 +14,14 @@ script:
 - make clean
 - make build
 - make homepage
+deploy:
+  local_dir: docs/public # Default static site output dir for Hugo
+  repo: wysiib/ai_script # This is the slug of the repo you want to deploy your site to
+  target_branch: gh-pages # GitHub pages branch to deploy to (in other cases it can be gh-pages)
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # This is the authentication which you will setup in the next step in travis-ci dashboard
+  email: sebastian@krin.gs
+  name: "Sebastian Krings"
+  on:
+    branch: master
