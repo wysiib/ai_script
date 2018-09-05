@@ -1,23 +1,23 @@
 baseURL = "/"
 languageCode = "en-us"
 
-title = "Consider Phlebas"
+title = "KI Skript"
 theme = "kraiklyn"
 
 pygmentsCodeFences = true
 pygmentsStyle = "monokailight"
 
 [params]
-externalTitle = "Kraiklyn themEFWwefe"
+externalTitle = "External Links"
 sidebarColor = "default"
 customCss = []
 
 [[menu.shortcuts]]
-name = "Kraiklyn on Github"
-url = "https://github.com/jsnjack/kraiklyn"
+name = "Repository on Github"
+url = "https://github.com/wysiib/ai_script"
 weight = 10
 
 [[menu.shortcuts]]
-name = "Hugo docs"
-url = "https://gohugo.io/documentation/"
+name = "Stups Lehrstuhl"
+url = "http://stups.hhu.de"
 weight = 20
