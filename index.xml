@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>KI Skript</title>
+    <link>https://wysiib.github.io/ai_script/</link>
+    <description>Recent content on KI Skript</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 28 Jan 2018 21:48:10 +0100</lastBuildDate>
+    
+	<atom:link href="https://wysiib.github.io/ai_script/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Building Instructions</title>
+      <link>https://wysiib.github.io/ai_script/contributing/building/</link>
+      <pubDate>Sun, 28 Jan 2018 21:48:10 +0100</pubDate>
+      
+      <guid>https://wysiib.github.io/ai_script/contributing/building/</guid>
+      <description>Sie benötigen eine aktuelle Installation von Latex, sowie Git um die Quelldateien von Github zu laden. Die folgende Anleitung erzeugt eine Datei main.pdf in der sich das Buch befindet.
+# Dateien auschecken git clone git@github.com:wysiib/ai_script.git # In den Ordner wechseln cd ai_script # Alternative 1: Latexmk (empfohlen!) latexmk -pdf main.tex # Alternative 2: Latex direkt ausführen pdflatex main.tex makeindex main.idx -s StyleInd.ist biber main pdflatex main.tex pdflatex main.</description>
+    </item>
+    
+  </channel>
+</rss>

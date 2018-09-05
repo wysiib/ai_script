@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <meta name="generator" content="Hugo 0.49-DEV" />
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>KI Skript</title>
+
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="https://wysiib.github.io/ai_script/css/styles.css">
+  
+  <link href="https://wysiib.github.io/ai_script/index.xml" rel="alternate" type="application/rss+xml" title="KI Skript" />
+
+</head>
+<body>
+
+<div class="sidebar sidebar-default">
+    <div class="navigation">
+        
+        <h1 class="site-title"><a href="https://wysiib.github.io/ai_script/">KI Skript</a></h1>
+
+
+        <nav class="internal">
+            <ul>
+    
+        
+            
+    <li>
+        <a href="#intro">Intro</a>
+    </li>
+
+
+
+        
+            
+    <li>
+        <a href="#download">Download</a>
+    </li>
+
+
+
+        
+            
+    <li>
+        <a href="#contributing">Contributing</a>
+        <ul>
+            
+            
+                <li><a href="#building">Building Instructions</a></li>
+            
+        </ul>
+    </li>
+
+
+
+        
+            
+    <li>
+        <a href="#copyright">Copyright</a>
+    </li>
+
+
+
+        
+    
+</ul>
+
+        </nav>
+
+        <nav class="external">
+            <div class="external-title">External Links</div>
+            
+            <ul id="shortcuts">
+                
+                <li>
+                    <a href="https://github.com/wysiib/ai_script" target="_blank" rel="noopener">Repository on Github</a>
+                </li>
+                
+                <li>
+                    <a href="http://stups.hhu.de" target="_blank" rel="noopener">Stups Lehrstuhl</a>
+                </li>
+                
+            </ul>
+            
+        </nav>
+    </div>
+
+    <div class="version">
+            generated on Sep 5, 2018
+    </div>
+</div>
+
+<div class="content">
+    
+        
+            
+    <section class="page" id="intro">
+    <h1>
+        <a href="#intro">Intro</a>
+    </h1>
+    <div class="content">
+        <p>Das Vorlesungsskript &ldquo;Grundlagen der künstlichen Intelligenz&rdquo; entstand aus Beiträgen der Studierenden der gleichnamigen Veranstaltung an der Heinrich-Heine-Universität Düsseldorf. Im Rahmen eines Seminars sind die unterschiedlichen Kapitel erstellt und später durch die Dozenten zu dem vorliegenden Buch kombiniert worden.</p>
+
+<p>In den folgenden Semestern ist das Buch durch andere Studierende erweitert und verbessert worden. Wir hoffen, dass auch die kommenden Semester sich an dem Buch beteiligen und so zu dem Erfolg der Veranstaltung beitragen.</p>
+
+<p>Danke für eure Mühe!</p>
+
+<p>&ndash; Sebastian Krings und die anderen Dozenten</p>
+
+<div class="block note">
+    <p>Das Skript ist work in progress und wird im Zuge der Lehrveranstaltung stetig durch Dozenten und Studierende verbessert und erweitert. Wir erheben keinen Anspruch auf Korrektheit oder Vollständigkeit.</p>
+
+</div>
+
+
+    </div>
+</section>
+
+
+
+
+        
+            
+    <section class="page" id="download">
+    <h1>
+        <a href="#download">Download</a>
+    </h1>
+    <div class="content">
+        <p>Die aktuelle Fassung des Skripts als PDF steht <a href="ai_script.pdf">hier</a> zum Download bereit.</p>
+
+    </div>
+</section>
+
+
+
+
+        
+            
+    <section class="page" id="contributing">
+    <h1>
+        <a href="#contributing">Contributing</a>
+    </h1>
+    <div class="content">
+        <p>Die Latex Dateien für das Buch und die Quellen für die Homepage liegen auf <a href="https://github.com/wysiib/ai_script">Github</a>. Gerne nehmen wir dort Pull Requests entgegen.</p>
+
+<p>Nach jeden Commit wird die PDF Datei des Skripts automatisch auf <a href="https://travis-ci.org/wysiib/ai_script">Travis CI</a> gebaut und auf der Homepage zur Verfügung gestellt.</p>
+
+<p>Sie können die PDF Datei des Buches auch lokal erzeugen. Eine Anleitung dazu finden sie <a href="
+    #building
+">unten</a>.</p>
+
+    </div>
+</section>
+
+    
+            
+                <section class="page" id="building">
+    <h1>
+        <a href="#building">Building Instructions</a>
+    </h1>
+    <div class="content">
+        <p>Sie benötigen eine aktuelle Installation von Latex, sowie Git um die Quelldateien von Github zu laden. Die folgende Anleitung erzeugt eine Datei main.pdf in der sich das Buch befindet.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Dateien auschecken
+</span><span style="color:#75715e"></span>git clone git@github.com:wysiib/ai_script.git
+
+<span style="color:#75715e"># In den Ordner wechseln
+</span><span style="color:#75715e"></span><span style="color:#111">cd</span> ai_script
+
+<span style="color:#75715e"># Alternative 1: Latexmk (empfohlen!)
+</span><span style="color:#75715e"></span>latexmk -pdf main.tex
+
+<span style="color:#75715e"># Alternative 2: Latex direkt ausführen
+</span><span style="color:#75715e"></span>pdflatex main.tex
+makeindex main.idx -s StyleInd.ist
+biber main
+pdflatex main.tex
+pdflatex main.tex</code></pre></div>
+    </div>
+</section>
+
+            
+
+
+
+        
+            
+    <section class="page" id="copyright">
+    <h1>
+        <a href="#copyright">Copyright</a>
+    </h1>
+    <div class="content">
+        <p><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />Das Skript &ldquo;Grundlagen der künstlichen Intelligenz&rdquo; ist lizenziert unter einer <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Namensnennung - Nicht kommerziell - Keine Bearbeitungen 4.0 International Lizenz</a>.</p>
+
+    </div>
+</section>
+
+
+
+
+        
+    
+</div>
+</body>
+</html>
+
