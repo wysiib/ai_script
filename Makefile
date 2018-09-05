@@ -24,3 +24,9 @@ build:
 	pdflatex -interaction=nonstopmode -halt-on-error $(TEXFILE)
 	pdflatex -interaction=nonstopmode -halt-on-error $(TEXFILE)
 	mv $(PDFFILE) $(OUTPUTDIR)/ai_script.pdf
+
+homepage:
+    mkdir docs/static/
+	cp $(OUTPUTDIR)/ai_script.pdf docs/static
+	cd docs
+	hugo
