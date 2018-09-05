@@ -26,7 +26,7 @@ build:
 	mv $(PDFFILE) $(OUTPUTDIR)/ai_script.pdf
 
 homepage:
-    mkdir docs/static/
+	mkdir docs/static/
 	cp $(OUTPUTDIR)/ai_script.pdf docs/static
 	cd docs
 	hugo
